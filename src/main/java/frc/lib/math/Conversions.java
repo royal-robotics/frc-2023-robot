@@ -44,7 +44,7 @@ public class Conversions {
      * @return RPM of Mechanism
      */
     public static double falconToRPM(double velocityCounts, double gearRatio) {
-        double motorRPM = velocityCounts * (600.0 / 2048.0);        
+        double motorRPM = velocityCounts * (600.0 / 2048.0);
         double mechRPM = motorRPM / gearRatio;
         return mechRPM;
     }
@@ -66,7 +66,7 @@ public class Conversions {
      * @param gearRatio Gear Ratio between Falcon and Mechanism (set to 1 for Falcon MPS)
      * @return Falcon Velocity Counts
      */
-    public static double falconToMPS(double velocitycounts, double circumference, double gearRatio){
+    public static double falconToMPS(double velocitycounts, double circumference, double gearRatio) {
         double wheelRPM = falconToRPM(velocitycounts, gearRatio);
         double wheelMPS = (wheelRPM * circumference) / 60;
         return wheelMPS;
@@ -78,7 +78,7 @@ public class Conversions {
      * @param gearRatio Gear Ratio between Falcon and Mechanism (set to 1 for Falcon MPS)
      * @return Falcon Velocity Counts
      */
-    public static double MPSToFalcon(double velocity, double circumference, double gearRatio){
+    public static double MPSToFalcon(double velocity, double circumference, double gearRatio) {
         double wheelRPM = ((velocity * 60) / circumference);
         double wheelVelocity = RPMToFalcon(wheelRPM, gearRatio);
         return wheelVelocity;
@@ -90,7 +90,7 @@ public class Conversions {
      * @param gearRatio Gear Ratio between Falcon and Wheel
      * @return Meters
      */
-    public static double falconToMeters(double positionCounts, double circumference, double gearRatio){
+    public static double falconToMeters(double positionCounts, double circumference, double gearRatio) {
         return positionCounts * (circumference / (gearRatio * 2048.0));
     }
 
@@ -100,7 +100,7 @@ public class Conversions {
      * @param gearRatio Gear Ratio between Falcon and Wheel
      * @return Falcon Position Counts
      */
-    public static double MetersToFalcon(double meters, double circumference, double gearRatio){
+    public static double MetersToFalcon(double meters, double circumference, double gearRatio) {
         return meters / (circumference / (gearRatio * 2048.0));
     }
 }

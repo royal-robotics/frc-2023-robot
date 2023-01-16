@@ -16,7 +16,7 @@ public class COTSFalconSwerveConstants {
     public final boolean angleMotorInvert;
     public final boolean canCoderInvert;
 
-    public COTSFalconSwerveConstants(double wheelDiameter, double angleGearRatio, double driveGearRatio, double angleKP, double angleKI, double angleKD, double angleKF, boolean driveMotorInvert, boolean angleMotorInvert, boolean canCoderInvert){
+    public COTSFalconSwerveConstants(double wheelDiameter, double angleGearRatio, double driveGearRatio, double angleKP, double angleKI, double angleKD, double angleKF, boolean driveMotorInvert, boolean angleMotorInvert, boolean canCoderInvert) {
         this.wheelDiameter = wheelDiameter;
         this.wheelCircumference = wheelDiameter * Math.PI;
         this.angleGearRatio = angleGearRatio;
@@ -29,19 +29,19 @@ public class COTSFalconSwerveConstants {
         this.angleMotorInvert = angleMotorInvert;
         this.canCoderInvert = canCoderInvert;
     }
-    
+
     /** Swerve Drive Specialties - MK3 Module*/
-    public static COTSFalconSwerveConstants SDSMK3(double driveGearRatio){
+    public static COTSFalconSwerveConstants SDSMK3(double driveGearRatio) {
         double wheelDiameter = Units.inchesToMeters(4.0);
- 
+
         /** 12.8 : 1 */
         double angleGearRatio = (12.8 / 1.0);
- 
+
         double angleKP = 0.2;
         double angleKI = 0.0;
         double angleKD = 0.0;
         double angleKF = 0.0;
- 
+
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = false;
         boolean canCoderInvert = false;
@@ -49,17 +49,17 @@ public class COTSFalconSwerveConstants {
     }
 
     /** Swerve Drive Specialties - MK4 Module*/
-    public static COTSFalconSwerveConstants SDSMK4(double driveGearRatio){
+    public static COTSFalconSwerveConstants SDSMK4(double driveGearRatio) {
         double wheelDiameter = Units.inchesToMeters(4.0);
- 
+
         /** 12.8 : 1 */
         double angleGearRatio = (12.8 / 1.0);
- 
+
         double angleKP = 0.2;
         double angleKI = 0.0;
         double angleKD = 0.0;
         double angleKF = 0.0;
- 
+
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = false;
         boolean canCoderInvert = false;
@@ -67,7 +67,7 @@ public class COTSFalconSwerveConstants {
     }
 
     /** Swerve Drive Specialties - MK4i Module*/
-    public static COTSFalconSwerveConstants SDSMK4i(double driveGearRatio){
+    public static COTSFalconSwerveConstants SDSMK4i(double driveGearRatio) {
         double wheelDiameter = Units.inchesToMeters(4.0);
 
         /** (150 / 7) : 1 */
@@ -85,7 +85,7 @@ public class COTSFalconSwerveConstants {
     }
 
     /* Drive Gear Ratios for all supported modules */
-    public class driveGearRatios{
+    public class driveGearRatios {
         /* SDS MK3 */
         /** SDS MK3 - 8.16 : 1 */
         public static final double SDSMK3_Standard = (8.16 / 1.0);
@@ -101,7 +101,7 @@ public class COTSFalconSwerveConstants {
         public static final double SDSMK4_L3 = (6.12 / 1.0);
         /** SDS MK4 - 5.14 : 1 */
         public static final double SDSMK4_L4 = (5.14 / 1.0);
-        
+
         /* SDS MK4i */
         /** SDS MK4i - 8.14 : 1 */
         public static final double SDSMK4i_L1 = (8.14 / 1.0);

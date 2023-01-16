@@ -12,16 +12,16 @@ public final class CTREConfigs {
     public TalonFXConfiguration swerveDriveFXConfig;
     public CANCoderConfiguration swerveCanCoderConfig;
 
-    public CTREConfigs(){
+    public CTREConfigs() {
         swerveAngleFXConfig = new TalonFXConfiguration();
         swerveDriveFXConfig = new TalonFXConfiguration();
         swerveCanCoderConfig = new CANCoderConfiguration();
 
         /* Swerve Angle Motor Configurations */
         SupplyCurrentLimitConfiguration angleSupplyLimit = new SupplyCurrentLimitConfiguration(
-            SwerveConstants.angleEnableCurrentLimit, 
-            SwerveConstants.angleContinuousCurrentLimit, 
-            SwerveConstants.anglePeakCurrentLimit, 
+            SwerveConstants.angleEnableCurrentLimit,
+            SwerveConstants.angleContinuousCurrentLimit,
+            SwerveConstants.anglePeakCurrentLimit,
             SwerveConstants.anglePeakCurrentDuration);
 
         swerveAngleFXConfig.slot0.kP = SwerveConstants.angleKP;
@@ -32,19 +32,19 @@ public final class CTREConfigs {
 
         /* Swerve Drive Motor Configuration */
         SupplyCurrentLimitConfiguration driveSupplyLimit = new SupplyCurrentLimitConfiguration(
-            SwerveConstants.driveEnableCurrentLimit, 
-            SwerveConstants.driveContinuousCurrentLimit, 
-            SwerveConstants.drivePeakCurrentLimit, 
+            SwerveConstants.driveEnableCurrentLimit,
+            SwerveConstants.driveContinuousCurrentLimit,
+            SwerveConstants.drivePeakCurrentLimit,
             SwerveConstants.drivePeakCurrentDuration);
 
         swerveDriveFXConfig.slot0.kP = SwerveConstants.driveKP;
         swerveDriveFXConfig.slot0.kI = SwerveConstants.driveKI;
         swerveDriveFXConfig.slot0.kD = SwerveConstants.driveKD;
-        swerveDriveFXConfig.slot0.kF = SwerveConstants.driveKF;        
+        swerveDriveFXConfig.slot0.kF = SwerveConstants.driveKF;
         swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
         swerveDriveFXConfig.openloopRamp = SwerveConstants.openLoopRamp;
         swerveDriveFXConfig.closedloopRamp = SwerveConstants.closedLoopRamp;
-        
+
         /* Swerve CANCoder Configuration */
         swerveCanCoderConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
         swerveCanCoderConfig.sensorDirection = SwerveConstants.canCoderInvert;
