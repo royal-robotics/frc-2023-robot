@@ -7,6 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.wpilibj2.command.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,17 +23,21 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  //private Command m_autonomousCommand;
+  private final RobotContainer m_robotContainer;
+  //private final AutoModeSelector m_autoModeSelector;
 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  @Override
-  public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-  }
+  
+  public Robot() {
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    m_robotContainer = new RobotContainer();
+    //m_autoModeSelector = new AutoModeSelector(m_robotContainer);
+}
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
@@ -39,7 +47,10 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+
+    CommandScheduler.getInstance().run();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -74,7 +85,11 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    m_robotContainer.s_Swerve.swerveOdometry.resetPosition(new Rotation2d(), m_robotContainer.s_Swerve.getModulePositions(), new Pose2d());
+    //TODO: built in odometry reset? 
+    //  m_robotContainer.s_Swerve.resetOdometry(new Pose2d());
+  }
 
   /** This function is called periodically during operator control. */
   @Override

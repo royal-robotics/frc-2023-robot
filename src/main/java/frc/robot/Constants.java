@@ -12,12 +12,17 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
 
     public static final class Drivebase {
-        public static final int pigeonID = 1;
+        public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(21.73); //TODO: This must be tuned to specific robot
-        public static final double wheelBase = Units.inchesToMeters(21.73); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = 0.5969; //TODO: This must be tuned to specific robot
+        public static final double wheelBase = 0.5969; //TODO: This must be tuned to specific robot
+
+        public static final double frontLeftAngle = -58.37860107421875;
+        public static final double frontRightAngle = 303.48358154296875;
+        public static final double backLeftAngle = 239.07623291015622;
+        public static final double backRightAngle = 123.98071289062499;
 
         /* Swerve Kinematics
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
@@ -32,33 +37,33 @@ public final class Constants {
         public static final SwerveModuleConstants Mod0 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
                 1, /* Front Left Drive Motor ID */
-                2, /* Front Left Angle Motor ID */
-                1, /* Front Left Encoder ID */
-                Rotation2d.fromDegrees(0.0)); /* Front Left Angle Offset */
+                7, /* Front Left Angle Motor ID */
+                2, /* Front Left Encoder ID */
+                Rotation2d.fromDegrees(frontLeftAngle)); /* Front Left Angle Offset */
 
         /* Front Right Module - Module 1 */
         public static final SwerveModuleConstants Mod1 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
                 3, /* Front Right Drive Motor ID */
                 4, /* Front Right Angle Motor ID */
-                2, /* Front Right Encoder ID */
-                Rotation2d.fromDegrees(0.0)); /* Front Right Angle Offset */
+                0, /* Front Right Encoder ID */
+                Rotation2d.fromDegrees(frontRightAngle)); /* Front Right Angle Offset */
 
         /* Back Left Module - Module 2 */
         public static final SwerveModuleConstants Mod2 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
-                5, /* Back Left Drive Motor ID */
-                6, /* Back Left Angle Motor ID */
+                2, /* Back Left Drive Motor ID */
+                0, /* Back Left Angle Motor ID */
                 3, /* Back Left Encoder ID */
-                Rotation2d.fromDegrees(0.0)); /* Back Left Angle Offset */
+                Rotation2d.fromDegrees(backLeftAngle)); /* Back Left Angle Offset */
 
         /* Back Right Module - Module 3 */
         public static final SwerveModuleConstants Mod3 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
-                7, /* Back Right Drive Motor ID */
-                8, /* Back Right Angle Motor ID */
-                4, /* Back Right Encoder ID */
-                Rotation2d.fromDegrees(0.0)); /* Back Right Angle Offset */
+                6, /* Back Right Drive Motor ID */
+                5, /* Back Right Angle Motor ID */
+                1, /* Back Right Encoder ID */
+                Rotation2d.fromDegrees(backRightAngle)); /* Back Right Angle Offset */
     }
 
     public static final class Auto { //TODO: The below constants are used in the example auto, and must be tuned to specific robot

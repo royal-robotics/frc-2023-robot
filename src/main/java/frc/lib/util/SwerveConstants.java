@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 public final class SwerveConstants {
     public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
-        COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
+        COTSFalconSwerveConstants.SDSMK3(COTSFalconSwerveConstants.driveGearRatios.SDSMK3_Fast);
 
     /* Drivetrain Constants */
     public static final double wheelCircumference = chosenModule.wheelCircumference;
