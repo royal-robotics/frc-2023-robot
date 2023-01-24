@@ -6,11 +6,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
 import edu.wpi.first.math.geometry.*;
-import edu.wpi.first.wpilibj2.command.*;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathConstraints;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+import edu.wpi.first.math.controller.PIDController;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -48,7 +53,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
     CommandScheduler.getInstance().run();
   }
 
@@ -64,29 +68,37 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
-  }
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("New Path", 4, 3);
+  Command autoCommand =
+   // Assuming this method is part of a drivetrain subsystem that provides the necessary methods
+       new SequentialCommandGroup(
+          new InstantCommand(() -> {
+            // Reset odometry for the first path you run during auto
+                m_robotContainer.s_Swerve.resetOdometry(examplePath.getInitialHolonomicPose());
+          }),
+          new PPSwerveControllerCommand(
+              examplePath, 
+              m_robotContainer.s_Swerve::getPose, // Pose supplier
+              Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
+              new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+              new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
+              new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+              m_robotContainer.s_Swerve::setModuleStates, // Module states consumer
+              true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+              m_robotContainer.s_Swerve // Requires this drive subsystem
+          )
+      );
+      autoCommand.schedule();  
+    }
 
   /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
-  }
+  //@Override
+  //public void autonomousPeriodic() 
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    m_robotContainer.s_Swerve.swerveOdometry.resetPosition(new Rotation2d(), m_robotContainer.s_Swerve.getModulePositions(), new Pose2d());
+    //m_robotContainer.s_Swerve.swerveOdometry.resetPosition(new Rotation2d(), m_robotContainer.s_Swerve.getModulePositions(), new Pose2d());
     //TODO: built in odometry reset? 
     //  m_robotContainer.s_Swerve.resetOdometry(new Pose2d());
   }
