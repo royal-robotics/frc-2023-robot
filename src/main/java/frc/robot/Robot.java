@@ -68,9 +68,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("New Path", 4, 3);
+    PathPlannerTrajectory examplePath = PathPlanner.loadPath("New Path", 3, 2);
   Command autoCommand =
-   // Assuming this method is part of a drivetrain subsystem that provides the necessary methods
+   // Assuming this method is part of a drivetrain subsystesm that provides the necessary methods
        new SequentialCommandGroup(
           new InstantCommand(() -> {
             // Reset odometry for the first path you run during auto
@@ -80,9 +80,9 @@ public class Robot extends TimedRobot {
               examplePath, 
               m_robotContainer.s_Swerve::getPose, // Pose supplier
               Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
-              new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-              new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
-              new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+              new PIDController(12, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+              new PIDController(12, 0, 0), // Y controller (usually the same values as X controller)
+              new PIDController(11, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
               m_robotContainer.s_Swerve::setModuleStates, // Module states consumer
               true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
               m_robotContainer.s_Swerve // Requires this drive subsystem
