@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     PathPlannerTrajectory examplePath = PathPlanner.loadPath("New Path", 3, 2);
   Command autoCommand =
-   // Assuming this method is part of a drivetrain subsystesm that provides the necessary methods
+   // Assuming this method is part of a drivetrain subsystesgit m that provides the necessary methods
        new SequentialCommandGroup(
           new InstantCommand(() -> {
             // Reset odometry for the first path you run during auto
