@@ -12,10 +12,13 @@ import edu.wpi.first.math.geometry.*;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import edu.wpi.first.math.controller.PIDController;
+import frc.robot.sensors.Limelight;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -101,6 +104,11 @@ public class Robot extends TimedRobot {
     //m_robotContainer.s_Swerve.swerveOdometry.resetPosition(new Rotation2d(), m_robotContainer.s_Swerve.getModulePositions(), new Pose2d());
     //TODO: built in odometry reset? 
     //  m_robotContainer.s_Swerve.resetOdometry(new Pose2d());
+    Limelight limelight = new Limelight();
+    Shuffleboard.getTab("Camera")
+        .addNumber("ta", () -> limelight.targetArea())
+        .withPosition(3, 0);
+
   }
 
   /** This function is called periodically during operator control. */
