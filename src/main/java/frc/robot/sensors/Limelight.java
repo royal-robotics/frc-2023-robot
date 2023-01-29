@@ -11,9 +11,7 @@ public class Limelight {
     // We should start with the visible pipeline
     static {
         var table = NetworkTableInstance.getDefault().getTable("limelight");
-        table.getEntry("pipeline").setNumber(1);
-
-        
+        table.getEntry("pipeline").setNumber(0);
     }
 
     public boolean onTarget() {
@@ -35,5 +33,16 @@ public class Limelight {
     public void setPipeline(double pipeline) {
         _table.getEntry("pipeline").setNumber(pipeline);
     }
-    
+
+    public double hasTarget() {
+        return _table.getEntry("tv").getDouble(-1);
+    }
+
+    // getting arrayindexoutofbounds exception -> not returning an array
+    public double[] getPose() {
+        if (this.hasTarget() == 1){
+            return _table.getEntry("botpose").getDoubleArray(new double[6]);
+        }
+        return new double[6];
+    }
 }

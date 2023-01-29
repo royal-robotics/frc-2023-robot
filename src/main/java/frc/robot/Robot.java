@@ -19,6 +19,7 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.robot.sensors.Limelight;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -105,11 +106,16 @@ public class Robot extends TimedRobot {
     //TODO: built in odometry reset? 
     //  m_robotContainer.s_Swerve.resetOdometry(new Pose2d());
     Limelight limelight = new Limelight();
-    Shuffleboard.getTab("Camera")
-        .addNumber("ta", () -> limelight.targetArea())
-        .withPosition(3, 0);
+    ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
+    cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
+   // cameraTab.addDoubleArray("botpose", () -> limelight.getPose()).withPosition(2, 0);
 
+    cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
+    cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
+    cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
+    
   }
+  
 
   /** This function is called periodically during operator control. */
   @Override
