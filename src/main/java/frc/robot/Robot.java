@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
     ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
     cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
    // cameraTab.addDoubleArray("botpose", () -> limelight.getPose()).withPosition(2, 0);
-
+  
     cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
     cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
     cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
