@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -68,16 +70,16 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    //m_robotContainer.s_Swerve.swerveOdometry.resetPosition(new Rotation2d(), m_robotContainer.s_Swerve.getModulePositions(), new Pose2d());
+    m_robotContainer.s_Swerve.swerveOdometry.resetPosition(new Rotation2d(), m_robotContainer.s_Swerve.getModulePositions(), new Pose2d());
     //TODO: built in odometry reset? 
     //  m_robotContainer.s_Swerve.resetOdometry(new Pose2d());
     Limelight limelight = new Limelight();
     ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
-    cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
+    //cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
 
-    cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
-    cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
-    cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
+    //cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
+    //cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
+    //cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
   }
   
 

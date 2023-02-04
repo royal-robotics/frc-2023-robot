@@ -4,6 +4,7 @@ import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPlanner;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
@@ -11,12 +12,13 @@ import frc.robot.RobotContainer;
 
 public class AutoMode extends SequentialCommandGroup {
     public AutoMode(RobotContainer robotContainer) {
-        PathPlannerTrajectory examplePath = PathPlanner.loadPath("New Path", 3, 2);
+        PathPlannerTrajectory examplePath = PathPlanner.loadPath("Test Path", 2.5, 1.5);
+        PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(examplePath, Alliance.Red);
 
         this.addCommands(
             new InstantCommand(() -> {
                 // Reset odometry for the first path you run during auto
-                robotContainer.s_Swerve.resetOdometry(examplePath.getInitialHolonomicPose());
+                robotContainer.s_Swerve.resetOdometry(redTrajectory.getInitialHolonomicPose());
             }),
             new PPSwerveControllerCommand(
                 examplePath, 
