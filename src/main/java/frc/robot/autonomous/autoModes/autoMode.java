@@ -2,8 +2,12 @@ package frc.robot.autonomous.autoModes;
 
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.pathplanner.lib.PathPlannerTrajectory;
+
+import javax.lang.model.util.ElementScanner14;
+
 import com.pathplanner.lib.PathPlanner;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -12,16 +16,23 @@ import frc.robot.RobotContainer;
 
 public class AutoMode extends SequentialCommandGroup {
     public AutoMode(RobotContainer robotContainer) {
-        PathPlannerTrajectory examplePath = PathPlanner.loadPath("Test Path", 2.5, 1.5);
-        PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(examplePath, Alliance.Red);
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Test Path", 2.5, 1.5);
+        PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
             new InstantCommand(() -> {
+                if (DriverStation.getAlliance() == Alliance.Red)
+                {
                 // Reset odometry for the first path you run during auto
                 robotContainer.s_Swerve.resetOdometry(redTrajectory.getInitialHolonomicPose());
+                }
+                else
+                {
+                    robotContainer.s_Swerve.resetOdometry(blueTrajectory.getInitialHolonomicPose());
+                }
             }),
             new PPSwerveControllerCommand(
-                examplePath, 
+                blueTrajectory, 
                 robotContainer.s_Swerve::getPose, // Pose supplier
                 Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
                 new PIDController(12, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
