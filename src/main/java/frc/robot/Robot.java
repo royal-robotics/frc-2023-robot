@@ -20,6 +20,7 @@ import frc.robot.sensors.Limelight;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.autonomous.AutoModeSelector;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  * project.
  */
 public class Robot extends TimedRobot {
+  private final AutoModeSelector AutoModeSelector;
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
@@ -45,7 +47,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    //m_autoModeSelector = new AutoModeSelector(m_robotContainer);
+    AutoModeSelector = new AutoModeSelector(m_robotContainer);
 }
 
   /**
@@ -72,12 +74,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    PathPlannerTrajectory examplePath = PathPlanner.loadPath("New Path", 3, 2);
   Command autoCommand =
    // Assuming this method is part of a drivetrain subsystesgit m that provides the necessary methods
-       new SequentialCommandGroup(
-          
-      );
+          AutoModeSelector.getAutoMode();
       autoCommand.schedule();  
     }
 

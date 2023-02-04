@@ -14,4 +14,7 @@ public class AutoModeSelector {
         _chooser.addOption("autoMode", () -> new autoMode(robotContainer));
         Shuffleboard.getTab("Competition").add("Auto Mode", _chooser).withPosition(0, 0).withSize(2, 1);
     }
+    public SequentialCommandGroup getAutoMode() {
+        return _chooser.getSelected().get();
+    }
 }
