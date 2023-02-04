@@ -13,6 +13,7 @@ public class AutoModeSelector {
     public AutoModeSelector(RobotContainer robotContainer) {
         _chooser = new SendableChooser<Supplier<SequentialCommandGroup>>();
         _chooser.addOption("autoMode", () -> new AutoMode(robotContainer));
+        _chooser.addOption("autoMode2", () -> new AutoMode2(robotContainer));
         Shuffleboard.getTab("Competition").add("Auto Mode", _chooser).withPosition(0, 0).withSize(2, 1);
     }
     public SequentialCommandGroup getAutoMode() {
