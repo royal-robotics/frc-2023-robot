@@ -76,21 +76,7 @@ public class Robot extends TimedRobot {
   Command autoCommand =
    // Assuming this method is part of a drivetrain subsystesgit m that provides the necessary methods
        new SequentialCommandGroup(
-          new InstantCommand(() -> {
-            // Reset odometry for the first path you run during auto
-                m_robotContainer.s_Swerve.resetOdometry(examplePath.getInitialHolonomicPose());
-          }),
-          new PPSwerveControllerCommand(
-              examplePath, 
-              m_robotContainer.s_Swerve::getPose, // Pose supplier
-              Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
-              new PIDController(12, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-              new PIDController(12, 0, 0), // Y controller (usually the same values as X controller)
-              new PIDController(11, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-              m_robotContainer.s_Swerve::setModuleStates, // Module states consumer
-              true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-              m_robotContainer.s_Swerve // Requires this drive subsystem
-          )
+          
       );
       autoCommand.schedule();  
     }
@@ -109,7 +95,6 @@ public class Robot extends TimedRobot {
     ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
     cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
    // cameraTab.addDoubleArray("botpose", () -> limelight.getPose()).withPosition(2, 0);
-  
     cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
     cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
     cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
