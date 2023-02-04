@@ -38,9 +38,9 @@ public class Limelight {
         return _table.getEntry("tv").getDouble(-1);
     }
 
-    // getting arrayindexoutofbounds exception -> not returning an array
     public double[] getPose() {
         double[] botpose = _table.getEntry("botpose").getDoubleArray(new double[6]);
+        // Make sure array length is correct
         if (botpose.length >= 3){
             return botpose;
         }

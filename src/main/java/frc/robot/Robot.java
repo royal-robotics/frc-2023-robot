@@ -4,23 +4,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.math.geometry.*;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.commands.PPSwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.math.controller.PIDController;
-import frc.robot.sensors.Limelight;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.autonomous.AutoModeSelector;
+import frc.robot.sensors.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,25 +19,18 @@ import frc.robot.autonomous.AutoModeSelector;
  * project.
  */
 public class Robot extends TimedRobot {
-  private final AutoModeSelector AutoModeSelector;
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-  //private Command m_autonomousCommand;
+  private final AutoModeSelector m_autoModeSelector;
   private final RobotContainer m_robotContainer;
-  //private final AutoModeSelector m_autoModeSelector;
 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  
   public Robot() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    AutoModeSelector = new AutoModeSelector(m_robotContainer);
+    m_autoModeSelector = new AutoModeSelector(m_robotContainer);
 }
 
   /**
@@ -74,15 +57,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-  Command autoCommand =
-   // Assuming this method is part of a drivetrain subsystesgit m that provides the necessary methods
-          AutoModeSelector.getAutoMode();
-      autoCommand.schedule();  
-    }
+    Command autoCommand = m_autoModeSelector.getAutoMode();
+    autoCommand.schedule();  
+  }
 
   /** This function is called periodically during autonomous. */
-  //@Override
-  //public void autonomousPeriodic() 
+  @Override
+  public void autonomousPeriodic() {}
 
   /** This function is called once when teleop is enabled. */
   @Override
@@ -93,11 +74,10 @@ public class Robot extends TimedRobot {
     Limelight limelight = new Limelight();
     ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
     cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
-   // cameraTab.addDoubleArray("botpose", () -> limelight.getPose()).withPosition(2, 0);
+
     cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
     cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
     cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
-    
   }
   
 
