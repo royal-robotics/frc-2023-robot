@@ -18,15 +18,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public PigeonIMU gyro;
-    private SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
-    public final ShuffleboardTab m_dashboardTab = Shuffleboard.getTab("Drivetrain");
+    public SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
 
     public Swerve() {
         gyro = new PigeonIMU(Constants.Drivebase.pigeonID);
@@ -54,18 +51,6 @@ public class Swerve extends SubsystemBase {
         m_ModuleState[2] = mSwerveMods[2].getState();
         m_ModuleState[3] = mSwerveMods[3].getState();
 
-        ShuffleboardTab testTab = Shuffleboard.getTab("Test");
-        testTab.addNumber("FL Speed", () -> (m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);
-        testTab.addNumber("FL Angle", () -> (m_ModuleState[0].angle.getDegrees())).withPosition(0, 1);
-        testTab.addNumber("FR Speed", () -> (m_ModuleState[1].speedMetersPerSecond)).withPosition(1, 0);
-        testTab.addNumber("FR Angle", () -> (m_ModuleState[1].angle.getDegrees())).withPosition(1, 1);
-        testTab.addNumber("BL Speed", () -> (m_ModuleState[2].speedMetersPerSecond)).withPosition(2, 0);
-        testTab.addNumber("BL Angle", () -> (m_ModuleState[2].angle.getDegrees())).withPosition(2, 1);
-        testTab.addNumber("BR Speed", () -> (m_ModuleState[3].speedMetersPerSecond)).withPosition(3, 0);
-        testTab.addNumber("BR Angle", () -> (m_ModuleState[3].angle.getDegrees())).withPosition(3, 1);
-        testTab.addNumber("OdoX", () -> (getPose().getX())).withPosition(0,2);
-        testTab.addNumber("OdoY", () -> (getPose().getY())).withPosition(1,2);
-        testTab.addNumber("OdoR", () -> (getPose().getRotation().getDegrees())).withPosition(2,2);
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
