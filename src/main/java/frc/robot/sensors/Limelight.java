@@ -38,8 +38,35 @@ public class Limelight {
         return _table.getEntry("tv").getDouble(-1);
     }
 
-    public double[] getPose() {
-        double[] botpose = _table.getEntry("botpose").getDoubleArray(new double[6]);
+    public double[] getPoseBlue() {
+        double[] botpose = _table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+        // Make sure array length is correct
+        if (botpose.length >= 3){
+            return botpose;
+        }
+        return new double[6];
+    }
+
+    public double[] getPoseRed() {
+        double[] botpose = _table.getEntry("botpose_wpired").getDoubleArray(new double[6]);
+        // Make sure array length is correct
+        if (botpose.length >= 3){
+            return botpose;
+        }
+        return new double[6];
+    }
+
+    public double[] botPoseTargetSpace() {
+        double[] botpose = _table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+        // Make sure array length is correct
+        if (botpose.length >= 3){
+            return botpose;
+        }
+        return new double[6];
+    }
+
+    public double[] targetPoseRobotSpace() {
+        double[] botpose = _table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
         // Make sure array length is correct
         if (botpose.length >= 3){
             return botpose;

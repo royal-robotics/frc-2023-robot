@@ -3,6 +3,12 @@ package frc.robot;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.sensors.Limelight;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -12,14 +18,30 @@ public class OurShuffleboard {
     public OurShuffleboard(Robot m_Robot){
     RobotContainer container = m_Robot.m_robotContainer;
     Swerve m_swerve = container.s_Swerve;
-    Limelight limelight = new Limelight();
+    Limelight m_limelight = new Limelight();
     ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
-    cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(1, 0);
+    cameraTab.addNumber("hasTarget", () -> m_limelight.hasTarget()).withPosition(0, 0);
 
-    cameraTab.addNumber("botposeTranX", () -> limelight.getPose()[0]).withPosition(2,0);
-    cameraTab.addNumber("botposeTranY", () -> limelight.getPose()[1]).withPosition(3,0);
-    cameraTab.addNumber("botposeTranZ", () -> limelight.getPose()[2]).withPosition(4,0);
-    
+    cameraTab.addNumber("botposeBlueTranX", () -> m_limelight.getPoseBlue()[0]).withPosition(1,0);
+    cameraTab.addNumber("botposeBlueTranY", () -> m_limelight.getPoseBlue()[1]).withPosition(2,0);
+    cameraTab.addNumber("botposeBlueTranZ", () -> m_limelight.getPoseBlue()[2]).withPosition(3,0);
+    cameraTab.addNumber("botposeRedTranX", () -> m_limelight.getPoseRed()[0]).withPosition(1,1);
+    cameraTab.addNumber("botposeRedTranY", () -> m_limelight.getPoseRed()[1]).withPosition(2,1);
+    cameraTab.addNumber("botposeRedTranZ", () -> m_limelight.getPoseRed()[2]).withPosition(3,1);
+    cameraTab.addNumber("targetPoseTranX", () -> m_limelight.botPoseTargetSpace()[0]).withPosition(1,2);
+    cameraTab.addNumber("targetPoseTranY", () -> m_limelight.botPoseTargetSpace()[1]).withPosition(2,2);
+    cameraTab.addNumber("targetPoseTranZ", () -> m_limelight.botPoseTargetSpace()[2]).withPosition(3,2);
+    cameraTab.addNumber("botSpacePoseTranX", () -> m_limelight.targetPoseRobotSpace()[0]).withPosition(1,3);
+    cameraTab.addNumber("botSpacePoseTranY", () -> m_limelight.targetPoseRobotSpace()[1]).withPosition(2,3);
+    cameraTab.addNumber("botSpacePoseTranZ", () -> m_limelight.targetPoseRobotSpace()[2]).withPosition(3,3);
+    /* cameraTab.addNumber("botSpacePoseTranZ", () -> {
+
+            Pose2d targetPose = new Pose2d(m_limelight.targetPoseRobotSpace()[0], m_limelight.targetPoseRobotSpace()[1], new Rotation2d(m_limelight.targetPoseRobotSpace()[5]));
+            targetPose.transformBy(new Transform2d(null, 1))
+            })
+        .withPosition(6,3);*/
+
+    cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4,0).withSize(4, 4);
     
     ShuffleboardTab testTab = Shuffleboard.getTab("Test");
         testTab.addNumber("FL Speed", () -> (m_swerve.m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);
