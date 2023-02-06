@@ -50,7 +50,6 @@ public class Swerve extends SubsystemBase {
         m_ModuleState[1] = mSwerveMods[1].getState();
         m_ModuleState[2] = mSwerveMods[2].getState();
         m_ModuleState[3] = mSwerveMods[3].getState();
-
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {

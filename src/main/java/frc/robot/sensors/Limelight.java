@@ -41,7 +41,7 @@ public class Limelight {
     public double[] getPoseBlue() {
         double[] botpose = _table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
         // Make sure array length is correct
-        if (botpose.length >= 3){
+        if (botpose.length == 6){
             return botpose;
         }
         return new double[6];
@@ -50,7 +50,7 @@ public class Limelight {
     public double[] getPoseRed() {
         double[] botpose = _table.getEntry("botpose_wpired").getDoubleArray(new double[6]);
         // Make sure array length is correct
-        if (botpose.length >= 3){
+        if (botpose.length == 6){
             return botpose;
         }
         return new double[6];
@@ -59,7 +59,7 @@ public class Limelight {
     public double[] botPoseTargetSpace() {
         double[] botpose = _table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
         // Make sure array length is correct
-        if (botpose.length >= 3){
+        if (botpose.length == 6){
             return botpose;
         }
         return new double[6];
@@ -68,7 +68,7 @@ public class Limelight {
     public double[] targetPoseRobotSpace() {
         double[] botpose = _table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
         // Make sure array length is correct
-        if (botpose.length >= 3){
+        if (botpose.length == 6){
             return botpose;
         }
         return new double[6];

@@ -2,9 +2,6 @@ package frc.robot.autonomous.autoModes;
 
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import com.pathplanner.lib.PathPlannerTrajectory;
-
-import javax.lang.model.util.ElementScanner14;
-
 import com.pathplanner.lib.PathPlanner;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -21,10 +18,10 @@ public class AutoMode2 extends SequentialCommandGroup {
 
         this.addCommands(
             new InstantCommand(() -> {
+                // Reset odometry for the first path you run during auto
                 if (DriverStation.getAlliance() == Alliance.Red)
                 {
-                // Reset odometry for the first path you run during auto
-                robotContainer.s_Swerve.resetOdometry(redTrajectory.getInitialHolonomicPose());
+                    robotContainer.s_Swerve.resetOdometry(redTrajectory.getInitialHolonomicPose());
                 }
                 else
                 {
