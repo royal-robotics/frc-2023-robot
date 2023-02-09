@@ -1,6 +1,7 @@
 package frc.lib.util;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 public final class SwerveConstants {
     public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
@@ -61,6 +62,8 @@ public final class SwerveConstants {
     public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
 
     /* Neutral Modes */
-    public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-    public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+    public static final NeutralMode ctreAngleNeutralMode = NeutralMode.Coast;
+    public static final NeutralMode ctreDriveNeutralMode = NeutralMode.Brake;
+    public static final IdleMode revAngleNeutralMode = IdleMode.kCoast;
+    public static final IdleMode revDriveNeutralMode = IdleMode.kBrake;
 }

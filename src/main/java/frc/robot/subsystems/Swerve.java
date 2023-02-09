@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import frc.lib.util.SwerveModule;
+import frc.lib.util.CTRESwerveModule;
 import frc.robot.Constants;
 import frc.lib.util.SwerveConstants;
 
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
-    public SwerveModule[] mSwerveMods;
+    public CTRESwerveModule[] mSwerveMods;
     public PigeonIMU gyro;
     public SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
 
@@ -30,11 +30,11 @@ public class Swerve extends SubsystemBase {
         gyro.configFactoryDefault();
         zeroGyro();
 
-        mSwerveMods = new SwerveModule[] {
-            new SwerveModule(0, Constants.Drivebase.Mod0),
-            new SwerveModule(1, Constants.Drivebase.Mod1),
-            new SwerveModule(2, Constants.Drivebase.Mod2),
-            new SwerveModule(3, Constants.Drivebase.Mod3)
+        mSwerveMods = new CTRESwerveModule[] {
+            new CTRESwerveModule(0, Constants.Drivebase.Mod0),
+            new CTRESwerveModule(1, Constants.Drivebase.Mod1),
+            new CTRESwerveModule(2, Constants.Drivebase.Mod2),
+            new CTRESwerveModule(3, Constants.Drivebase.Mod3)
         };
 
         /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
@@ -68,7 +68,7 @@ public class Swerve extends SubsystemBase {
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.maxSpeed);
 
-        for(SwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }    
@@ -77,7 +77,7 @@ public class Swerve extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.maxSpeed);
         
-        for(SwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods){
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
     }    
@@ -92,7 +92,7 @@ public class Swerve extends SubsystemBase {
 
     public SwerveModuleState[] getModuleStates(){
         SwerveModuleState[] states = new SwerveModuleState[4];
-        for(SwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods){
             states[mod.moduleNumber] = mod.getState();
         }
         return states;
@@ -100,7 +100,7 @@ public class Swerve extends SubsystemBase {
 
     public SwerveModulePosition[] getModulePositions(){
         SwerveModulePosition[] positions = new SwerveModulePosition[4];
-        for(SwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods){
             positions[mod.moduleNumber] = mod.getPosition();
         }
         return positions;
@@ -115,7 +115,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void resetModulesToAbsolute(){
-        for(SwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods){
             mod.resetToAbsolute();
         }
     }

@@ -10,13 +10,10 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
-import frc.robot.Constants.Auto;
-import frc.robot.Constants.Drivebase;
 import frc.robot.sensors.Limelight;
 import frc.robot.subsystems.Swerve;
 
@@ -66,7 +63,8 @@ public class GridAlignCommand extends SequentialCommandGroup {
         Limelight limelight = new Limelight();
         
         if (limelight.hasTarget() == 1) {
-            int tagID = limelight.getTagID();
+            //int tagID = limelight.getTagID();
+            int tagID = 1;
 
             // get tag's pose relative to field space from saved tag locations (assuming locations saved sequentially).
             Pose2d tagPose = tagLocations[tagID - 1];
@@ -106,7 +104,7 @@ public class GridAlignCommand extends SequentialCommandGroup {
                     config);
 
             var thetaController =
-                new ProfiledPIDCommand(
+                new ProfiledPIDController(
                     Constants.Auto.kPThetaController, 0, 0, Constants.Auto.kThetaControllerConstraints);
             thetaController.enableContinuousInput(-Math.PI, Math.PI);
 

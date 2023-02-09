@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 
-public class SwerveModule {
+public class CTRESwerveModule {
     public int moduleNumber;
     private Rotation2d angleOffset;
     private Rotation2d lastAngle;
@@ -25,7 +25,7 @@ public class SwerveModule {
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(SwerveConstants.driveKS, SwerveConstants.driveKV, SwerveConstants.driveKA);
 
-    public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
+    public CTRESwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
         this.ctreConfigs = new CTREConfigs();
@@ -93,7 +93,7 @@ public class SwerveModule {
         mAngleMotor.configFactoryDefault();
         mAngleMotor.configAllSettings(ctreConfigs.swerveAngleFXConfig);
         mAngleMotor.setInverted(SwerveConstants.angleMotorInvert);
-        mAngleMotor.setNeutralMode(SwerveConstants.angleNeutralMode);
+        mAngleMotor.setNeutralMode(SwerveConstants.ctreAngleNeutralMode);
         resetToAbsolute();
     }
 
@@ -101,7 +101,7 @@ public class SwerveModule {
         mDriveMotor.configFactoryDefault();
         mDriveMotor.configAllSettings(ctreConfigs.swerveDriveFXConfig);
         mDriveMotor.setInverted(SwerveConstants.driveMotorInvert);
-        mDriveMotor.setNeutralMode(SwerveConstants.driveNeutralMode);
+        mDriveMotor.setNeutralMode(SwerveConstants.ctreDriveNeutralMode);
         mDriveMotor.setSelectedSensorPosition(0);
     }
 
