@@ -50,16 +50,8 @@ public class RevSwerveModule {
     public void setDesiredState(SwerveModuleState desiredState) {
         desiredState = SwerveModuleState.optimize(desiredState, getAngle());
 
-        setAngle(desiredState);
-        setSpeed(desiredState);
-    }
-
-    private void setSpeed(SwerveModuleState desiredState) {
-        mDriveMotorController.setReference(desiredState.speedMetersPerSecond, ControlType.kVelocity);
-    }
-
-    private void setAngle(SwerveModuleState desiredState) {
         mAngleMotorController.setReference(desiredState.angle.getDegrees(), ControlType.kPosition);
+        mDriveMotorController.setReference(desiredState.speedMetersPerSecond, ControlType.kVelocity);
     }
 
     private Rotation2d getAngle() {
@@ -77,19 +69,19 @@ public class RevSwerveModule {
     }
 
     private void configAngleMotor() {
+        /*
+        Configuration values should be set in the REV Hardware Client and burned to flash.
+        Copy the values here so we don't forget them!
         mAngleMotor.setIdleMode(SwerveConstants.revAngleNeutralMode);
         mAngleMotor.setInverted(SwerveConstants.angleMotorInvert);
         mAngleMotor.setSmartCurrentLimit(SwerveConstants.angleContinuousCurrentLimit);
         mAngleMotor.setSecondaryCurrentLimit(SwerveConstants.anglePeakCurrentDuration);
         // Position Conversion:
-        //   Multiply by gear ratio: Converts rotations of motor to rotations of module
-        //   Divide by 360: Converts module rotations to module degrees
-        double positionConversion = SwerveConstants.angleGearRatio / 360.0;
+        //   Divide by gear ratio: Converts rotations of motor to rotations of module
+        //   Multiply by 360: Converts module rotations to module degrees
+        double positionConversion = 360.0 / SwerveConstants.angleGearRatio;
         mAngleMotorEncoder.setPositionConversionFactor(positionConversion);
         mAngleMotorController.setPositionPIDWrappingEnabled(true);
-        /*
-        PID values should be set in the REV Hardware Client and burned to flash.
-        Copy the values here so we don't forget them!
         mAngleMotorController.setP(0.0);
         mAngleMotorController.setI(0.0);
         mAngleMotorController.setD(0.0);
@@ -98,23 +90,23 @@ public class RevSwerveModule {
     }
 
     private void configDriveMotor() {
+        /*
+        Configuration values should be set in the REV Hardware Client and burned to flash.
+        Copy the values here so we don't forget them!
         mDriveMotor.setIdleMode(SwerveConstants.revDriveNeutralMode);
         mDriveMotor.setInverted(SwerveConstants.driveMotorInvert);
         mDriveMotor.setSmartCurrentLimit(SwerveConstants.driveContinuousCurrentLimit);
         mDriveMotor.setSecondaryCurrentLimit(SwerveConstants.drivePeakCurrentDuration);
         // Position Conversion:
-        //   Multiply by gear ratio: Converts rotations of motor to rotations of wheel
-        //   Divide by wheel circumference: Converts rotations of wheel to distance traveled
-        double positionConversion = SwerveConstants.driveGearRatio / SwerveConstants.wheelCircumference;
+        //   Divide by gear ratio: Converts rotations of motor to rotations of wheel
+        //   Multiply by wheel circumference: Converts rotations of wheel to distance traveled
+        double positionConversion = SwerveConstants.wheelCircumference / SwerveConstants.driveGearRatio;
         mDriveMotorEncoder.setPositionConversionFactor(positionConversion);
         // Velocity Conversion
         //   Multiply by Position Conversion: Converts RPM of motor to meters per minute
         //   Divide by 60: Converts meters per minute to meters per second
         double velocityConversion = positionConversion / 60.0;
         mDriveMotorEncoder.setVelocityConversionFactor(velocityConversion);
-        /*
-        PID values should be set in the REV Hardware Client and burned to flash.
-        Copy the values here so we don't forget them!
         mDriveMotorController.setP(0.0);
         mDriveMotorController.setI(0.0);
         mDriveMotorController.setD(0.0);

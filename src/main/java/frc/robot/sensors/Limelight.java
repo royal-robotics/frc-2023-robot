@@ -1,5 +1,8 @@
 package frc.robot.sensors;
 
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.networktables.*;
 
 
@@ -38,39 +41,59 @@ public class Limelight {
         return _table.getEntry("tv").getDouble(-1);
     }
 
-    public double[] getPoseBlue() {
-        double[] botpose = _table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
-        // Make sure array length is correct
-        if (botpose.length == 6){
-            return botpose;
+    public Pose3d getPoseBlue() {
+        if (onTarget()) {
+            double[] botpose = _table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+            // Make sure array length is correct
+            if (botpose.length == 6) {
+                return new Pose3d(
+                    new Translation3d(botpose[0], botpose[1], botpose[2]),
+                    new Rotation3d(botpose[3], botpose[4], botpose[5])
+                );
+            }
         }
-        return new double[6];
+        return new Pose3d();
     }
 
-    public double[] getPoseRed() {
-        double[] botpose = _table.getEntry("botpose_wpired").getDoubleArray(new double[6]);
-        // Make sure array length is correct
-        if (botpose.length == 6){
-            return botpose;
+    public Pose3d getPoseRed() {
+        if (onTarget()) {
+            double[] botpose = _table.getEntry("botpose_wpired").getDoubleArray(new double[6]);
+            // Make sure array length is correct
+            if (botpose.length == 6) {
+                return new Pose3d(
+                    new Translation3d(botpose[0], botpose[1], botpose[2]),
+                    new Rotation3d(botpose[3], botpose[4], botpose[5])
+                );
+            }
         }
-        return new double[6];
+        return new Pose3d();
     }
 
-    public double[] botPoseTargetSpace() {
-        double[] botpose = _table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
-        // Make sure array length is correct
-        if (botpose.length == 6){
-            return botpose;
+    public Pose3d botPoseTargetSpace() {
+        if (onTarget()) {
+            double[] botpose = _table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+            // Make sure array length is correct
+            if (botpose.length == 6) {
+                return new Pose3d(
+                    new Translation3d(botpose[0], botpose[1], botpose[2]),
+                    new Rotation3d(botpose[3], botpose[4], botpose[5])
+                );
+            }
         }
-        return new double[6];
+        return new Pose3d();
     }
 
-    public double[] targetPoseRobotSpace() {
-        double[] botpose = _table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
-        // Make sure array length is correct
-        if (botpose.length == 6){
-            return botpose;
+    public Pose3d targetPoseRobotSpace() {
+        if (onTarget()) {
+            double[] targetpose = _table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+            // Make sure array length is correct
+            if (targetpose.length == 6) {
+                return new Pose3d(
+                    new Translation3d(targetpose[0], targetpose[1], targetpose[2]),
+                    new Rotation3d(targetpose[3], targetpose[4], targetpose[5])
+                );
+            }
         }
-        return new double[6];
+        return new Pose3d();
     }
 }

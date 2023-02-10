@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.subsystems.*;
 import frc.robot.autonomous.AutoModeSelector;
 import frc.robot.sensors.Limelight;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -19,28 +18,30 @@ public class OurShuffleboard {
         cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4,0).withSize(4, 4);
 
         cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(0, 0);
-        cameraTab.addNumber("botposeBlueTranX", () -> limelight.getPoseBlue()[0]).withPosition(1,0);
-        cameraTab.addNumber("botposeBlueTranY", () -> limelight.getPoseBlue()[1]).withPosition(2,0);
-        cameraTab.addNumber("botposeBlueTranZ", () -> limelight.getPoseBlue()[2]).withPosition(3,0);
-        cameraTab.addNumber("botposeRedTranX", () -> limelight.getPoseRed()[0]).withPosition(1,1);
-        cameraTab.addNumber("botposeRedTranY", () -> limelight.getPoseRed()[1]).withPosition(2,1);
-        cameraTab.addNumber("botposeRedTranZ", () -> limelight.getPoseRed()[2]).withPosition(3,1);
-        cameraTab.addNumber("botSpacePoseTranX", () -> limelight.botPoseTargetSpace()[0]).withPosition(1,2);
-        cameraTab.addNumber("botSpacePoseTranY", () -> limelight.botPoseTargetSpace()[1]).withPosition(2,2);
-        cameraTab.addNumber("botSpacePoseTranZ", () -> limelight.botPoseTargetSpace()[2]).withPosition(3,2);
-        cameraTab.addNumber("targetPoseTranX", () -> limelight.targetPoseRobotSpace()[0]).withPosition(1,3);
-        cameraTab.addNumber("targetPoseTranY", () -> limelight.targetPoseRobotSpace()[1]).withPosition(2,3);
-        cameraTab.addNumber("targetPoseTranZ", () -> limelight.targetPoseRobotSpace()[2]).withPosition(3,3);
+        cameraTab.addNumber("botposeBlueTranX", () -> limelight.getPoseBlue().getX()).withPosition(1,0);
+        cameraTab.addNumber("botposeBlueTranY", () -> limelight.getPoseBlue().getY()).withPosition(2,0);
+        cameraTab.addNumber("botposeBlueTranZ", () -> limelight.getPoseBlue().getZ()).withPosition(3,0);
+        cameraTab.addNumber("botposeRedTranX", () -> limelight.getPoseRed().getX()).withPosition(1,1);
+        cameraTab.addNumber("botposeRedTranY", () -> limelight.getPoseRed().getY()).withPosition(2,1);
+        cameraTab.addNumber("botposeRedTranZ", () -> limelight.getPoseRed().getZ()).withPosition(3,1);
+        cameraTab.addNumber("botSpacePoseTranX", () -> limelight.botPoseTargetSpace().getX()).withPosition(1,2);
+        cameraTab.addNumber("botSpacePoseTranY", () -> limelight.botPoseTargetSpace().getY()).withPosition(2,2);
+        cameraTab.addNumber("botSpacePoseTranZ", () -> limelight.botPoseTargetSpace().getZ()).withPosition(3,2);
+        cameraTab.addNumber("targetPoseTranX", () -> limelight.targetPoseRobotSpace().getX()).withPosition(1,3);
+        cameraTab.addNumber("targetPoseTranY", () -> limelight.targetPoseRobotSpace().getY()).withPosition(2,3);
+        cameraTab.addNumber("targetPoseTranZ", () -> limelight.targetPoseRobotSpace().getZ()).withPosition(3,3);
 
-        Translation2d targetPos = new Translation2d(limelight.targetPoseRobotSpace()[0], limelight.targetPoseRobotSpace()[2]);
-        Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
-        Rotation2d robotAngleGoal = polePos.getAngle();
+        cameraTab.addNumber("robotAngleGoal", () -> {
+            Translation2d targetPos = new Translation2d(limelight.targetPoseRobotSpace().getX(), limelight.targetPoseRobotSpace().getZ());
+            Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
+            return polePos.getAngle().getDegrees();
+        }).withPosition(0, 1);
 
-        Shuffleboard.getTab("Competition").add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
-
-        Shuffleboard.getTab("Competition").addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(1,1);
-        Shuffleboard.getTab("Competition").addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(2,1);
-        Shuffleboard.getTab("Competition").addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(3,1);
+        ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
+        competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
+        competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(1,1);
+        competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(2,1);
+        competitionTab.addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(3,1);
 
         ShuffleboardTab testTab = Shuffleboard.getTab("Test");
         testTab.addNumber("FL Speed", () -> (swerve.m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);

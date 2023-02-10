@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -68,11 +69,11 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
         if (this.hasTarget) {
             // get pose of target relative to robot space. This should essentially be a transform to move
             // robot from current position to tag's current position AND orientation.
-            double[] tagInfo = limelight.targetPoseRobotSpace();
+            Pose3d tagInfo = limelight.targetPoseRobotSpace();
 
             Pose2d tagPose = new Pose2d(
-                new Translation2d(tagInfo[0], tagInfo[1]), 
-                new Rotation2d(tagInfo[5]));
+                new Translation2d(tagInfo.getX(), tagInfo.getY()), 
+                new Rotation2d(tagInfo.getRotation().getZ()));
             
             // transform tag pose to goal pose. This is essentially a concatenation on the last transform
             // to move the robot from the tag's pose to our desired position and orientation.
