@@ -1,23 +1,19 @@
 package frc.robot.subsystems;
 
-import frc.lib.util.CTRESwerveModule;
-import frc.robot.Constants;
-import frc.lib.util.SwerveConstants;
-
+import com.ctre.phoenix.sensors.PigeonIMU;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-
-import com.ctre.phoenix.sensors.PigeonIMU;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.lib.util.CTRESwerveModule;
+import frc.lib.util.SwerveConstants;
+import frc.robot.Constants;
 
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
@@ -44,8 +40,7 @@ public class Swerve extends SubsystemBase {
         resetModulesToAbsolute();
 
         swerveOdometry = new SwerveDriveOdometry(Constants.Drivebase.swerveKinematics, getYaw(), getModulePositions());
-        
-        
+
         m_ModuleState[0] = mSwerveMods[0].getState();
         m_ModuleState[1] = mSwerveMods[1].getState();
         m_ModuleState[2] = mSwerveMods[2].getState();
@@ -68,7 +63,7 @@ public class Swerve extends SubsystemBase {
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.maxSpeed);
 
-        for(CTRESwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods) {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }    
@@ -77,7 +72,7 @@ public class Swerve extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.maxSpeed);
         
-        for(CTRESwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods) {
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
     }    
@@ -90,7 +85,7 @@ public class Swerve extends SubsystemBase {
         swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
     }
 
-    public SwerveModuleState[] getModuleStates(){
+    public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];
         for(CTRESwerveModule mod : mSwerveMods){
             states[mod.moduleNumber] = mod.getState();
@@ -98,15 +93,15 @@ public class Swerve extends SubsystemBase {
         return states;
     }
 
-    public SwerveModulePosition[] getModulePositions(){
+    public SwerveModulePosition[] getModulePositions() {
         SwerveModulePosition[] positions = new SwerveModulePosition[4];
-        for(CTRESwerveModule mod : mSwerveMods){
+        for(CTRESwerveModule mod : mSwerveMods) {
             positions[mod.moduleNumber] = mod.getPosition();
         }
         return positions;
     }
 
-    public void zeroGyro(){
+    public void zeroGyro() {
         gyro.setYaw(0);
     }
 
@@ -114,14 +109,14 @@ public class Swerve extends SubsystemBase {
         return (Constants.Drivebase.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
-    public void resetModulesToAbsolute(){
-        for(CTRESwerveModule mod : mSwerveMods){
+    public void resetModulesToAbsolute() {
+        for(CTRESwerveModule mod : mSwerveMods) {
             mod.resetToAbsolute();
         }
     }
 
     @Override
-    public void periodic(){
+    public void periodic() {
         swerveOdometry.update(getYaw(), getModulePositions());  
         m_ModuleState[0] = mSwerveMods[0].getState();
         m_ModuleState[1] = mSwerveMods[1].getState();

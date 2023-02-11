@@ -1,10 +1,9 @@
 package frc.robot;
 
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {

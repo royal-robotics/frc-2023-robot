@@ -3,6 +3,7 @@ package frc.robot.sensors;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.*;
 
 
@@ -48,7 +49,10 @@ public class Limelight {
             if (botpose.length == 6) {
                 return new Pose3d(
                     new Translation3d(botpose[0], botpose[1], botpose[2]),
-                    new Rotation3d(botpose[3], botpose[4], botpose[5])
+                    new Rotation3d(
+                        Units.degreesToRadians(botpose[3]),
+                        Units.degreesToRadians(botpose[4]),
+                        Units.degreesToRadians(botpose[5]))
                 );
             }
         }
@@ -62,7 +66,10 @@ public class Limelight {
             if (botpose.length == 6) {
                 return new Pose3d(
                     new Translation3d(botpose[0], botpose[1], botpose[2]),
-                    new Rotation3d(botpose[3], botpose[4], botpose[5])
+                    new Rotation3d(
+                        Units.degreesToRadians(botpose[3]),
+                        Units.degreesToRadians(botpose[4]),
+                        Units.degreesToRadians(botpose[5]))
                 );
             }
         }
@@ -76,7 +83,10 @@ public class Limelight {
             if (botpose.length == 6) {
                 return new Pose3d(
                     new Translation3d(botpose[0], botpose[1], botpose[2]),
-                    new Rotation3d(botpose[3], botpose[4], botpose[5])
+                    new Rotation3d(
+                        Units.degreesToRadians(botpose[3]),
+                        Units.degreesToRadians(botpose[4]),
+                        Units.degreesToRadians(botpose[5]))
                 );
             }
         }
@@ -90,7 +100,10 @@ public class Limelight {
             if (targetpose.length == 6) {
                 return new Pose3d(
                     new Translation3d(targetpose[0], targetpose[1], targetpose[2]),
-                    new Rotation3d(targetpose[3], targetpose[4], targetpose[5])
+                    new Rotation3d(
+                        Units.degreesToRadians(targetpose[3]),
+                        Units.degreesToRadians(targetpose[4]),
+                        Units.degreesToRadians(targetpose[5]))
                 );
             }
         }
