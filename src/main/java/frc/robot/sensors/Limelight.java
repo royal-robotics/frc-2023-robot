@@ -1,11 +1,6 @@
 package frc.robot.sensors;
 
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.*;
-
 
 // Raw camera stream: 10.25.22.11:5800
 // Dashboard: 10.25.22.11:5801

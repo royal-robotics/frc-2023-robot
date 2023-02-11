@@ -7,9 +7,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.commands.*;
-import frc.robot.commands.GridAlignCommand.*;
-import frc.robot.commands.GridAlignRobotSpaceCommand.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,6 +17,7 @@ import frc.robot.commands.GridAlignRobotSpaceCommand.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
     //private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -36,8 +34,10 @@ public class RobotContainer {
     
     private final JoystickButton zeroGyro = new JoystickButton(driver, 11);
     private final JoystickButton robotCentric = new JoystickButton(driver, 10);
-    private final JoystickButton alignAprilTagField = new JoystickButton(driver, 9);
-    private final JoystickButton alignAprilTagRobot = new JoystickButton(driver, 8);
+    private final JoystickButton alignAprilTagField = new JoystickButton(operator, 0); //placeholder #
+    private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 1); //placeholder #
+    private final JoystickButton slow = new JoystickButton(driver, 9); //placeholder #
+    
 
     /* Subsystems */
     
@@ -70,5 +70,7 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         alignAprilTagField.onTrue(new GridAlignCommand(s_Swerve, GridAlignCommand.Align.CENTER));
         alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
+        slow.onTrue(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 0.25));
+        slow.onFalse(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 1));
     }
 }

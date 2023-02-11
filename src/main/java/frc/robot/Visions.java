@@ -30,7 +30,7 @@ public class Visions extends Limelight{
         this.tagPoses = new Pose3d[8];
     }
 
-    public Pose2d doubleArrayToPose(double[] poseArray){
+    public Pose2d doubleArrayToRobotPose(double[] poseArray){
         if (poseArray.length == 6) {
             return new Pose2d(
                 new Translation2d(poseArray[0], poseArray[2]),
@@ -40,24 +40,34 @@ public class Visions extends Limelight{
         }
         return new Pose2d();
     }
+    public Pose2d doubleArrayToFieldPose(double[] poseArray){
+        if (poseArray.length == 6) {
+            return new Pose2d(
+                new Translation2d(poseArray[0], poseArray[1]),
+                new Rotation2d(
+                    Units.degreesToRadians(poseArray[5]))
+            );
+        }
+        return new Pose2d();
+    }
     public Pose2d blueAllianceBotPose(){
         double[] botpose = getPoseBlue();
-        return doubleArrayToPose(botpose);
+        return doubleArrayToFieldPose(botpose);
     }
 
     public Pose2d redAllianceBotPose(){
         double [] botpose = getPoseRed();
-        return doubleArrayToPose(botpose);
+        return doubleArrayToFieldPose(botpose);
     }
 
     public Pose2d tagSpaceRobotPose(){
         double[] botpose = botPoseTargetSpace();
-        return doubleArrayToPose(botpose);
+        return doubleArrayToFieldPose(botpose);
     }
 
     public Pose2d robotSpaceTagPose(){
         double[] targetpose = targetPoseRobotSpace();
-        return doubleArrayToPose(targetpose);
+        return doubleArrayToRobotPose(targetpose);
     }
     
     

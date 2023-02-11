@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.autonomous.AutoModeSelector;
 import frc.robot.subsystems.*;
-import frc.robot.sensors.Limelight;
 
 
 public class OurShuffleboard {
@@ -13,25 +12,25 @@ public class OurShuffleboard {
         RobotContainer container = robot.m_robotContainer;
         AutoModeSelector autoModeSelector = robot.m_autoModeSelector;
         Swerve swerve = container.s_Swerve;
-        Limelight limelight = container.s_Visions.m_LimeLight;
+        Visions limelight = container.s_Visions;
 
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
         cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
         cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(0, 0);
-        cameraTab.addNumber("botposeBlueTranX", () -> limelight.getPoseBlue().getX()).withPosition(1, 0);
-        cameraTab.addNumber("botposeBlueTranY", () -> limelight.getPoseBlue().getY()).withPosition(2, 0);
-        cameraTab.addNumber("botposeBlueTranZ", () -> limelight.getPoseBlue().getZ()).withPosition(3, 0);
-        cameraTab.addNumber("botposeRedTranX", () -> limelight.getPoseRed().getX()).withPosition(1, 1);
-        cameraTab.addNumber("botposeRedTranY", () -> limelight.getPoseRed().getY()).withPosition(2, 1);
-        cameraTab.addNumber("botposeRedTranZ", () -> limelight.getPoseRed().getZ()).withPosition(3, 1);
-        cameraTab.addNumber("botSpacePoseTranX", () -> limelight.botPoseTargetSpace().getX()).withPosition(1, 2);
-        cameraTab.addNumber("botSpacePoseTranY", () -> limelight.botPoseTargetSpace().getY()).withPosition(2, 2);
-        cameraTab.addNumber("botSpacePoseTranZ", () -> limelight.botPoseTargetSpace().getZ()).withPosition(3, 2);
-        cameraTab.addNumber("targetPoseTranX", () -> limelight.targetPoseRobotSpace().getX()).withPosition(1, 3);
-        cameraTab.addNumber("targetPoseTranY", () -> limelight.targetPoseRobotSpace().getY()).withPosition(2, 3);
-        cameraTab.addNumber("targetPoseTranZ", () -> limelight.targetPoseRobotSpace().getZ()).withPosition(3, 3);
+        cameraTab.addNumber("botposeBlueTranX", () -> limelight.blueAllianceBotPose().getX()).withPosition(1, 0);
+        cameraTab.addNumber("botposeBlueTranY", () -> limelight.blueAllianceBotPose().getY()).withPosition(2, 0);
+        cameraTab.addNumber("botposeBlueTranR", () -> limelight.blueAllianceBotPose().getRotation().getDegrees()).withPosition(3, 0);
+        cameraTab.addNumber("botposeRedTranX", () -> limelight.redAllianceBotPose().getX()).withPosition(1, 1);
+        cameraTab.addNumber("botposeRedTranY", () -> limelight.redAllianceBotPose().getY()).withPosition(2, 1);
+        cameraTab.addNumber("botposeRedTranR", () -> limelight.redAllianceBotPose().getRotation().getDegrees()).withPosition(3, 1);
+        cameraTab.addNumber("botSpacePoseTranX", () -> limelight.tagSpaceRobotPose().getX()).withPosition(1, 2);
+        cameraTab.addNumber("botSpacePoseTranY", () -> limelight.tagSpaceRobotPose().getY()).withPosition(2, 2);
+        cameraTab.addNumber("botSpacePoseTranR", () -> limelight.tagSpaceRobotPose().getRotation().getDegrees()).withPosition(3, 2);
+        cameraTab.addNumber("targetPoseTranX", () -> limelight.robotSpaceTagPose().getX()).withPosition(1, 3);
+        cameraTab.addNumber("targetPoseTranY", () -> limelight.robotSpaceTagPose().getY()).withPosition(2, 3);
+        cameraTab.addNumber("targetPoseTranR", () -> limelight.robotSpaceTagPose().getRotation().getDegrees()).withPosition(3, 3);
         cameraTab.addNumber("robotAngleGoal", () -> {
-            Translation2d targetPos = new Translation2d(limelight.targetPoseRobotSpace().getX(), limelight.targetPoseRobotSpace().getZ());
+            Translation2d targetPos = new Translation2d(limelight.robotSpaceTagPose().getX(), limelight.robotSpaceTagPose().getY());
             Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
             return polePos.getAngle().getDegrees();
         }).withPosition(0, 1);

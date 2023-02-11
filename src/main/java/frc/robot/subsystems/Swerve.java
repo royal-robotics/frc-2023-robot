@@ -22,10 +22,12 @@ public class Swerve extends SubsystemBase {
     public PigeonIMU gyro;
     public SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
     public Visions s_Visions;
+    public double m_speedMultiplier;
 
     public Swerve(Visions visions) {
         gyro = new PigeonIMU(Constants.Drivebase.pigeonID);
         s_Visions = visions;
+        m_speedMultiplier = 1.0;
         gyro.configFactoryDefault();
         zeroGyro();
 
@@ -51,17 +53,18 @@ public class Swerve extends SubsystemBase {
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+        Translation2d m_speed = translation.times(m_speedMultiplier);
         SwerveModuleState[] swerveModuleStates =
             Constants.Drivebase.swerveKinematics.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
+                                    m_speed.getX(), 
+                                    m_speed.getY(), 
                                     rotation, 
                                     getYaw()
                                 )
                                 : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
+                                    m_speed.getX(), 
+                                    m_speed.getY(), 
                                     rotation)
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.maxSpeed);

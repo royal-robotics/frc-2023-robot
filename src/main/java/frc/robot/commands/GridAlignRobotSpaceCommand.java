@@ -1,12 +1,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.sensors.Limelight;
+import frc.robot.Visions;
 import frc.robot.subsystems.Swerve;
 
 /* Command that aligns robot to desired positions in front of pole/platform to score cone/cube using AprilTag data. 
@@ -46,14 +45,14 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
         new Rotation2d(Math.PI)); 
         
     private Swerve drivetrain;
-    private Limelight limelight;
+    private Visions limelight;
     private Pose2d goalPose;    // Translation and rotation from the robot current Pose to the goal position. (bot perspective)
     private Align goal;
     private boolean hasTarget; 
 
     public GridAlignRobotSpaceCommand(Swerve drivetrain, Align goal) {
         this.drivetrain = drivetrain;
-        this.limelight = drivetrain.s_Visions.m_LimeLight;
+        this.limelight = drivetrain.s_Visions;
         this.goal = goal;
     }
 
@@ -69,11 +68,7 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
         if (this.hasTarget) {
             // get pose of target relative to robot space. This should essentially be a transform to move
             // robot from current position to tag's current position AND orientation.
-            Pose3d tagInfo = limelight.targetPoseRobotSpace();
-
-            Pose2d tagPose = new Pose2d(
-                new Translation2d(tagInfo.getX(), tagInfo.getY()), 
-                new Rotation2d(tagInfo.getRotation().getZ()));
+            Pose2d tagPose = limelight.robotSpaceTagPose();
             
             // transform tag pose to goal pose. This is essentially a concatenation on the last transform
             // to move the robot from the tag's pose to our desired position and orientation.
