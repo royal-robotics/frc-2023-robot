@@ -49,11 +49,14 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
     private Pose2d goalPose;    // Translation and rotation from the robot current Pose to the goal position. (bot perspective)
     private Align goal;
     private boolean hasTarget; 
+    private double targetAngle;
 
     public GridAlignRobotSpaceCommand(Swerve drivetrain, Align goal) {
         this.drivetrain = drivetrain;
         this.limelight = drivetrain.s_Visions;
         this.goal = goal;
+        addRequirements(drivetrain);
+        this.targetAngle = 90;
     }
 
     @Override
@@ -64,6 +67,7 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
 
     @Override
     public void execute() {
+        /* 
         this.hasTarget = limelight.hasTarget() == 1;
         if (this.hasTarget) {
             // get pose of target relative to robot space. This should essentially be a transform to move
@@ -94,9 +98,16 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
              * However, we can extend CommandBase here versus CommandGroup, so we may have more control of behavior during 
              * course of command
             */
+        if(drivetrain.getYaw().getDegrees() > targetAngle){
             drivetrain.drive(
-                this.goalPose.getTranslation(), 
-                this.goalPose.getRotation().getRadians(), 
+                new Translation2d(),
+                -Math.PI, 
+                false,  // transform should be from robot's perspective, therefore is false
+                false);
+        }else{
+            drivetrain.drive(
+                new Translation2d(),
+                Math.PI, 
                 false,  // transform should be from robot's perspective, therefore is false
                 false);     // not sure what this is
         }
@@ -112,9 +123,14 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
     @Override
     public boolean isFinished(){ 
         // finish command when robot has reached goal (ie when bot's relative position to goal is zero) or if no visible target
-        return !this.hasTarget || ((this.goalPose != null) && 
-            (this.goalPose.getX() == 0) && 
-            (this.goalPose.getY() == 0) && 
-            (this.goalPose.getRotation().getDegrees() == 0)); 
+    //     return !this.hasTarget || ((this.goalPose != null) && 
+    //         (this.goalPose.getX() == 0) && 
+    //         (this.goalPose.getY() == 0) && 
+    //         (this.goalPose.getRotation().getDegrees() == 0)); 
+        if(Math.abs(drivetrain.getYaw().getDegrees()- targetAngle)<= 5){
+            return true;
+        }
+        return false;
     }
+    
 }
