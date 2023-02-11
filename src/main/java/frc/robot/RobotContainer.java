@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
+import frc.robot.commands.GridAlignCommand.*;
+import frc.robot.commands.GridAlignRobotSpaceCommand.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,6 +36,8 @@ public class RobotContainer {
     
     private final JoystickButton zeroGyro = new JoystickButton(driver, 11);
     private final JoystickButton robotCentric = new JoystickButton(driver, 10);
+    private final JoystickButton alignAprilTagField = new JoystickButton(driver, 9);
+    private final JoystickButton alignAprilTagRobot = new JoystickButton(driver, 8);
 
     /* Subsystems */
     
@@ -63,5 +68,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        alignAprilTagField.onTrue(new GridAlignCommand(s_Swerve, GridAlignCommand.Align.CENTER));
+        alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
     }
 }
