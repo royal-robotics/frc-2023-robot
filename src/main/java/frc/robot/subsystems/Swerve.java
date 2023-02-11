@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
@@ -14,15 +14,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.CTRESwerveModule;
 import frc.lib.util.SwerveConstants;
 import frc.robot.Constants;
+import frc.robot.Visions;
 
 public class Swerve extends SubsystemBase {
-    public SwerveDriveOdometry swerveOdometry;
+    public SwerveDrivePoseEstimator swerveOdometry;
     public CTRESwerveModule[] mSwerveMods;
     public PigeonIMU gyro;
     public SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
+    public Visions s_Visions;
 
-    public Swerve() {
+    public Swerve(Visions visions) {
         gyro = new PigeonIMU(Constants.Drivebase.pigeonID);
+        s_Visions = visions;
         gyro.configFactoryDefault();
         zeroGyro();
 
@@ -39,7 +42,7 @@ public class Swerve extends SubsystemBase {
         Timer.delay(1.0);
         resetModulesToAbsolute();
 
-        swerveOdometry = new SwerveDriveOdometry(Constants.Drivebase.swerveKinematics, getYaw(), getModulePositions());
+        swerveOdometry = new SwerveDrivePoseEstimator(Constants.Drivebase.swerveKinematics, getYaw(), getModulePositions(), new Pose2d());
 
         m_ModuleState[0] = mSwerveMods[0].getState();
         m_ModuleState[1] = mSwerveMods[1].getState();
@@ -78,7 +81,7 @@ public class Swerve extends SubsystemBase {
     }    
 
     public Pose2d getPose() {
-        return swerveOdometry.getPoseMeters();
+        return swerveOdometry.getEstimatedPosition();
     }
 
     public void resetOdometry(Pose2d pose) {

@@ -7,12 +7,13 @@ import frc.robot.autonomous.AutoModeSelector;
 import frc.robot.subsystems.*;
 import frc.robot.sensors.Limelight;
 
+
 public class OurShuffleboard {
     public OurShuffleboard(Robot robot) {
         RobotContainer container = robot.m_robotContainer;
         AutoModeSelector autoModeSelector = robot.m_autoModeSelector;
         Swerve swerve = container.s_Swerve;
-        Limelight limelight = new Limelight();
+        Limelight limelight = container.s_Visions.m_LimeLight;
 
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
         cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);

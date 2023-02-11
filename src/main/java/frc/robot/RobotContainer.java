@@ -35,8 +35,9 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, 10);
 
     /* Subsystems */
-    public final Swerve s_Swerve = new Swerve();
-
+    
+    public final Visions s_Visions = new Visions();
+    public final Swerve s_Swerve = new Swerve(s_Visions);
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(

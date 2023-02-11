@@ -53,7 +53,7 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
 
     public GridAlignRobotSpaceCommand(Swerve drivetrain, Align goal) {
         this.drivetrain = drivetrain;
-        this.limelight = new Limelight();
+        this.limelight = drivetrain.s_Visions.m_LimeLight;
         this.goal = goal;
     }
 
