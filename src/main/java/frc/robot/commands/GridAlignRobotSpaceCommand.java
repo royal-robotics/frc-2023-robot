@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Visions;
 import frc.robot.subsystems.Swerve;
@@ -88,7 +89,8 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
                     this.goalPose = tagPose.transformBy(centerAlign);
                     break;
             }
-            
+            Shuffleboard.getTab("Camera").addNumber("AprilTagIDx1", () -> goalPose.getX()).withPosition(4, 0);
+            Shuffleboard.getTab("Camera").addNumber("AprilTagIDy1", () -> goalPose.getY()).withPosition(4, 1);
             // -----DRIVE TO GOAL-------
             /* Uses swerve's drive method to get to goal pose as another possible example versus the SwerveControllerCommand
              * Possible limitations to this method:
