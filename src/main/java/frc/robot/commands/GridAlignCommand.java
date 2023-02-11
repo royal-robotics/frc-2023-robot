@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
@@ -37,10 +38,10 @@ public class GridAlignCommand extends SequentialCommandGroup {
         RIGHT,
         CENTER;
     }
-
+    public Pose2d goalPose = new Pose2d();
     // AprilTag locations on the field
     private final Pose2d[] tagLocations = 
-        {new Pose2d(4, 4, new Rotation2d())}; // example tag location
+        {new Pose2d(16.23, 6.71, new Rotation2d(Math.PI))}; // example tag location
 
     /* These transforms document how far we want the bot be from the AprilTag to align with certain scoring targets. 
      * When scoring, we probably don't want to be on the tag or on the pole, but rather in front of and facing it. 
@@ -68,7 +69,6 @@ public class GridAlignCommand extends SequentialCommandGroup {
 
             // get tag's pose relative to field space from saved tag locations (assuming locations saved sequentially).
             Pose2d tagPose = tagLocations[tagID - 1];
-            Pose2d goalPose = new Pose2d();
             
             // transform tag pose to get goal pose (ie. pose in front cone). Again, goalPose is relative to the fieldspace
             // because the initial pose is in fieldspace.
@@ -83,7 +83,8 @@ public class GridAlignCommand extends SequentialCommandGroup {
                     goalPose = tagPose.transformBy(centerAlign);
                     break;
             }
-            
+             Shuffleboard.getTab("Camera").addNumber("aprilTagIDx", () -> goalPose.getX()).withPosition(0, 2);
+             Shuffleboard.getTab("Camera").addNumber("aprilTagIDy", () -> goalPose.getY()).withPosition(0, 3);
             // ----- DRIVE ROBOT TO GOAL POSE ------ 
             /* sourced from BaseFalconSwerve AutoExample. uses swervecontrollercommand and trajectory generator to create
              * a hopefully straight path (will need to be tested) from current robot position to goal pose. unsure of how
@@ -99,7 +100,7 @@ public class GridAlignCommand extends SequentialCommandGroup {
             Trajectory exampleTrajectory =
                 TrajectoryGenerator.generateTrajectory(
                     drivetrain.getPose(),   // initial pose = bot's current pose. 
-                    List.of(),              // no waypoints in between
+                    List.of(), // no waypoints in between
                     goalPose,               // final pose = goal pose that we found from our transformations
                     config);
 
