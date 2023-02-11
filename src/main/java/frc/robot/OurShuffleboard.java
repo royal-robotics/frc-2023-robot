@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -15,6 +18,7 @@ public class OurShuffleboard {
         Visions limelight = container.s_Visions;
 
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
+        
         cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
         cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(0, 0);
         cameraTab.addNumber("botposeBlueTranX", () -> limelight.blueAllianceBotPose().getX()).withPosition(1, 0);
@@ -30,11 +34,14 @@ public class OurShuffleboard {
         cameraTab.addNumber("targetPoseTranY", () -> limelight.robotSpaceTagPose().getY()).withPosition(2, 3);
         cameraTab.addNumber("targetPoseTranR", () -> limelight.robotSpaceTagPose().getRotation().getDegrees()).withPosition(3, 3);
         cameraTab.addNumber("robotAngleGoal", () -> {
-            Translation2d targetPos = new Translation2d(limelight.robotSpaceTagPose().getX(), limelight.robotSpaceTagPose().getY());
-            Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
-            return polePos.getAngle().getDegrees();
+            // Translation2d targetPos = new Translation2d(limelight.robotSpaceTagPose().getX(), limelight.robotSpaceTagPose().getY());
+            // Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
+            // return polePos.getAngle().getDegrees();
+            Pose2d bogusPos = new Pose2d(1,0, new Rotation2d(Math.PI));
+            Transform2d bogusTrans = new Transform2d(new Translation2d(1, 0), new Rotation2d(Math.PI));
+            Pose2d polePos = bogusPos.transformBy(bogusTrans);
+            return polePos.getX();
         }).withPosition(0, 1);
-
         ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
         competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
         competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(1, 0);
