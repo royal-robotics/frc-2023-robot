@@ -61,7 +61,7 @@ public class GridAlignCommand extends SequentialCommandGroup {
 
     // ideally, we could connect this command to trigger buttons on Xbox controller that map to which alignment we want
     public GridAlignCommand(Swerve drivetrain, Align goal) {
-        Limelight limelight = drivetrain.s_Visions;
+        Limelight limelight = drivetrain.s_Visions.m_Limelight;
         
         if (limelight.hasTarget() == 1) {
             //int tagID = limelight.getTagID();

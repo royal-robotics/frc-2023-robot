@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -121,6 +124,20 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public PPSwerveControllerCommand driveToPoint() {
+        return new PPSwerveControllerCommand(
+            s_Visions.generatePath(),
+            this::getPose,
+            Constants.Drivebase.swerveKinematics,
+            new PIDController(12, 0, 0),
+            new PIDController(12, 0, 0),
+            new PIDController(11, 0, 0),
+            this::setModuleStates,
+            false,  // Don't use alliance color since that should be handled by the vision generatePath
+            this
+        );
+    }
+
     @Override
     public void periodic() {
         swerveOdometry.update(getYaw(), getModulePositions());  
@@ -128,6 +145,5 @@ public class Swerve extends SubsystemBase {
         m_ModuleState[1] = mSwerveMods[1].getState();
         m_ModuleState[2] = mSwerveMods[2].getState();
         m_ModuleState[3] = mSwerveMods[3].getState();
-        
     }
 }

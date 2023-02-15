@@ -15,24 +15,24 @@ public class OurShuffleboard {
         RobotContainer container = robot.m_robotContainer;
         AutoModeSelector autoModeSelector = robot.m_autoModeSelector;
         Swerve swerve = container.s_Swerve;
-        Visions limelight = container.s_Visions;
+        Visions vision = container.s_Visions;
 
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
         
         cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
-        cameraTab.addNumber("hasTarget", () -> limelight.hasTarget()).withPosition(0, 0);
-        cameraTab.addNumber("botposeBlueTranX", () -> limelight.blueAllianceBotPose().getX()).withPosition(1, 0);
-        cameraTab.addNumber("botposeBlueTranY", () -> limelight.blueAllianceBotPose().getY()).withPosition(2, 0);
-        cameraTab.addNumber("botposeBlueTranR", () -> limelight.blueAllianceBotPose().getRotation().getDegrees()).withPosition(3, 0);
-        cameraTab.addNumber("botposeRedTranX", () -> limelight.redAllianceBotPose().getX()).withPosition(1, 1);
-        cameraTab.addNumber("botposeRedTranY", () -> limelight.redAllianceBotPose().getY()).withPosition(2, 1);
-        cameraTab.addNumber("botposeRedTranR", () -> limelight.redAllianceBotPose().getRotation().getDegrees()).withPosition(3, 1);
-        cameraTab.addNumber("botSpacePoseTranX", () -> limelight.tagSpaceRobotPose().getX()).withPosition(1, 2);
-        cameraTab.addNumber("botSpacePoseTranY", () -> limelight.tagSpaceRobotPose().getY()).withPosition(2, 2);
-        cameraTab.addNumber("botSpacePoseTranR", () -> limelight.tagSpaceRobotPose().getRotation().getDegrees()).withPosition(3, 2);
-        cameraTab.addNumber("targetPoseTranX", () -> limelight.robotSpaceTagPose().getX()).withPosition(1, 3);
-        cameraTab.addNumber("targetPoseTranY", () -> limelight.robotSpaceTagPose().getY()).withPosition(2, 3);
-        cameraTab.addNumber("targetPoseTranR", () -> limelight.robotSpaceTagPose().getRotation().getDegrees()).withPosition(3, 3);
+        cameraTab.addNumber("hasTarget", () -> vision.m_Limelight.hasTarget()).withPosition(0, 0);
+        cameraTab.addNumber("botposeBlueTranX", () -> vision.blueAllianceBotPose().getX()).withPosition(1, 0);
+        cameraTab.addNumber("botposeBlueTranY", () -> vision.blueAllianceBotPose().getY()).withPosition(2, 0);
+        cameraTab.addNumber("botposeBlueTranR", () -> vision.blueAllianceBotPose().getRotation().getDegrees()).withPosition(3, 0);
+        cameraTab.addNumber("botposeRedTranX", () -> vision.redAllianceBotPose().getX()).withPosition(1, 1);
+        cameraTab.addNumber("botposeRedTranY", () -> vision.redAllianceBotPose().getY()).withPosition(2, 1);
+        cameraTab.addNumber("botposeRedTranR", () -> vision.redAllianceBotPose().getRotation().getDegrees()).withPosition(3, 1);
+        cameraTab.addNumber("botSpacePoseTranX", () -> vision.tagSpaceRobotPose().getX()).withPosition(1, 2);
+        cameraTab.addNumber("botSpacePoseTranY", () -> vision.tagSpaceRobotPose().getY()).withPosition(2, 2);
+        cameraTab.addNumber("botSpacePoseTranR", () -> vision.tagSpaceRobotPose().getRotation().getDegrees()).withPosition(3, 2);
+        cameraTab.addNumber("targetPoseTranX", () -> vision.robotSpaceTagPose().getX()).withPosition(1, 3);
+        cameraTab.addNumber("targetPoseTranY", () -> vision.robotSpaceTagPose().getY()).withPosition(2, 3);
+        cameraTab.addNumber("targetPoseTranR", () -> vision.robotSpaceTagPose().getRotation().getDegrees()).withPosition(3, 3);
         cameraTab.addNumber("robotAngleGoal", () -> {
             // Translation2d targetPos = new Translation2d(limelight.robotSpaceTagPose().getX(), limelight.robotSpaceTagPose().getY());
             // Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));

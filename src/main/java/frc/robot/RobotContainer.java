@@ -69,7 +69,8 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         alignAprilTagField.onTrue(new GridAlignCommand(s_Swerve, GridAlignCommand.Align.CENTER));
-        alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
+        //alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
+        alignAprilTagRobot.onTrue(s_Swerve.driveToPoint());
         slow.onTrue(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 0.25));
         slow.onFalse(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 1));
     }
