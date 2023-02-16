@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Visions.Align;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -36,6 +37,8 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, 10);
     private final JoystickButton alignAprilTagField = new JoystickButton(operator, 0); //placeholder #
     private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 1); //placeholder #
+    private final JoystickButton gridAlignTagPose = new JoystickButton(operator, 2); //placeholder #
+    private final JoystickButton driveToGoal = new JoystickButton(operator, 3); //placeholder #
     private final JoystickButton slow = new JoystickButton(driver, 9); //placeholder #
     
 
@@ -68,7 +71,9 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        alignAprilTagField.onTrue(new GridAlignCommand(s_Swerve, GridAlignCommand.Align.CENTER));
+        alignAprilTagField.whileTrue(new GridAlignCommand(s_Swerve, s_Visions, Align.CENTER));
+        gridAlignTagPose.whileTrue(new GridAlignTagPose(s_Swerve, s_Visions, Align.CENTER));  // button2
+        driveToGoal.whileTrue(new DriveToGoal(s_Swerve));  //button3
         //alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
         alignAprilTagRobot.onTrue(s_Swerve.driveToPoint());
         slow.onTrue(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 0.25));

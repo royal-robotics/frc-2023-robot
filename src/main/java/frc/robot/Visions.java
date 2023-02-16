@@ -24,10 +24,10 @@ public class Visions {
     }
 
     private final Transform2d leftPoleAlign =
-        new Transform2d(new Translation2d(1, 1), // places goal pose 1 meter in front (x) and 1 meter to left(y) of tag
+        new Transform2d(new Translation2d(1, -1), // places goal pose 1 meter in front (x) and 1 meter to left(y) of tag
         new Rotation2d(Math.PI));                     // set to 180 degrees so robot ends up facing the tag/pole
     private final Transform2d rightPoleAlign =
-        new Transform2d(new Translation2d(1, -1), // 1 meter in front(x) and 1 meter to right(-y) of tag
+        new Transform2d(new Translation2d(1, 1), // 1 meter in front(x) and 1 meter to right(-y) of tag
         new Rotation2d(Math.PI));
     private final Transform2d centerAlign =
         new Transform2d(new Translation2d(1, 0), // 1 meter in front of tag
@@ -94,5 +94,21 @@ public class Visions {
             new PathConstraints(3, 2),
             new PathPoint(botPose.getTranslation(), positionDifference.getAngle()),
             new PathPoint(goalPosition, positionDifference.getAngle()));
+    }
+
+    public Pose2d tagPoseToGoalPose(Pose2d tagPose, Align goalAlign) {
+        Pose2d goalPose = new Pose2d();
+        switch (goalAlign) {
+            case LEFT:
+                goalPose = tagPose.transformBy(leftPoleAlign);  // TODO: shuffleboard test these values
+                break;
+            case RIGHT:
+                goalPose = tagPose.transformBy(rightPoleAlign);
+                break;
+            case CENTER:
+                goalPose = tagPose.transformBy(centerAlign);
+                break;
+        }
+        return goalPose;
     }
 }
