@@ -124,13 +124,13 @@ public class GridAlignTagPose extends CommandBase{
                 omegaSpeed = 0;
             }
             
-            // drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
+            drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
         }
     }
   
     @Override
     public void end(boolean interrupted) {
-        // drivetrain.drive(new Translation2d(), 0, true, false);
+        drivetrain.drive(new Translation2d(), 0, true, false);
     }
 
     @Override
