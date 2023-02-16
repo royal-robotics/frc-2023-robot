@@ -57,6 +57,7 @@ public class GridAlignTagPose extends CommandBase{
     public void initialize() {
         lastTagID = 0;
         robotPose = drivetrain.getPose();
+        // robotPose = vision.blueAllianceBotPose();
         omegaController.reset(robotPose.getRotation().getRadians());
         xController.reset(robotPose.getX());
         yController.reset(robotPose.getY());
@@ -65,6 +66,7 @@ public class GridAlignTagPose extends CommandBase{
     @Override
     public void execute() {
         robotPose = drivetrain.getPose();
+        // robotPose = vision.blueAllianceBotPose();
 
         ShuffleboardTab test = Shuffleboard.getTab("GridAlignVisionTesting");
         test.addDouble("BotPoseX", ()->robotPose.getX()).withPosition(0, 0);
@@ -122,13 +124,13 @@ public class GridAlignTagPose extends CommandBase{
                 omegaSpeed = 0;
             }
             
-            drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
+            // drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
         }
     }
   
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(new Translation2d(), 0, true, false);
+        // drivetrain.drive(new Translation2d(), 0, true, false);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class Visions {
             return new Pose2d(
                 new Translation2d(poseArray[0], poseArray[2]),
                 new Rotation2d(
-                    Units.degreesToRadians(poseArray[5]))
+                    Units.degreesToRadians(poseArray[4]))
             );
         }
         return new Pose2d();
