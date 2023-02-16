@@ -129,9 +129,9 @@ public class Swerve extends SubsystemBase {
             s_Visions.generatePath(),
             this::getPose,
             Constants.Drivebase.swerveKinematics,
-            new PIDController(12, 0, 0),
-            new PIDController(12, 0, 0),
-            new PIDController(11, 0, 0),
+            new PIDController(Constants.Auto.kPXController, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+            new PIDController(Constants.Auto.kPYController, 0, 0), // Y controller (usually the same values as X controller)
+            new PIDController(Constants.Auto.kPThetaController, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
             this::setModuleStates,
             false,  // Don't use alliance color since that should be handled by the vision generatePath
             this

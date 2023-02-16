@@ -25,9 +25,9 @@ public class RobotContainer {
     //private final int strafeAxis = XboxController.Axis.kLeftX.value;
     //private final int rotationAxis = XboxController.Axis.kRightX.value;
 
-    private final int translationAxis = 1;
-    private final int strafeAxis = 0;
-    private final int rotationAxis = 2;
+    private final int translationAxis = Constants.Container.translationAxis;
+    private final int strafeAxis = Constants.Container.strafeAxis;
+    private final int rotationAxis = Constants.Container.rotationAxis;
 
     /* Driver Buttons */
     //private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
@@ -76,7 +76,7 @@ public class RobotContainer {
         driveToGoal.whileTrue(new DriveToGoal(s_Swerve));  //button3
         //alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
         alignAprilTagRobot.onTrue(s_Swerve.driveToPoint());
-        slow.onTrue(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 0.25));
-        slow.onFalse(new InstantCommand(() -> s_Swerve.m_speedMultiplier = 1));
+        slow.onTrue(new InstantCommand(() -> s_Swerve.m_speedMultiplier = Constants.slowMode));
+        slow.onFalse(new InstantCommand(() -> s_Swerve.m_speedMultiplier = Constants.speedMultiplier));
     }
 }

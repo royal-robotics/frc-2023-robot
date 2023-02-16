@@ -8,7 +8,16 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
+    public static final double stickRotationDeadband = 0.4;
 
+    public static final double speedMultiplier = 1;
+    public static final double slowMode = 0.25;
+
+    public static final class Container {
+        public static final int translationAxis = 1;
+        public static final int strafeAxis = 0;
+        public static final int rotationAxis = 2; 
+    }
     public static final class Drivebase {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
@@ -70,10 +79,9 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
-
+        public static final double kPXController = 12;
+        public static final double kPYController = 12;
+        public static final double kPThetaController = 11;
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(

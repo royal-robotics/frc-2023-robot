@@ -32,9 +32,9 @@ public class AutoMode2 extends SequentialCommandGroup {
                 blueTrajectory, 
                 robotContainer.s_Swerve::getPose, // Pose supplier
                 Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
-                new PIDController(12, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-                new PIDController(12, 0, 0), // Y controller (usually the same values as X controller)
-                new PIDController(11, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+                new PIDController(Constants.Auto.kPXController, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+                new PIDController(Constants.Auto.kPYController, 0, 0), // Y controller (usually the same values as X controller)
+                new PIDController(Constants.Auto.kPThetaController, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
                 robotContainer.s_Swerve::setModuleStates, // Module states consumer
                 true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
                 robotContainer.s_Swerve // Requires this drive subsystem
