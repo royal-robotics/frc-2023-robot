@@ -50,17 +50,17 @@ public class DriveToGoal extends CommandBase {
     public void execute() {
         Pose2d robotPose = drivetrain.getPose();
 
-        var xSpeed = xController.calculate(robotPose.getX());
+        double xSpeed = xController.calculate(robotPose.getX());
         if (xController.atGoal()) {
             xSpeed = 0;
         }
 
-        var ySpeed = yController.calculate(robotPose.getY());
+        double ySpeed = yController.calculate(robotPose.getY());
         if (yController.atGoal()) {
             ySpeed = 0;
         }
 
-        var omegaSpeed = omegaController.calculate(robotPose.getRotation().getRadians());
+        double omegaSpeed = omegaController.calculate(robotPose.getRotation().getRadians());
         if (omegaController.atGoal()) {
             omegaSpeed = 0;
         }

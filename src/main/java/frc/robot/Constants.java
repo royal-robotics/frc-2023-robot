@@ -17,6 +17,8 @@ public final class Constants {
         public static final int translationAxis = 1;
         public static final int strafeAxis = 0;
         public static final int rotationAxis = 2; 
+        public static final int intakeTranslationAxis = 1; //up and down on left joystick
+        public static final int armTranslationAxis = 5; //up and down on right joystick
     }
 
     public static final class Drivebase {
