@@ -18,18 +18,19 @@ public final class Constants {
         public static final int strafeAxis = 0;
         public static final int rotationAxis = 2; 
     }
+
     public static final class Drivebase {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
-        public static final double trackWidth = 0.5969; //TODO: This must be tuned to specific robot
-        public static final double wheelBase = 0.5969; //TODO: This must be tuned to specific robot
+        public static final double trackWidth = 0.495; //TODO: This must be tuned to specific robot
+        public static final double wheelBase = 0.495; //TODO: This must be tuned to specific robot
 
-        public static final double frontLeftAngle = -58.37860107421875;
-        public static final double frontRightAngle = 303.48358154296875;
-        public static final double backLeftAngle = 239.07623291015622;
-        public static final double backRightAngle = 123.98071289062499;
+        public static final double frontLeftAngle = 328.9581298828125;
+        public static final double frontRightAngle = 31.146240234375;
+        public static final double backLeftAngle = 122.42889404296875;
+        public static final double backRightAngle = 123.39019775390626;
 
         /* Swerve Kinematics
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
@@ -43,25 +44,25 @@ public final class Constants {
         /* Front Left Module - Module 0 */
         public static final SwerveModuleConstants Mod0 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
-                1, /* Front Left Drive Motor ID */
-                7, /* Front Left Angle Motor ID */
-                2, /* Front Left Encoder ID */
+                2, /* Front Left Drive Motor ID */
+                0, /* Front Left Angle Motor ID */
+                3, /* Front Left Encoder ID */
                 Rotation2d.fromDegrees(frontLeftAngle)); /* Front Left Angle Offset */
 
         /* Front Right Module - Module 1 */
         public static final SwerveModuleConstants Mod1 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
-                3, /* Front Right Drive Motor ID */
-                4, /* Front Right Angle Motor ID */
-                0, /* Front Right Encoder ID */
+                1, /* Front Right Drive Motor ID */
+                7, /* Front Right Angle Motor ID */
+                2, /* Front Right Encoder ID */
                 Rotation2d.fromDegrees(frontRightAngle)); /* Front Right Angle Offset */
 
         /* Back Left Module - Module 2 */
         public static final SwerveModuleConstants Mod2 = //TODO: This must be tuned to specific robot
             new SwerveModuleConstants(
-                2, /* Back Left Drive Motor ID */
-                0, /* Back Left Angle Motor ID */
-                3, /* Back Left Encoder ID */
+                3, /* Back Left Drive Motor ID */
+                4, /* Back Left Angle Motor ID */
+                0, /* Back Left Encoder ID */
                 Rotation2d.fromDegrees(backLeftAngle)); /* Back Left Angle Offset */
 
         /* Back Right Module - Module 3 */

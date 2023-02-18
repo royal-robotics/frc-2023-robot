@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -22,13 +22,13 @@ import frc.robot.Visions;
 public class Swerve extends SubsystemBase {
     public SwerveDrivePoseEstimator swerveOdometry;
     public CTRESwerveModule[] mSwerveMods;
-    public PigeonIMU gyro;
+    public Pigeon2 gyro;
     public SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
     public Visions s_Visions;
     public double m_speedMultiplier;
 
     public Swerve(Visions visions) {
-        gyro = new PigeonIMU(Constants.Drivebase.pigeonID);
+        gyro = new Pigeon2(Constants.Drivebase.pigeonID);
         s_Visions = visions;
         m_speedMultiplier = 1.0;
         gyro.configFactoryDefault();

@@ -35,10 +35,10 @@ public class RobotContainer {
     
     private final JoystickButton zeroGyro = new JoystickButton(driver, 11);
     private final JoystickButton robotCentric = new JoystickButton(driver, 10);
-    private final JoystickButton alignAprilTagField = new JoystickButton(operator, 0); //placeholder #
-    private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 1); //placeholder #
-    private final JoystickButton gridAlignTagPose = new JoystickButton(operator, 2); //placeholder #
-    private final JoystickButton driveToGoal = new JoystickButton(operator, 3); //placeholder #
+    private final JoystickButton alignAprilTagField = new JoystickButton(operator, 1); //placeholder #
+    private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 2); //placeholder #
+    private final JoystickButton gridAlignTagPose = new JoystickButton(operator, 3); //placeholder #
+    private final JoystickButton driveToGoal = new JoystickButton(operator, 4); //placeholder #
     private final JoystickButton slow = new JoystickButton(driver, 9); //placeholder #
     
 
