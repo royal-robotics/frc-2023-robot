@@ -18,6 +18,9 @@ public class AutoBalanceCommand extends CommandBase{
     private ProfiledPIDController s_yawController;
     private PIDController s_pitchController; 
     private Pigeon2 s_gyro;
+    private double s_pitch;
+    // private short[] s_accelerometer;
+    
     
 
     public AutoBalanceCommand(Swerve swerve, Pigeon2 gyro){
@@ -30,25 +33,38 @@ public class AutoBalanceCommand extends CommandBase{
         s_yawController.enableContinuousInput(0, Math.PI);
         
         s_pitchController = new PIDController(0.1, 0, 0);
+        s_pitch = s_gyro.getPitch();
+        // s_accelerometer = new short[3];
     }
 
     @Override
     public void initialize(){
        s_yawController.setGoal(0);
        s_pitchController.setSetpoint(0);
+       s_pitch = s_gyro.getPitch();
     }
 
     @Override
     public void execute(){
+        /*
+        // TODO: can use accelerometer + gyro value complementary filter if gyro alone isn't sufficient
+        s_gyro.getBiasedAccelerometer(this.s_accelerometer);
+        double accPitch = Math.atan2(s_accelerometer[1], s_accelerometer[2]);
+        double pitchAngle = 0.9934 * (s_pitch + s_gyro.getPitch()) + 0.0066 *(accPitch);
+
+        double pitchSpeed = (s_pitchController.atSetpoint()) ? 0 : s_pitchController.calculate(pitchAngle);
+        */
+
         Rotation2d yaw = s_Swerve.getYaw();
-        double pitch = s_gyro.getPitch();
+        s_pitch = s_gyro.getPitch();   // TODO: degrees or radians?
+
 
         double yawSpeed = s_yawController.calculate(yaw.getRadians());
         if (s_yawController.atGoal()) {
             yawSpeed = 0;
         }
 
-        double pitchSpeed = -s_pitchController.calculate(pitch);
+        double pitchSpeed = s_pitchController.calculate(s_pitch);
         if(s_pitchController.atSetpoint()) {
             pitchSpeed = 0;
         }
