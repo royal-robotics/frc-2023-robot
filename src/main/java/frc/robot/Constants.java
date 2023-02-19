@@ -26,8 +26,8 @@ public final class Constants {
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
-        public static final double trackWidth = 0.495; //TODO: This must be tuned to specific robot
-        public static final double wheelBase = 0.495; //TODO: This must be tuned to specific robot
+        public static final double trackWidth = 0.495;
+        public static final double wheelBase = 0.495;
 
         public static final double frontLeftAngle = 328.9581298828125;
         public static final double frontRightAngle = 31.146240234375;

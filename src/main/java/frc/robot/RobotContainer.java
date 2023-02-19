@@ -42,11 +42,12 @@ public class RobotContainer {
     //private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 2); //placeholder #
     //private final JoystickButton gridAlignTagPose = new JoystickButton(operator, 3); //placeholder #
     //private final JoystickButton driveToGoal = new JoystickButton(operator, 4); //placeholder #
-    private final JoystickButton slow = new JoystickButton(driver, 9); //placeholder #
+    private final JoystickButton slow = new JoystickButton(driver, 1); //Trigger
     
     //intake
     private final int intakeSpeed = Constants.Container.intakeTranslationAxis;
-    private final JoystickButton intakeExtend = new JoystickButton(operator, 4); //Y
+    private final JoystickButton intakeExtendBottom = new JoystickButton(operator, 1); //A
+    private final JoystickButton intakeExtendTop = new JoystickButton(operator, 4); //Y
 
     //arm
     private final int armSpeed = Constants.Container.armTranslationAxis;
@@ -54,11 +55,11 @@ public class RobotContainer {
     private final JoystickButton armAngle = new JoystickButton(operator, 2); //B
 
     /* Subsystems */
-    
     public final Visions s_Visions = new Visions();
     public final Swerve s_Swerve = new Swerve(s_Visions);
     public final Arm s_Arm = new Arm();
     public final Intake s_Intake = new Intake();
+
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -75,7 +76,8 @@ public class RobotContainer {
             new DefaultIntakeCommand(
                 s_Intake,
                 () -> operator.getRawAxis(intakeSpeed),
-                () -> intakeExtend.getAsBoolean()
+                () -> intakeExtendBottom.getAsBoolean(),
+                () -> intakeExtendTop.getAsBoolean()
             )
 
         );

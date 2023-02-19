@@ -7,7 +7,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
@@ -23,8 +22,8 @@ public class Arm extends SubsystemBase {
     private double m_pidValue;
 
     public Arm(){
-        m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 6);
-        m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 7);
+        m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 1);
+        m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 2);
         m_leftMotor = new TalonSRX(10);
         m_rightMotor = new TalonSRX(11);
         m_motorSpeed = 0;
