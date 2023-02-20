@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.autonomous.AutoModeSelector;
@@ -50,10 +51,17 @@ public class OurShuffleboard {
         competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(1, 1);
         competitionTab.addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(2, 1);
 
-        competitionTab.addNumber("Encoder", () -> arm.getEncoder()).withPosition(0, 2);
-        competitionTab.addNumber("Arm PID", () -> arm.getPidValue()).withPosition(1, 2);
+        ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
+        /*intakeTab.add("Speed Override", false)
+            .withWidget(BuiltInWidgets.kToggleButton)
+            .withPosition(0, 0)
+            .withSize(2, 1);*/
 
-        ShuffleboardTab testTab = Shuffleboard.getTab("Test");
+        ShuffleboardTab armTab = Shuffleboard.getTab("Arm");
+        armTab.addNumber("Encoder", () -> arm.getEncoder()).withPosition(0, 2);
+        armTab.addNumber("Arm PID", () -> arm.getPidValue()).withPosition(1, 2);
+
+        ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
         testTab.addNumber("FL Speed", () -> (swerve.m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);
         testTab.addNumber("FL Angle", () -> (swerve.m_ModuleState[0].angle.getDegrees())).withPosition(0, 1);
         testTab.addNumber("FR Speed", () -> (swerve.m_ModuleState[1].speedMetersPerSecond)).withPosition(1, 0);

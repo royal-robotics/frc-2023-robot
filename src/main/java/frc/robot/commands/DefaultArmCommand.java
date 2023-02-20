@@ -24,6 +24,11 @@ public class DefaultArmCommand extends CommandBase{
         s_Speed = speed;
         s_Grip = grip;
         s_Angle = angle;
+
+        gripValue = DoubleSolenoid.Value.kReverse;
+        angleValue = DoubleSolenoid.Value.kReverse;
+        gripPressed = false;
+        anglePressed = false;
     }
 
     @Override
