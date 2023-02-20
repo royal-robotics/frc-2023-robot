@@ -1,18 +1,21 @@
 package frc.robot.commands;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 public class DefaultArmCommand extends CommandBase{
     private Arm s_Arm;
     private DoubleSupplier s_Speed;
     private BooleanSupplier s_Grip;
     private BooleanSupplier s_Angle;
+
+    private DoubleSolenoid.Value gripValue;
+    private DoubleSolenoid.Value angleValue;
+    private boolean gripPressed;
+    private boolean anglePressed;
 
     public DefaultArmCommand(Arm arm, DoubleSupplier speed, BooleanSupplier grip, BooleanSupplier angle){
         s_Arm = arm;
@@ -32,12 +35,37 @@ public class DefaultArmCommand extends CommandBase{
 
     @Override
     public void execute(){
-        DoubleSolenoid.Value grip = (s_Grip.getAsBoolean()) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
-        DoubleSolenoid.Value angle = (s_Angle.getAsBoolean()) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
+        // Toggle grip
+        if (s_Grip.getAsBoolean()) {
+            if (!gripPressed) {
+                gripPressed = true;
+                if (gripValue == DoubleSolenoid.Value.kReverse) {
+                    gripValue = DoubleSolenoid.Value.kForward;
+                } else {
+                    gripValue = DoubleSolenoid.Value.kReverse;
+                }
+            }
+        } else {
+            gripPressed = false;
+        }
+        
+        // Toggle angle
+        if (s_Angle.getAsBoolean()) {
+            if (!anglePressed) {
+                anglePressed = true;
+                if (angleValue == DoubleSolenoid.Value.kReverse) {
+                    angleValue = DoubleSolenoid.Value.kForward;
+                } else {
+                    angleValue = DoubleSolenoid.Value.kReverse;
+                }
+            }
+        } else {
+            anglePressed = false;
+        }
 
         s_Arm.setMotorSpeed(s_Speed.getAsDouble());
-        s_Arm.setSolenoidGrip(grip);
-        s_Arm.setSolenoidAngle(angle);
+        s_Arm.setSolenoidGrip(gripValue);
+        s_Arm.setSolenoidAngle(angleValue);
     }
 
     @Override

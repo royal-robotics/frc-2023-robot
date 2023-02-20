@@ -30,7 +30,15 @@ public class Arm extends SubsystemBase {
         m_solenoidGrip = DoubleSolenoid.Value.kReverse;
         m_solenoidAngle = DoubleSolenoid.Value.kReverse;
         m_pid = new PIDController(0.1, 0, 0);
-        m_encoder = new Encoder(0, 1);
+        m_encoder = new Encoder(10, 11);
+
+        // Distance per pulse:
+        //   1 motor rotation / 256 pulses
+        //   2 output rotations / 3 motor rotations
+        //   1.275*PI inches / 1 output rotation
+        m_encoder.setDistancePerPulse((2.0 * 1.275 * Math.PI) / (256.0 * 3.0));
+        m_encoder.reset();
+
         m_pidValue = 0;
         m_pid.setSetpoint(0);
     }
@@ -54,5 +62,13 @@ public class Arm extends SubsystemBase {
 
     public void setSolenoidAngle(DoubleSolenoid.Value angle){
         m_solenoidAngle = angle;  
+    }
+
+    public double getEncoder() {
+        return m_encoder.getDistance();
+    }
+
+    public double getPidValue() {
+        return m_pidValue;
     }
 }

@@ -16,6 +16,11 @@ public class DefaultIntakeCommand extends CommandBase{
     private BooleanSupplier s_SolenoidBottom;
     private BooleanSupplier s_SolenoidTop;
 
+    private DoubleSolenoid.Value bottomValue;
+    private DoubleSolenoid.Value topValue;
+    private boolean bottomPressed;
+    private boolean topPressed;
+
     public DefaultIntakeCommand(Intake intake, DoubleSupplier speed, BooleanSupplier solenoidBottom, BooleanSupplier solenoidTop){
         s_Intake = intake;
         addRequirements(s_Intake);
@@ -23,27 +28,57 @@ public class DefaultIntakeCommand extends CommandBase{
         s_Speed = speed;
         s_SolenoidBottom = solenoidBottom;
         s_SolenoidTop = solenoidTop;
+
+        bottomValue = DoubleSolenoid.Value.kReverse;
+        topValue = DoubleSolenoid.Value.kReverse;
+        bottomPressed = false;
+        topPressed = false;
     }
     
     @Override
     public void initialize(){
         s_Intake.setMotorSpeed(0);
-        s_Intake.setSolenoidValue(DoubleSolenoid.Value.kReverse, DoubleSolenoid.Value.kReverse);
+        s_Intake.setSolenoidValue(DoubleSolenoid.Value.kReverse);
     }
 
     @Override
     public void execute(){
-        DoubleSolenoid.Value solenoidBottom = (s_SolenoidBottom.getAsBoolean()) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
-        DoubleSolenoid.Value solenoidTop = (s_SolenoidTop.getAsBoolean()) ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
+        // Toggle bottom
+        if (s_SolenoidBottom.getAsBoolean()) {
+            if (!bottomPressed) {
+                bottomPressed = true;
+                if (bottomValue == DoubleSolenoid.Value.kReverse) {
+                    bottomValue = DoubleSolenoid.Value.kForward;
+                } else {
+                    bottomValue = DoubleSolenoid.Value.kReverse;
+                }
+            }
+        } else {
+            bottomPressed = false;
+        }
+        
+        // Toggle top
+        if (s_SolenoidTop.getAsBoolean()) {
+            if (!topPressed) {
+                topPressed = true;
+                if (topValue == DoubleSolenoid.Value.kReverse) {
+                    topValue = DoubleSolenoid.Value.kForward;
+                } else {
+                    topValue = DoubleSolenoid.Value.kReverse;
+                }
+            }
+        } else {
+            topPressed = false;
+        }
 
         s_Intake.setMotorSpeed(s_Speed.getAsDouble());
-        s_Intake.setSolenoidValue(solenoidBottom, solenoidTop);
+        s_Intake.setSolenoidValue(bottomValue, topValue);
     }
 
     @Override
     public void end(boolean interrupted){
         s_Intake.setMotorSpeed(0);
-        s_Intake.setSolenoidValue(DoubleSolenoid.Value.kReverse, DoubleSolenoid.Value.kReverse);
+        s_Intake.setSolenoidValue(DoubleSolenoid.Value.kReverse);
     }
 
     @Override

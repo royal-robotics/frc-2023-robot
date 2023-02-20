@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.autonomous.AutoModeSelector;
 import frc.robot.subsystems.*;
 
-
 public class OurShuffleboard {
     public OurShuffleboard(Robot robot) {
         RobotContainer container = robot.m_robotContainer;
         AutoModeSelector autoModeSelector = robot.m_autoModeSelector;
         Swerve swerve = container.s_Swerve;
+        Intake intake = container.s_Intake;
+        Arm arm = container.s_Arm;
         Visions vision = container.s_Visions;
 
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
@@ -42,11 +43,15 @@ public class OurShuffleboard {
             Pose2d polePos = bogusPos.transformBy(bogusTrans);
             return polePos.getX();
         }).withPosition(0, 1);
+
         ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
         competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
-        competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(1, 0);
-        competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(2, 0);
-        competitionTab.addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(3, 0);
+        competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(0, 1);
+        competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(1, 1);
+        competitionTab.addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(2, 1);
+
+        competitionTab.addNumber("Encoder", () -> arm.getEncoder()).withPosition(0, 2);
+        competitionTab.addNumber("Arm PID", () -> arm.getPidValue()).withPosition(1, 2);
 
         ShuffleboardTab testTab = Shuffleboard.getTab("Test");
         testTab.addNumber("FL Speed", () -> (swerve.m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);

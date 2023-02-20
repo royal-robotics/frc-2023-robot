@@ -51,4 +51,7 @@ public class Intake extends SubsystemBase {
         m_solenoidTopValue = topValue;
     }
 
+    public void setSolenoidValue(DoubleSolenoid.Value value) {
+        setSolenoidValue(value, value);
+    }
 }

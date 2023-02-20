@@ -33,6 +33,11 @@ public class TeleopSwerve extends CommandBase {
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickRotationDeadband);
 
+        // Extra tuning for rotation, since deadzone is large
+        if (rotationVal <= 0.95 && rotationVal >= -0.95) {
+            rotationVal *= 0.4;
+        }
+
         /* Drive */
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(SwerveConstants.maxSpeed), 
