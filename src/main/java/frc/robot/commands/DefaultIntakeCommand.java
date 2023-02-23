@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Intake;
 
-
 public class DefaultIntakeCommand extends CommandBase{
 
     private Intake s_Intake;
@@ -72,7 +71,8 @@ public class DefaultIntakeCommand extends CommandBase{
         }
 
         s_Intake.setMotorSpeed(s_Speed.getAsDouble());
-        s_Intake.setSolenoidValue(bottomValue, topValue);
+        s_Intake.setBottomSolenoidValue(bottomValue);
+        s_Intake.setTopSolenoidValue(topValue);
     }
 
     @Override

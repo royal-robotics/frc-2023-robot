@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Map;
 
@@ -33,18 +34,19 @@ public class Intake extends SubsystemBase {
         m_upperMotorSpeed = 0;
         m_solenoidBottomValue = DoubleSolenoid.Value.kReverse;
         m_solenoidTopValue = DoubleSolenoid.Value.kReverse;
-        speedOverride = Shuffleboard.getTab("Intake").add("Speed Override", false)
+        ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
+        speedOverride = intakeTab.add("Speed Override", false)
             .withWidget(BuiltInWidgets.kToggleButton)
             .withPosition(0, 0)
             .withSize(2, 1)
             .getEntry();
-        lowerSpeedOverride = Shuffleboard.getTab("Intake").add("Lower Speed", 0.0)
+        lowerSpeedOverride = intakeTab.add("Lower Speed", 0.0)
             .withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", -1.0, "max", 1.0, "block increment", 0.01))
             .withPosition(0, 1)
             .withSize(2, 1)
             .getEntry();
-        upperSpeedOverride = Shuffleboard.getTab("Intake").add("Upper Speed", 0.0)
+        upperSpeedOverride = intakeTab.add("Upper Speed", 0.0)
             .withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", -1.0, "max", 1.0, "block increment", 0.01))
             .withPosition(0, 2)
@@ -67,22 +69,30 @@ public class Intake extends SubsystemBase {
             m_upperMotor.set(TalonSRXControlMode.PercentOutput, m_upperMotorSpeed);
         }
     }
-    public void setMotorSpeed(double lSpeed, double uSpeed){
-        m_lowerMotorSpeed = lSpeed;
-        m_upperMotorSpeed = uSpeed;
+
+    public void setLowerMotorSpeed(double speed) {
+        m_lowerMotorSpeed = speed;
+    }
+
+    public void setUpperMotorSpeed(double speed) {
+        m_upperMotorSpeed = speed;
     }
 
     public void setMotorSpeed(double speed){
-        setMotorSpeed(speed, speed);
+        setLowerMotorSpeed(speed);
+        setUpperMotorSpeed(speed);
     }
     
+    public void setBottomSolenoidValue(DoubleSolenoid.Value value) {
+        m_solenoidBottomValue = value;
+    }
 
-    public void setSolenoidValue(DoubleSolenoid.Value bottomValue, DoubleSolenoid.Value topValue){
-        m_solenoidBottomValue = bottomValue;
-        m_solenoidTopValue = topValue;
+    public void setTopSolenoidValue(DoubleSolenoid.Value value) {
+        m_solenoidTopValue = value;
     }
 
     public void setSolenoidValue(DoubleSolenoid.Value value) {
-        setSolenoidValue(value, value);
+        setBottomSolenoidValue(value);
+        setTopSolenoidValue(value);
     }
 }
