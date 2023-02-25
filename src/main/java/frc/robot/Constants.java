@@ -8,10 +8,10 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
-    public static final double stickRotationDeadband = 0.4;
+    public static final double stickRotationDeadband = 0.25;
 
     public static final double speedMultiplier = 1;
-    public static final double slowMode = 0.25;
+    public static final double slowMode = 0.3;
 
     public static final class Container {
         public static final int translationAxis = 1;

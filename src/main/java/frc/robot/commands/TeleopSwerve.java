@@ -35,7 +35,7 @@ public class TeleopSwerve extends CommandBase {
 
         // Extra tuning for rotation, since deadzone is large
         if (rotationVal <= 0.95 && rotationVal >= -0.95) {
-            rotationVal *= 0.4;
+            rotationVal *= 0.6;
         }
 
         /* Drive */
