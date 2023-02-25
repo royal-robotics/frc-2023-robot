@@ -59,6 +59,7 @@ public class OurShuffleboard {
         ShuffleboardTab armTab = Shuffleboard.getTab("Arm");
         armTab.addNumber("Encoder", () -> arm.getEncoder()).withPosition(0, 2);
         armTab.addNumber("Arm PID", () -> arm.getPidValue()).withPosition(1, 2);
+        armTab.addNumber("Setpoint PID", () -> arm.getSetpoint()).withPosition(2,2);
 
         ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
         testTab.addNumber("FL Speed", () -> (swerve.m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);

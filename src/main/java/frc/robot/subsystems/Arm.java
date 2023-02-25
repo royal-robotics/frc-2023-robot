@@ -29,15 +29,28 @@ public class Arm extends SubsystemBase {
     private GenericEntry speedOverrideEntry;
 
     public Arm(){
+
+        int limitPeak = 60; //configPeakCurrentLimit()
+        int limitDuration = 2000; //configPeakCurrentDuration()
+        int continuousCurrent = 40; //ContinuousCurrentLimit()
+        
         m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 1);
         m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 2);
         m_leftMotor = new TalonSRX(10);
         m_rightMotor = new TalonSRX(11);
+        m_leftMotor.enableCurrentLimit(true);
+        m_leftMotor.configPeakCurrentLimit(limitPeak);
+        m_leftMotor.configPeakCurrentDuration(limitDuration);
+        m_leftMotor.configContinuousCurrentLimit(continuousCurrent);
+        m_rightMotor.configPeakCurrentLimit(limitPeak);
+        m_rightMotor.configPeakCurrentDuration(limitDuration);
+        m_rightMotor.configContinuousCurrentLimit(continuousCurrent);
+        m_rightMotor.enableCurrentLimit(true);
         m_motorSpeed = 0;
         m_solenoidGrip = DoubleSolenoid.Value.kReverse;
         m_solenoidAngle = DoubleSolenoid.Value.kReverse;
         m_pid = new PIDController(0.1, 0, 0);
-        m_encoder = new Encoder(10, 11);
+        m_encoder = new Encoder(10, 11,true);
 
         // Distance per pulse:
         //   1 motor rotation / 256 pulses
@@ -67,7 +80,7 @@ public class Arm extends SubsystemBase {
     public void periodic(){
         m_gripSolenoid.set(m_solenoidGrip);
         m_angleSolenoid.set(m_solenoidAngle);
-        m_pidValue = m_pid.calculate(m_encoder.getDistance());
+        m_pidValue = -m_pid.calculate(m_encoder.getDistance());
 
         if (speedOverride.getBoolean(false)) {
             // to-do: change this to a position override instead of a speed override
@@ -92,10 +105,22 @@ public class Arm extends SubsystemBase {
     }
 
     public double getEncoder() {
-        return m_encoder.getDistance();
+        return m_encoder.getDistance(); //maxes out at -1.95398
+    }
+
+    public void zeroArmEncoder() {
+        m_encoder.reset();
     }
 
     public double getPidValue() {
         return m_pidValue;
+    }
+
+    public double getSetpoint() {
+        return m_pid.getSetpoint();
+    }
+
+    public void setSetpoint(double setpoint) {
+        m_pid.setSetpoint(setpoint);
     }
 }
