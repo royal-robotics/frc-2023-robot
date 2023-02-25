@@ -35,23 +35,27 @@ public class RobotContainer {
     //private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     
     private final JoystickButton zeroGyro = new JoystickButton(driver, 11);
-    private final JoystickButton zeroArmEncoder = new JoystickButton(operator, 5);
+    private final JoystickButton zeroArmEncoder = new JoystickButton(operator, 8);
     private final JoystickButton robotCentric = new JoystickButton(driver, 10);
     private final JoystickButton slow = new JoystickButton(driver, 1); //Trigger
     //private final JoystickButton alignAprilTagField = new JoystickButton(operator, 1); //placeholder #
     //private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 2); //placeholder #
     //private final JoystickButton gridAlignTagPose = new JoystickButton(operator, 3); //placeholder #
     //private final JoystickButton driveToGoal = new JoystickButton(operator, 4); //placeholder #
-    private final JoystickButton setpointPID = new JoystickButton(operator, 6);
+    //private final JoystickButton setpointPID = new JoystickButton(operator, 6);
     //intake
     private final int intakeSpeed = Constants.Container.intakeTranslationAxis;
-    private final JoystickButton intakeExtendBottom = new JoystickButton(operator, 1); //A
-    private final JoystickButton intakeExtendTop = new JoystickButton(operator, 4); //Y
+    private final JoystickButton cubeIntake = new JoystickButton(operator, 2); //B
+    private final JoystickButton coneIntake = new JoystickButton(operator, 4); //Y
+    private final JoystickButton retractIntake = new JoystickButton(operator, 7); 
+    
 
     //arm
     private final int armSpeed = Constants.Container.armTranslationAxis;
-    private final JoystickButton armGrip = new JoystickButton(operator, 3); //X
-    private final JoystickButton armAngle = new JoystickButton(operator, 2); //B
+    private final JoystickButton gripDown = new JoystickButton(operator, 1); //A
+    private final JoystickButton gripUp = new JoystickButton(operator, 3); //X
+    private final JoystickButton gripOpen = new JoystickButton(operator, 5); //LB
+    private final JoystickButton gripClose = new JoystickButton(operator, 6); //RB
 
     /* Subsystems */
     public final Visions s_Visions = new Visions();
@@ -74,9 +78,7 @@ public class RobotContainer {
         s_Intake.setDefaultCommand(
             new DefaultIntakeCommand(
                 s_Intake,
-                () -> operator.getRawAxis(intakeSpeed),
-                () -> intakeExtendBottom.getAsBoolean(),
-                () -> intakeExtendTop.getAsBoolean()
+                () -> operator.getRawAxis(intakeSpeed)
             )
 
         );
@@ -84,9 +86,7 @@ public class RobotContainer {
         s_Arm.setDefaultCommand(
             new DefaultArmCommand(
                 s_Arm,
-                () -> operator.getRawAxis(armSpeed),
-                () -> armGrip.getAsBoolean(),
-                () -> armAngle.getAsBoolean()
+                () -> operator.getRawAxis(armSpeed)
             )
         );
 
@@ -104,8 +104,8 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         zeroArmEncoder.onTrue(new InstantCommand(() -> s_Arm.zeroArmEncoder()));
-        setpointPID.onTrue(new InstantCommand(() -> s_Arm.setSetpoint(0.5)));
-        setpointPID.onFalse(new InstantCommand(() -> s_Arm.setSetpoint(0)));
+        //setpointPID.onTrue(new InstantCommand(() -> s_Arm.setSetpoint(0.5)));
+        //setpointPID.onFalse(new InstantCommand(() -> s_Arm.setSetpoint(0)));
         //alignAprilTagField.whileTrue(new GridAlignCommand(s_Swerve, s_Visions, Align.CENTER));
        // gridAlignTagPose.whileTrue(new GridAlignTagPose(s_Swerve, s_Visions, Align.CENTER));  // button2
         //driveToGoal.whileTrue(new DriveToGoal(s_Swerve));  //button3
@@ -113,5 +113,13 @@ public class RobotContainer {
        // alignAprilTagRobot.onTrue(s_Swerve.driveToPoint());
         slow.onTrue(new InstantCommand(() -> s_Swerve.m_speedMultiplier = Constants.slowMode));
         slow.onFalse(new InstantCommand(() -> s_Swerve.m_speedMultiplier = Constants.speedMultiplier));
+        cubeIntake.whileTrue(new ExtendIntake(s_Arm, s_Intake, true));
+        coneIntake.whileTrue(new ExtendIntake(s_Arm, s_Intake, false));
+        retractIntake.whileTrue(new RetractIntake(s_Arm, s_Intake));
+        gripDown.whileTrue(new GripDown(s_Arm, s_Intake));
+        gripUp.whileTrue(new GripUp(s_Arm, s_Intake));
+        gripOpen.whileTrue(new GripOpen(s_Arm));
+        gripClose.whileTrue(new GripClose(s_Arm));
+       // autoIntake.whileFalse(new RetractIntake(s_Arm, s_Intake));
     }
 }

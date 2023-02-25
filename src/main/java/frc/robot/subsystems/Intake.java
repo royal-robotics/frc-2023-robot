@@ -95,4 +95,12 @@ public class Intake extends SubsystemBase {
         setBottomSolenoidValue(value);
         setTopSolenoidValue(value);
     }
+
+    public DoubleSolenoid.Value getTopSolenoidValue(){
+        return m_solenoidTopValue;
+    }
+
+    public DoubleSolenoid.Value getBottomSolenoidValue(){
+        return m_solenoidBottomValue;
+    }
 }

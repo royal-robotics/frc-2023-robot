@@ -49,7 +49,7 @@ public class Arm extends SubsystemBase {
         m_motorSpeed = 0;
         m_solenoidGrip = DoubleSolenoid.Value.kReverse;
         m_solenoidAngle = DoubleSolenoid.Value.kReverse;
-        m_pid = new PIDController(0.1, 0, 0);
+        m_pid = new PIDController(20, 5, 0);
         m_encoder = new Encoder(10, 11,true);
 
         // Distance per pulse:
@@ -87,8 +87,8 @@ public class Arm extends SubsystemBase {
             m_leftMotor.set(TalonSRXControlMode.PercentOutput, speedOverrideEntry.getDouble(0.0));
             m_rightMotor.set(TalonSRXControlMode.PercentOutput, -speedOverrideEntry.getDouble(0.0));
         } else {
-            m_leftMotor.set(TalonSRXControlMode.PercentOutput, m_motorSpeed); // to-do: change m_motorSpeed to m_pidValue
-            m_rightMotor.set(TalonSRXControlMode.PercentOutput, -m_motorSpeed); // to-do: change m_motorSpeed to m_pidValue
+            m_leftMotor.set(TalonSRXControlMode.PercentOutput, m_pidValue); // to-do: change m_motorSpeed to m_pidValue
+            m_rightMotor.set(TalonSRXControlMode.PercentOutput, -m_pidValue); // to-do: change m_motorSpeed to m_pidValue
         }
     }
 
@@ -122,5 +122,13 @@ public class Arm extends SubsystemBase {
 
     public void setSetpoint(double setpoint) {
         m_pid.setSetpoint(setpoint);
+    }
+
+    public DoubleSolenoid.Value getSolenoidGrip(){
+        return m_solenoidGrip;
+    }
+
+    public DoubleSolenoid.Value getSolenoidAngle(){
+        return m_solenoidAngle;
     }
 }

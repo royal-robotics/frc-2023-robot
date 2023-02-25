@@ -7,6 +7,9 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
+    public static final double maxArmDistance = 1.9;
+    public static final double minArmDistance = 0;
+
     public static final double stickDeadband = 0.1;
     public static final double stickRotationDeadband = 0.25;
 
