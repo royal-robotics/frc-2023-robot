@@ -30,9 +30,10 @@ public class Arm extends SubsystemBase {
 
     public Arm(){
 
-        int limitPeak = 60; //configPeakCurrentLimit()
+        int limitPeak = 40; //configPeakCurrentLimit()
         int limitDuration = 2000; //configPeakCurrentDuration()
-        int continuousCurrent = 40; //ContinuousCurrentLimit()
+        int continuousCurrent = 30; //ContinuousCurrentLimit()
+        double pidKp = 50;
         
         m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 1);
         m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 2);
@@ -49,7 +50,7 @@ public class Arm extends SubsystemBase {
         m_motorSpeed = 0;
         m_solenoidGrip = DoubleSolenoid.Value.kReverse;
         m_solenoidAngle = DoubleSolenoid.Value.kReverse;
-        m_pid = new PIDController(20, 5, 0);
+        m_pid = new PIDController(pidKp, 0, 0);
         m_encoder = new Encoder(10, 11,true);
 
         // Distance per pulse:

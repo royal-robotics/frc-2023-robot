@@ -13,10 +13,11 @@ public class AutoModeSelector {
         _chooser = new SendableChooser<Supplier<SequentialCommandGroup>>();
         _chooser.addOption("autoMode", () -> new AutoMode(robotContainer));
         _chooser.addOption("autoMode2", () -> new AutoMode2(robotContainer));
-        _chooser.addOption("middlePath", () -> new MiddlePath(robotContainer));
+        _chooser.addOption("ChargeStationBalancePath", () -> new MiddlePath(robotContainer));
         _chooser.addOption("push", () -> new Push(robotContainer));
         _chooser.addOption("top", () -> new Top(robotContainer));
         _chooser.addOption("bottom", () -> new Bottom(robotContainer));
+        _chooser.addOption("MiddleGrabPiece", () -> new MiddleGrabPiece(robotContainer));
     }
 
     public SequentialCommandGroup getAutoMode() {

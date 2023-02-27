@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 
@@ -14,13 +15,15 @@ public class ExtendIntake extends CommandBase {
 
     private Intake s_Intake;
     private Arm s_Arm;
-    private boolean s_isCube;
+    private double s_wheelSpeed;
     private final double armDownDistance = 0.1;
 
-    public ExtendIntake(Arm arm, Intake intake, boolean isCube){
+    public ExtendIntake(Arm arm, Intake intake, double wheelSpeed){
         s_Intake = intake;
         s_Arm = arm;
-        s_isCube = isCube;
+        addRequirements(s_Intake, s_Arm);
+        
+        s_wheelSpeed = wheelSpeed;
     }
     
     @Override
@@ -33,14 +36,11 @@ public class ExtendIntake extends CommandBase {
         
         // Toggle tops
         if (s_Arm.getEncoder() < armDownDistance) {        
-            if (s_isCube) {
-                s_Intake.setMotorSpeed(-0.5);
-            } else {
-                s_Intake.setMotorSpeed(-0.8);
-            }
+            s_Intake.setMotorSpeed(s_wheelSpeed); 
+            //s_Arm.setSolenoidGrip(Constants.gripOpen); //open grip?
         }
-        s_Intake.setBottomSolenoidValue(Value.kForward);
-        s_Intake.setTopSolenoidValue(Value.kForward);
+        s_Intake.setBottomSolenoidValue(Constants.intakeExtend);
+        s_Intake.setTopSolenoidValue(Constants.intakeExtend);
     
     }
 

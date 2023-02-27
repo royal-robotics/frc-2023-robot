@@ -19,6 +19,7 @@ public class OurShuffleboard {
         Visions vision = container.s_Visions;
 
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
+        // increasing going right, decreasing going left 
         
         cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
         cameraTab.addNumber("hasTarget", () -> vision.m_Limelight.hasTarget()).withPosition(0, 0);

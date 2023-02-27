@@ -49,8 +49,32 @@ public class GridAlignTagPose extends CommandBase{
         yController.setTolerance(0.2);
         omegaController.setTolerance(Units.degreesToRadians(3));
         omegaController.enableContinuousInput(-Math.PI, Math.PI);
+
+        robotPose= new Pose2d();
+        tagPoseRobotSpace = new Pose2d();
+        tagPose = new Pose2d();
+        goalPose= new Pose2d();        
+
     
         addRequirements(drivetrain);
+
+        ShuffleboardTab test = Shuffleboard.getTab("GridAlignVisionTesting");
+        test.addDouble("BotPoseX", ()->robotPose.getX()).withPosition(0, 0);
+        test.addDouble("BotPoseY", ()->robotPose.getY()).withPosition(0, 1);
+        test.addDouble("BotPoseAngle", ()->robotPose.getRotation().getDegrees()).withPosition(0, 2);
+        
+        test.addDouble("TagPoseRobotSpaceX", ()->tagPoseRobotSpace.getX()).withPosition(1, 0);
+        test.addDouble("TagPoseRobotSpaceY", ()->tagPoseRobotSpace.getY()).withPosition(1, 1);
+        test.addDouble("TagPoseRobotSpaceAngle", ()->tagPoseRobotSpace.getRotation().getDegrees()).withPosition(1, 2);
+
+        test.addDouble("TagPoseFieldSpaceX", ()->tagPose.getX()).withPosition(2, 0);
+        test.addDouble("TagPoseFieldSpaceY", ()->tagPose.getY()).withPosition(2, 1);
+        test.addDouble("TagPoseFieldSpaceAngle", ()->tagPose.getRotation().getDegrees()).withPosition(2, 2);
+        
+        test.addDouble("goalPoseX", ()->tagPose.getX()).withPosition(3, 0);
+        test.addDouble("goalPoseY", ()->tagPose.getY()).withPosition(3, 1);
+        test.addDouble("goalPoseAngle", ()->tagPose.getRotation().getDegrees()).withPosition(3, 2);
+            
     }
   
     @Override
@@ -68,34 +92,20 @@ public class GridAlignTagPose extends CommandBase{
         robotPose = drivetrain.getPose();
         // robotPose = vision.blueAllianceBotPose();
 
-        ShuffleboardTab test = Shuffleboard.getTab("GridAlignVisionTesting");
-        test.addDouble("BotPoseX", ()->robotPose.getX()).withPosition(0, 0);
-        test.addDouble("BotPoseY", ()->robotPose.getY()).withPosition(0, 1);
-        test.addDouble("BotPoseAngle", ()->robotPose.getRotation().getDegrees()).withPosition(0, 2);
-        
         if (vision.m_Limelight.onTarget()) {
             // lastTagID = limelight.getTagID();
             lastTagID = 1;
 
             // Transform the robot's pose to find the tag's pose in field space
-            tagPoseRobotSpace = vision.robotSpaceTagPose();
-            // Pose2d tagPoseRobotSpace = new Pose2d(limelight.targetPoseRobotSpace()[0], -limelight.targetPoseRobotSpace()[1], 
-            //                                     new Rotation2d(limelight.targetPoseRobotSpace()[5]));
+            // tagPoseRobotSpace = vision.robotSpaceTagPose();
+            tagPoseRobotSpace = new Pose2d(vision.m_Limelight.targetPoseRobotSpace()[0], -vision.m_Limelight.targetPoseRobotSpace()[1], 
+                                                new Rotation2d(vision.m_Limelight.targetPoseRobotSpace()[5]));
             Transform2d botToTag = new Transform2d(tagPoseRobotSpace.getTranslation(), tagPoseRobotSpace.getRotation());
-            test.addDouble("TagPoseRobotSpaceX", ()->tagPoseRobotSpace.getX()).withPosition(1, 0);
-            test.addDouble("TagPoseRobotSpaceY", ()->tagPoseRobotSpace.getY()).withPosition(1, 1);
-            test.addDouble("TagPoseRobotSpaceAngle", ()->tagPoseRobotSpace.getRotation().getDegrees()).withPosition(1, 2);
-
+    
             tagPose = robotPose.transformBy(botToTag);
-            test.addDouble("TagPoseFieldSpaceX", ()->tagPose.getX()).withPosition(2, 0);
-            test.addDouble("TagPoseFieldSpaceY", ()->tagPose.getY()).withPosition(2, 1);
-            test.addDouble("TagPoseFieldSpaceAngle", ()->tagPose.getRotation().getDegrees()).withPosition(2, 2);
             
             // Transform the tag's pose to set our goal
             goalPose = vision.tagPoseToGoalPose(tagPose, goalAlign);
-            test.addDouble("goalPoseX", ()->tagPose.getX()).withPosition(3, 0);
-            test.addDouble("goalPoseY", ()->tagPose.getY()).withPosition(3, 1);
-            test.addDouble("goalPoseAngle", ()->tagPose.getRotation().getDegrees()).withPosition(3, 2);
             
             
             xController.setGoal(goalPose.getX());
@@ -106,7 +116,7 @@ public class GridAlignTagPose extends CommandBase{
         // Drive
         if (lastTagID == 0) {
             // No target has been visible
-            drivetrain.drive(new Translation2d(), 0, true, false);
+            drivetrain.drive(new Translation2d(), 0, true, true);
         } else {
             // Drive to the target
             var xSpeed = xController.calculate(robotPose.getX());
@@ -124,13 +134,13 @@ public class GridAlignTagPose extends CommandBase{
                 omegaSpeed = 0;
             }
             
-            drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
+            drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, true);
         }
     }
   
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(new Translation2d(), 0, true, false);
+        drivetrain.drive(new Translation2d(), 0, true, true);
     }
 
     @Override

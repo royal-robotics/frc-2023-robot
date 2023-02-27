@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
@@ -31,19 +32,44 @@ public class TeleopSwerve extends CommandBase {
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickRotationDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
 
-        // Extra tuning for rotation, since deadzone is large
-        if (rotationVal <= 0.95 && rotationVal >= -0.95) {
-            rotationVal *= 0.6;
+        if (translationVal < 0) {
+            translationVal *= -translationVal;
+        } else {
+            translationVal *= translationVal;
+        }
+        if (strafeVal < 0) {
+            strafeVal *= -strafeVal;
+        } else {
+            strafeVal *= strafeVal;
+        }
+        if (rotationVal < 0) {
+            rotationVal *= -rotationVal;
+        } else {
+            rotationVal *= rotationVal;
         }
 
         /* Drive */
-        s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(SwerveConstants.maxSpeed), 
-            rotationVal * SwerveConstants.maxAngularVelocity, 
-            !robotCentricSup.getAsBoolean(), 
-            true
-        );
+
+        if (DriverStation.isTeleop()) {
+            if (translationVal == 0 && strafeVal == 0 && rotationVal == 0) {
+                s_Swerve.setStableModuleStates();
+            } else {
+                s_Swerve.drive(
+                    new Translation2d(translationVal, strafeVal).times(SwerveConstants.maxSpeed), 
+                    rotationVal * SwerveConstants.maxAngularVelocity, 
+                    !robotCentricSup.getAsBoolean(), 
+                    true
+                );
+            }
+        }
+
+        // s_Swerve.drive(
+        //     new Translation2d(translationVal, strafeVal).times(SwerveConstants.maxSpeed), 
+        //     rotationVal * SwerveConstants.maxAngularVelocity, 
+        //     !robotCentricSup.getAsBoolean(), 
+        //     true
+        // );
     }
 }

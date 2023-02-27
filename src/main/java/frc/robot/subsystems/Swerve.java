@@ -26,11 +26,13 @@ public class Swerve extends SubsystemBase {
     public SwerveModuleState[] m_ModuleState = new SwerveModuleState[4];
     public Visions s_Visions;
     public double m_speedMultiplier;
+    public double m_spinMultiplier;
 
     public Swerve(Visions visions) {
         gyro = new Pigeon2(Constants.Drivebase.pigeonID);
         s_Visions = visions;
-        m_speedMultiplier = 1.0;
+        m_speedMultiplier = Constants.fastMode;
+        m_spinMultiplier = Constants.slowSpin;
         gyro.configFactoryDefault();
         zeroGyro();
 
@@ -58,7 +60,7 @@ public class Swerve extends SubsystemBase {
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         Translation2d m_speed = translation.times(m_speedMultiplier);
-        double m_rotate = rotation * m_speedMultiplier;
+        double m_rotate = rotation * m_speedMultiplier * m_spinMultiplier;
 
         SwerveModuleState[] swerveModuleStates =
             Constants.Drivebase.swerveKinematics.toSwerveModuleStates(
@@ -78,7 +80,19 @@ public class Swerve extends SubsystemBase {
         for(CTRESwerveModule mod : mSwerveMods) {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
-    }    
+    }  
+    
+    public void setStableModuleStates() {
+        SwerveModuleState[] swerveModStates = {new SwerveModuleState(0.0, new Rotation2d(Math.PI / 4)),
+            new SwerveModuleState(0, new Rotation2d(Math.PI / 4)),
+            new SwerveModuleState(0, new Rotation2d(-3 * Math.PI / 4)),
+            new SwerveModuleState(0, new Rotation2d(3 * Math.PI / 4))
+        };
+        
+        for(CTRESwerveModule mod : mSwerveMods) {
+            mod.setDesiredState(swerveModStates[mod.moduleNumber], true);
+        }
+    }
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {

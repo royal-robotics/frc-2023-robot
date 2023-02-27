@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -12,36 +14,49 @@ import frc.robot.Constants;
 import frc.robot.Constants.Auto;
 import frc.robot.subsystems.Swerve;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.Timer;
 
 public class AutoBalanceCommand extends CommandBase{
     private Swerve s_Swerve;
     private ProfiledPIDController s_yawController;
-    private PIDController s_pitchController; 
+    private PIDController s_rollController; 
     private Pigeon2 s_gyro;
-    private double s_pitch;
+    private double s_roll;
+    private double s_rollSpeed;
+    private Timer timer;
     // private short[] s_accelerometer;
     
     
 
-    public AutoBalanceCommand(Swerve swerve, Pigeon2 gyro){
+    public AutoBalanceCommand(Swerve swerve){
         s_Swerve = swerve; 
         addRequirements(s_Swerve);
 
-        s_gyro = gyro;
+        s_gyro = swerve.gyro;
     
         s_yawController = new ProfiledPIDController(1, 0, 0, Constants.Auto.kThetaControllerConstraints);
         s_yawController.enableContinuousInput(0, Math.PI);
         
-        s_pitchController = new PIDController(0.1, 0, 0);
-        s_pitch = s_gyro.getPitch();
+        s_rollController = new PIDController(0.05, 0, 0);
+        s_roll = s_gyro.getPitch();
+        s_rollSpeed = 0;
+        timer = new Timer();
         // s_accelerometer = new short[3];
+
+        ShuffleboardTab autoBalanceTest = Shuffleboard.getTab("Auto Balancing");
+        autoBalanceTest.addNumber("pitch", () -> s_roll).withPosition(0, 0); 
+        autoBalanceTest.addNumber("pitchspeed", () -> s_rollSpeed).withPosition(0, 1);
+
     }
 
     @Override
     public void initialize(){
        s_yawController.setGoal(0);
-       s_pitchController.setSetpoint(0);
-       s_pitch = s_gyro.getPitch();
+       s_rollController.setSetpoint(0);
+       s_roll = s_gyro.getRoll();
+       timer.start();
     }
 
     @Override
@@ -55,40 +70,45 @@ public class AutoBalanceCommand extends CommandBase{
         double pitchSpeed = (s_pitchController.atSetpoint()) ? 0 : s_pitchController.calculate(pitchAngle);
         */
 
-        Rotation2d yaw = s_Swerve.getYaw();
-        s_pitch = s_gyro.getPitch();   // TODO: degrees or radians?
+        //Rotation2d yaw = s_Swerve.getYaw();
+        if (timer.get() % 1 <= 0.5) { 
+            s_roll = s_gyro.getRoll();   // TODO: degrees or radians?
 
+            /* 
+            double yawSpeed = s_yawController.calculate(yaw.getRadians());
+            if (s_yawController.atGoal()) {
+                yawSpeed = 0;
+            }
+            */
+            s_rollSpeed = s_rollController.calculate(s_roll);
+        
+            if(s_rollController.atSetpoint()) {
+                s_rollSpeed = 0;
+            }
 
-        double yawSpeed = s_yawController.calculate(yaw.getRadians());
-        if (s_yawController.atGoal()) {
-            yawSpeed = 0;
+            Translation2d translation = rollToTranslation(s_rollSpeed);
+            s_Swerve.drive(translation, 0, false, false);    // TODO: are speeds robot relative?
+        } else {
+            s_Swerve.drive(new Translation2d(), 0, false, false);
         }
-
-        double pitchSpeed = s_pitchController.calculate(s_pitch);
-        if(s_pitchController.atSetpoint()) {
-            pitchSpeed = 0;
-        }
-
-        Translation2d translation = pitchToTranslation(pitchSpeed);
-        s_Swerve.drive(translation, yawSpeed, false, false);    // TODO: are speeds robot relative?
     }
 
     @Override
     public void end(boolean interrupted){
         s_yawController.setGoal(0);
-        s_pitchController.setSetpoint(0);
+        s_rollController.setSetpoint(0);
         s_Swerve.drive(new Translation2d(), 0, false, false); // TODO: are speeds robot relative?
     }
 
     @Override
     public boolean isFinished(){
-        return s_yawController.atGoal() && s_pitchController.atSetpoint(); 
+       // return s_yawController.atGoal() && s_pitchController.atSetpoint(); 
+       return false; 
     }
 
-    public Translation2d pitchToTranslation(double pitchError){
+    public Translation2d rollToTranslation(double rollError){
         // forward tilt = angle > 0 = drive backwards
         // backward tilt = angle < 0 = drive forward
-        return new Translation2d(-pitchError, 0);
-        
+        return new Translation2d(-rollError, 0);
     }
 }

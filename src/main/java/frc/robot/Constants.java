@@ -4,22 +4,43 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double maxArmDistance = 1.9;
-    public static final double minArmDistance = 0;
+    public static final double maxArmDistance = 1.955;
+    public static final double minArmDistance = 0.01;
 
     public static final double stickDeadband = 0.1;
     public static final double stickRotationDeadband = 0.25;
 
-    public static final double speedMultiplier = 1;
+    public static final double fastMode = 1.0;
     public static final double slowMode = 0.3;
+
+    public static final double slowSpin = 0.5;
+    public static final double fastSpin = 1.0;
+
+    public static final double armTopSetpoint = maxArmDistance;
+    public static final double armMiddleConeSetpoint = 1.4;
+    public static final double armMiddleCubeSetpoint = 1.15;
+    public static final double armBottomSetpoint = minArmDistance;
+
+    public static final double cubeIntakeSpeed = -0.6;
+    public static final double coneIntakeSpeed = -1.0;
+
+    public static final DoubleSolenoid.Value gripOpen =  DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value gripClose = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value armUp = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value armDown = DoubleSolenoid.Value.kReverse;
+    public static final DoubleSolenoid.Value intakeExtend = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value intakeRetract = DoubleSolenoid.Value.kReverse;
+
+    public static final double encoderAndSetPointLimit = 0.5;  //used in MoveArm.java -- limits both encoder and setpoint -- limit for if it is safe to open grip while moving arm
 
     public static final class Container {
         public static final int translationAxis = 1;
         public static final int strafeAxis = 0;
-        public static final int rotationAxis = 2; 
+        public static final int rotationAxis = 4; 
         public static final int intakeTranslationAxis = 1; //up and down on left joystick
         public static final int armTranslationAxis = 5; //up and down on right joystick
     }
@@ -36,6 +57,8 @@ public final class Constants {
         public static final double frontRightAngle = 31.146240234375;
         public static final double backLeftAngle = 122.42889404296875;
         public static final double backRightAngle = 123.39019775390626;
+
+        public static final double chargeStationWheelSpeed = 0.3;
 
         /* Swerve Kinematics
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */

@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 
@@ -12,6 +13,7 @@ public class GripDown extends CommandBase{
     public GripDown(Arm arm, Intake intake){
         s_Intake = intake;
         s_Arm = arm;
+        addRequirements(s_Intake, s_Arm);
     }
     
     @Override
@@ -20,8 +22,10 @@ public class GripDown extends CommandBase{
 
     @Override
     public void execute(){
-      if(s_Intake.getTopSolenoidValue() == Value.kForward && s_Intake.getBottomSolenoidValue() == Value.kForward && s_Arm.getSolenoidGrip() == Value.kReverse){
-        s_Arm.setSolenoidAngle(Value.kReverse);
+      if(s_Intake.getTopSolenoidValue() == Constants.intakeExtend && 
+        s_Intake.getBottomSolenoidValue() == Constants.intakeExtend && 
+        s_Arm.getSolenoidGrip() == Constants.gripClose){
+          s_Arm.setSolenoidAngle(Constants.armDown); //Value.kReverse 
 
       }
 

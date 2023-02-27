@@ -111,4 +111,12 @@ public class Visions {
         }
         return goalPose;
     }
+
+    public double zDistRobotToTag() {
+        return m_Limelight.targetPoseRobotSpace()[2];
+    }
+
+    public double angleRobotToTag() {
+        return m_Limelight.targetPoseRobotSpace()[4];
+    }
 }
