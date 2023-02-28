@@ -63,14 +63,14 @@ public class TagAlignCommand extends CommandBase {
 
             s_Swerve.drive(new Translation2d(-zError, 0), angleError, false, true);
         } else {
-            s_Swerve.drive(new Translation2d(), 0, false, true);
+            s_Swerve.setStableModuleStates();
         }
     
     }
 
     @Override
     public void end(boolean interrupted) {
-        s_Swerve.drive(new Translation2d(), 0, false, true);
+        s_Swerve.setStableModuleStates();
     }
 
 }

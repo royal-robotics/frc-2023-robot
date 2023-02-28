@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class RetractIntake extends CommandBase {
     private Arm s_Arm;
     private Intake s_Intake;
-    private final double armDownDistance = 0.1;
 
     public RetractIntake(Arm arm, Intake intake){
         s_Arm = arm;

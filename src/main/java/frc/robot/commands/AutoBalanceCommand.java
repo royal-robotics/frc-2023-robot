@@ -89,7 +89,7 @@ public class AutoBalanceCommand extends CommandBase{
             Translation2d translation = rollToTranslation(s_rollSpeed);
             s_Swerve.drive(translation, 0, false, false);    // TODO: are speeds robot relative?
         } else {
-            s_Swerve.drive(new Translation2d(), 0, false, false);
+            s_Swerve.setStableModuleStates();
         }
     }
 
@@ -97,7 +97,7 @@ public class AutoBalanceCommand extends CommandBase{
     public void end(boolean interrupted){
         s_yawController.setGoal(0);
         s_rollController.setSetpoint(0);
-        s_Swerve.drive(new Translation2d(), 0, false, false); // TODO: are speeds robot relative?
+        s_Swerve.setStableModuleStates(); // TODO: are speeds robot relative?
     }
 
     @Override

@@ -7,13 +7,20 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.AutoBalanceCommand;
+import frc.robot.commands.AutoExtendIntake;
+import frc.robot.commands.AutoGripClose;
+import frc.robot.commands.AutoGripOpen;
+import frc.robot.commands.AutoGripUp;
+import frc.robot.commands.MoveArm;
 
 public class Bottom extends SequentialCommandGroup {
     public Bottom(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Bottom", 4, 3);
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Bottom", 2, 1.5);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -28,17 +35,29 @@ public class Bottom extends SequentialCommandGroup {
                     robotContainer.s_Swerve.resetOdometry(blueTrajectory.getInitialHolonomicPose());
                 }
             }),
-            new PPSwerveControllerCommand(
-                blueTrajectory, 
-                robotContainer.s_Swerve::getPose, // Pose supplier
-                Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
-                new PIDController(Constants.Auto.kPXController, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-                new PIDController(Constants.Auto.kPYController, 0, 0), // Y controller (usually the same values as X controller)
-                new PIDController(Constants.Auto.kPThetaController, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-                robotContainer.s_Swerve::setModuleStates, // Module states consumer
-                true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-                robotContainer.s_Swerve // Requires this drive subsystem
+            new ParallelDeadlineGroup(
+                new SequentialCommandGroup(
+                    new AutoGripOpen(robotContainer.s_Arm, 0.5),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 6.0),
+                    new AutoGripClose(robotContainer.s_Arm, 3.5),
+                    new AutoGripUp(robotContainer.s_Arm, robotContainer.s_Intake, 1.0),
+                    new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),
+                    new AutoGripOpen(robotContainer.s_Arm, 0.5)
+                    //new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 3.0)
+                ),
+                new PPSwerveControllerCommand(
+                    blueTrajectory, 
+                    robotContainer.s_Swerve::getPose, // Pose supplier
+                    Constants.Drivebase.swerveKinematics, // SwerveDriveKinematics
+                    new PIDController(Constants.Auto.kPXController, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+                    new PIDController(Constants.Auto.kPYController, 0, 0), // Y controller (usually the same values as X controller)
+                    new PIDController(Constants.Auto.kPThetaController, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+                    robotContainer.s_Swerve::setModuleStates, // Module states consumer
+                    true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+                    robotContainer.s_Swerve // Requires this drive subsystem
+                )
             )
+            //new AutoBalanceCommand(robotContainer.s_Swerve)
         );
     }
 }

@@ -47,6 +47,6 @@ public class MoveArm extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return false;
+        return s_Arm.atSetpoint();
     }
 }

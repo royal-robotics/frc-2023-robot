@@ -84,9 +84,9 @@ public class Swerve extends SubsystemBase {
     
     public void setStableModuleStates() {
         SwerveModuleState[] swerveModStates = {new SwerveModuleState(0.0, new Rotation2d(Math.PI / 4)),
-            new SwerveModuleState(0, new Rotation2d(Math.PI / 4)),
-            new SwerveModuleState(0, new Rotation2d(-3 * Math.PI / 4)),
-            new SwerveModuleState(0, new Rotation2d(3 * Math.PI / 4))
+            new SwerveModuleState(0, new Rotation2d(-Math.PI / 4)),
+            new SwerveModuleState(0, new Rotation2d(3 * Math.PI / 4)),
+            new SwerveModuleState(0, new Rotation2d(-3 * Math.PI / 4))
         };
         
         for(CTRESwerveModule mod : mSwerveMods) {

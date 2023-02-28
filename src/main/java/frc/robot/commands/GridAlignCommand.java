@@ -198,7 +198,7 @@ public class GridAlignCommand extends CommandBase {
         // Drive
         if (tagID == 0) {
             // No target has been visible
-            drivetrain.drive(new Translation2d(), 0, true, false);
+            drivetrain.setStableModuleStates();
         } else {
             double xSpeed = (xController.atGoal()) ? 0 : xController.calculate(robotPose.getX());
             double ySpeed = (yController.atGoal()) ? 0 : yController.calculate(robotPose.getY());
@@ -212,7 +212,7 @@ public class GridAlignCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // stop driving
-        drivetrain.drive(new Translation2d(), 0, false, false);
+        drivetrain.setStableModuleStates();
     }
 
     @Override

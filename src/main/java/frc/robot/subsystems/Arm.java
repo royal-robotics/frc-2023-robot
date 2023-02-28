@@ -125,6 +125,9 @@ public class Arm extends SubsystemBase {
         m_pid.setSetpoint(setpoint);
     }
 
+    public boolean atSetpoint() {
+        return Math.abs(m_pid.getSetpoint() - m_encoder.getDistance()) < 0.25;
+    }
     public DoubleSolenoid.Value getSolenoidGrip(){
         return m_solenoidGrip;
     }

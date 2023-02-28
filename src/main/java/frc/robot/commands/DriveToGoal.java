@@ -71,7 +71,7 @@ public class DriveToGoal extends CommandBase {
   
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(new Translation2d(), 0, true, false);
+        drivetrain.setStableModuleStates();
     }
 
     @Override

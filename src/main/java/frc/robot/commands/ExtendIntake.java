@@ -16,7 +16,6 @@ public class ExtendIntake extends CommandBase {
     private Intake s_Intake;
     private Arm s_Arm;
     private double s_wheelSpeed;
-    private final double armDownDistance = 0.1;
 
     public ExtendIntake(Arm arm, Intake intake, double wheelSpeed){
         s_Intake = intake;
@@ -35,7 +34,7 @@ public class ExtendIntake extends CommandBase {
         // Toggle bottom
         
         // Toggle tops
-        if (s_Arm.getEncoder() < armDownDistance) {        
+        if (s_Arm.getEncoder() < Constants.encoderAndSetPointLimit) {        
             s_Intake.setMotorSpeed(s_wheelSpeed); 
             //s_Arm.setSolenoidGrip(Constants.gripOpen); //open grip?
         }

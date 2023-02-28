@@ -15,7 +15,6 @@ import com.ctre.phoenix.sensors.CANCoder;
 public class CTRESwerveModule {
     public int moduleNumber;
     private Rotation2d angleOffset;
-    private Rotation2d lastAngle;
 
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
@@ -41,9 +40,6 @@ public class CTRESwerveModule {
         /* Drive Motor Config */
         mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
         configDriveMotor();
-
-        lastAngle = getState().angle;
-
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
@@ -65,10 +61,9 @@ public class CTRESwerveModule {
     }
 
     private void setAngle(SwerveModuleState desiredState) {
-        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (SwerveConstants.maxSpeed * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
+        Rotation2d angle = desiredState.angle;
 
         mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle.getDegrees(), SwerveConstants.angleGearRatio));
-        lastAngle = angle;
     }
 
     private Rotation2d getAngle() {

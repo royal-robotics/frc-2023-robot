@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.AutoBalanceCommand;
 import frc.robot.commands.AutoExtendIntake;
 import frc.robot.commands.AutoGripClose;
 import frc.robot.commands.AutoGripOpen;
@@ -20,9 +21,9 @@ import frc.robot.commands.GripClose;
 import frc.robot.commands.GripOpen;
 import frc.robot.Constants;
 
-public class MiddleGrabPiece extends SequentialCommandGroup {
-    public MiddleGrabPiece(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleGrabPiece", 2, 1.5);
+public class MiddleLong extends SequentialCommandGroup {
+    public MiddleLong(RobotContainer robotContainer) {
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleLong", 2, 1.5);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -43,7 +44,7 @@ public class MiddleGrabPiece extends SequentialCommandGroup {
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
                     new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 2.5), //0.3
                     new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 2.5),
-                    new GripClose(robotContainer.s_Arm)
+                    new AutoGripClose(robotContainer.s_Arm, 3)
                 ),
                 
                 new PPSwerveControllerCommand(
@@ -56,14 +57,9 @@ public class MiddleGrabPiece extends SequentialCommandGroup {
                     robotContainer.s_Swerve::setModuleStates, // Module states consumer
                     true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
                     robotContainer.s_Swerve // Requires this drive subsystem
-            )
+                )
             ),
-
-            new InstantCommand(() -> {
-                robotContainer.s_Swerve.setStableModuleStates();
-            }
-            )
-            
+            new AutoBalanceCommand(robotContainer.s_Swerve)
         );
     }
 }

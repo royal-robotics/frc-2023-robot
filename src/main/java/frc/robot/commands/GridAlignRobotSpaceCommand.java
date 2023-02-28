@@ -118,7 +118,7 @@ public class GridAlignRobotSpaceCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // stop driving
-        drivetrain.drive(new Translation2d(), 0, false, false);
+        drivetrain.setStableModuleStates();
     }
 
     @Override

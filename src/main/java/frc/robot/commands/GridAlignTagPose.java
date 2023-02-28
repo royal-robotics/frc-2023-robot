@@ -116,7 +116,7 @@ public class GridAlignTagPose extends CommandBase{
         // Drive
         if (lastTagID == 0) {
             // No target has been visible
-            drivetrain.drive(new Translation2d(), 0, true, true);
+            drivetrain.setStableModuleStates();
         } else {
             // Drive to the target
             var xSpeed = xController.calculate(robotPose.getX());
@@ -140,7 +140,7 @@ public class GridAlignTagPose extends CommandBase{
   
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(new Translation2d(), 0, true, true);
+        drivetrain.setStableModuleStates();
     }
 
     @Override

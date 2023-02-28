@@ -2,12 +2,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 
-public class AutoGripClose extends GripClose{
+public class AutoGripDown extends GripDown {
     private Timer s_time;
     private double s_goalTime;
-    public AutoGripClose(Arm arm, double goalTime) {
-        super(arm);
+    public AutoGripDown(Arm arm, Intake intake, double goalTime) {
+        super(arm, intake);
         s_time = new Timer();
         s_goalTime = goalTime;
     }

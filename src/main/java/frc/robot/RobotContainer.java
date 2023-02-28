@@ -38,7 +38,7 @@ public class RobotContainer {
     
     // private final JoystickButton chargeStationDrive = new JoystickButton(driver, 3);
     // private final JoystickButton zeroGyro = new JoystickButton(driver, 11);
-    private final JoystickButton zeroArmEncoder = new JoystickButton(operator, 8);
+    //private final JoystickButton zeroArmEncoder = new JoystickButton(operator, 8);
     // private final JoystickButton robotCentric = new JoystickButton(driver, 10);
     // private final JoystickButton slow = new JoystickButton(driver, 1); //Trigger
     // private final JoystickButton spinSpeed = new JoystickButton(driver, 2); // Thumb button
@@ -73,6 +73,9 @@ public class RobotContainer {
     private final JoystickButton gripUp = new JoystickButton(operator, 3); //X
     private final JoystickButton gripToggle = new JoystickButton(operator, 5); //LB
     // private final JoystickButton gripClose = new JoystickButton(operator, 6); //RB
+
+    private final JoystickButton autoUp = new JoystickButton(operator, 6);
+    private final JoystickButton autoDown = new JoystickButton(operator, 8);
 
     private final Trigger setpointTop = new Trigger(() -> operator.getPOV() == 0);
     private final Trigger setpointMiddleCone = new Trigger(() -> operator.getPOV() == 90);
@@ -127,7 +130,7 @@ public class RobotContainer {
         
         chargeStationDrive.whileTrue(new ChargeStationPullUp(s_Intake));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        zeroArmEncoder.onTrue(new InstantCommand(() -> s_Arm.zeroArmEncoder()));
+        //zeroArmEncoder.onTrue(new InstantCommand(() -> s_Arm.zeroArmEncoder()));
         //setpointPID.onTrue(new InstantCommand(() -> s_Arm.setSetpoint(0.5)));
         //setpointPID.onFalse(new InstantCommand(() -> s_Arm.setSetpoint(0)));
         //alignAprilTagField.whileTrue(new GridAlignCommand(s_Swerve, s_Visions, Align.CENTER));
@@ -153,6 +156,9 @@ public class RobotContainer {
                 s_Arm.setSolenoidGrip(Constants.gripOpen);
             }
         }));
+
+        autoUp.onTrue(new AutoUp(s_Arm, s_Intake));
+        autoDown.onTrue(new AutoDown(s_Arm, s_Intake));
         // gripClose.whileTrue(new GripClose(s_Arm));
        // autoIntake.whileFalse(new RetractIntake(s_Arm, s_Intake));
        setpointTop.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armTopSetpoint));

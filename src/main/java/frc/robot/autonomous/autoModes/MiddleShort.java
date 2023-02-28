@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.AutoBalanceCommand;
+import frc.robot.commands.AutoExtendIntake;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.Constants;
 
-public class MiddlePath extends SequentialCommandGroup {
-    public MiddlePath(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("ChargeStationBalancePath", 2, 1.5);
+public class MiddleShort extends SequentialCommandGroup {
+    public MiddleShort(RobotContainer robotContainer) {
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleShort", 2, 1.5);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -33,7 +35,7 @@ public class MiddlePath extends SequentialCommandGroup {
             }),
 
             new ParallelCommandGroup (
-                new ExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed), //0.3
+                new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 4.0), //0.3
             
                 new PPSwerveControllerCommand(
                     blueTrajectory, 
@@ -45,8 +47,9 @@ public class MiddlePath extends SequentialCommandGroup {
                     robotContainer.s_Swerve::setModuleStates, // Module states consumer
                     true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
                     robotContainer.s_Swerve // Requires this drive subsystem
-            ))
-            
+                )
+            ),
+            new AutoBalanceCommand(robotContainer.s_Swerve)
         );
     }
 }
