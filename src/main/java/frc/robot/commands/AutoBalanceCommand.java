@@ -39,15 +39,15 @@ public class AutoBalanceCommand extends CommandBase{
         s_yawController = new ProfiledPIDController(1, 0, 0, Constants.Auto.kThetaControllerConstraints);
         s_yawController.enableContinuousInput(0, Math.PI);
         
-        s_rollController = new PIDController(0.05, 0, 0);
+        s_rollController = new PIDController(0.04, 0, 0);
         s_roll = s_gyro.getPitch();
         s_rollSpeed = 0;
         timer = new Timer();
         // s_accelerometer = new short[3];
 
         ShuffleboardTab autoBalanceTest = Shuffleboard.getTab("Auto Balancing");
-        autoBalanceTest.addNumber("pitch", () -> s_roll).withPosition(0, 0); 
-        autoBalanceTest.addNumber("pitchspeed", () -> s_rollSpeed).withPosition(0, 1);
+        //autoBalanceTest.addNumber("roll", () -> s_roll).withPosition(0, 0); 
+        //autoBalanceTest.addNumber("rollspeed", () -> s_rollSpeed).withPosition(0, 1);
 
     }
 

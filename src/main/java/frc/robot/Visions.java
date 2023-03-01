@@ -25,13 +25,13 @@ public class Visions {
 
     private final Transform2d leftPoleAlign =
         new Transform2d(new Translation2d(1, -1), // places goal pose 1 meter in front (x) and 1 meter to left(y) of tag
-        new Rotation2d(Math.PI));                     // set to 180 degrees so robot ends up facing the tag/pole
+        new Rotation2d(0));                     // set to 180 degrees so robot ends up facing the tag/pole
     private final Transform2d rightPoleAlign =
         new Transform2d(new Translation2d(1, 1), // 1 meter in front(x) and 1 meter to right(-y) of tag
-        new Rotation2d(Math.PI));
+        new Rotation2d(0));
     private final Transform2d centerAlign =
         new Transform2d(new Translation2d(1, 0), // 1 meter in front of tag
-        new Rotation2d(Math.PI));
+        new Rotation2d(0));
 
     private final Translation2d centerPositionBlue = new Translation2d(1.9, 2.75); // Position in front of blue center cube spot for blue alliance
     private final Translation2d centerPositionRed = new Translation2d(1.9, 5.27); // Position in front of red center cube spot for red alliance

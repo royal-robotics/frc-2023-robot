@@ -97,9 +97,9 @@ public class GridAlignTagPose extends CommandBase{
             lastTagID = 1;
 
             // Transform the robot's pose to find the tag's pose in field space
-            // tagPoseRobotSpace = vision.robotSpaceTagPose();
-            tagPoseRobotSpace = new Pose2d(vision.m_Limelight.targetPoseRobotSpace()[0], -vision.m_Limelight.targetPoseRobotSpace()[1], 
-                                                new Rotation2d(vision.m_Limelight.targetPoseRobotSpace()[5]));
+            tagPoseRobotSpace = vision.robotSpaceTagPose();
+            // tagPoseRobotSpace = new Pose2d(vision.m_Limelight.targetPoseRobotSpace()[0], -vision.m_Limelight.targetPoseRobotSpace()[1], 
+            //                                     new Rotation2d(vision.m_Limelight.targetPoseRobotSpace()[5]));
             Transform2d botToTag = new Transform2d(tagPoseRobotSpace.getTranslation(), tagPoseRobotSpace.getRotation());
     
             tagPose = robotPose.transformBy(botToTag);

@@ -23,7 +23,7 @@ import frc.robot.Constants;
 
 public class MiddleLong extends SequentialCommandGroup {
     public MiddleLong(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleLong", 2, 1.5);
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleLong", 1.75, 1.25);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -43,8 +43,8 @@ public class MiddleLong extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
                     new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 2.5), //0.3
-                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 2.5),
-                    new AutoGripClose(robotContainer.s_Arm, 3)
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 5.0),
+                    new AutoGripClose(robotContainer.s_Arm, 1.0)
                 ),
                 
                 new PPSwerveControllerCommand(

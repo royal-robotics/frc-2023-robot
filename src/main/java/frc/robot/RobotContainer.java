@@ -69,11 +69,11 @@ public class RobotContainer {
 
     //arm
     private final int armSpeed = Constants.Container.armTranslationAxis;
+
     private final JoystickButton gripDown = new JoystickButton(operator, 1); //A
     private final JoystickButton gripUp = new JoystickButton(operator, 3); //X
     private final JoystickButton gripToggle = new JoystickButton(operator, 5); //LB
     // private final JoystickButton gripClose = new JoystickButton(operator, 6); //RB
-
     private final JoystickButton autoUp = new JoystickButton(operator, 6);
     private final JoystickButton autoDown = new JoystickButton(operator, 8);
 

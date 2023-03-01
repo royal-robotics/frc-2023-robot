@@ -20,7 +20,7 @@ import frc.robot.commands.MoveArm;
 
 public class Bottom extends SequentialCommandGroup {
     public Bottom(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Bottom", 2, 1.5);
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Bottom", 3, 2);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -38,8 +38,8 @@ public class Bottom extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
-                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 6.0),
-                    new AutoGripClose(robotContainer.s_Arm, 3.5),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 4.5),
+                    new AutoGripClose(robotContainer.s_Arm, 2.0),
                     new AutoGripUp(robotContainer.s_Arm, robotContainer.s_Intake, 1.0),
                     new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),
                     new AutoGripOpen(robotContainer.s_Arm, 0.5)

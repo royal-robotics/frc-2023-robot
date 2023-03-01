@@ -11,7 +11,7 @@ public final class Constants {
     public static final double maxArmDistance = 1.955;
     public static final double minArmDistance = 0.01;
 
-    public static final double stickDeadband = 0.1;
+    public static final double stickDeadband = 0.11;
     public static final double stickRotationDeadband = 0.25;
 
     public static final double fastMode = 1.0;
@@ -25,7 +25,7 @@ public final class Constants {
     public static final double armMiddleCubeSetpoint = 1.15;
     public static final double armBottomSetpoint = minArmDistance;
 
-    public static final double cubeIntakeSpeed = -0.6;
+    public static final double cubeIntakeSpeed = -0.7;
     public static final double coneIntakeSpeed = -1.0;
 
     public static final DoubleSolenoid.Value gripOpen =  DoubleSolenoid.Value.kForward;
@@ -53,10 +53,10 @@ public final class Constants {
         public static final double trackWidth = 0.495;
         public static final double wheelBase = 0.495;
 
-        public static final double frontLeftAngle = 328.9581298828125;
-        public static final double frontRightAngle = 31.146240234375;
-        public static final double backLeftAngle = 122.42889404296875;
-        public static final double backRightAngle = 123.39019775390626;
+        public static final double frontLeftAngle = -31.92901611328125;
+        public static final double frontRightAngle = 389.959716796875;
+        public static final double backLeftAngle = 122.12677001953126;
+        public static final double backRightAngle = 124.03564453125;
 
         public static final double chargeStationWheelSpeed = 0.3;
 

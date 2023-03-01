@@ -15,10 +15,12 @@ import frc.robot.commands.AutoBalanceCommand;
 import frc.robot.commands.AutoExtendIntake;
 import frc.robot.commands.AutoGripClose;
 import frc.robot.commands.AutoGripOpen;
+import frc.robot.commands.AutoGripUp;
+import frc.robot.commands.MoveArm;
 
 public class Top extends SequentialCommandGroup {
     public Top(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Top", 2, 1.5);
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("Top", 3, 2);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -36,8 +38,11 @@ public class Top extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
-                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 6.0),
-                    new AutoGripClose(robotContainer.s_Arm, 4.0)
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 4.5),
+                    new AutoGripClose(robotContainer.s_Arm, 2.0),
+                    new AutoGripUp(robotContainer.s_Arm, robotContainer.s_Intake, 1.0),
+                    new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),
+                    new AutoGripOpen(robotContainer.s_Arm, 0.5)
                     //new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 3.0)
                 ),
                 new PPSwerveControllerCommand(
