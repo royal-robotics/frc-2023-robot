@@ -33,7 +33,7 @@ public class Arm extends SubsystemBase {
         int limitPeak = 40; //configPeakCurrentLimit()
         int limitDuration = 2000; //configPeakCurrentDuration()
         int continuousCurrent = 30; //ContinuousCurrentLimit()
-        double pidKp = 50;
+        double pidKp = 55;
         
         m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 1);
         m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 2);
@@ -126,7 +126,7 @@ public class Arm extends SubsystemBase {
     }
 
     public boolean atSetpoint() {
-        return Math.abs(m_pid.getSetpoint() - m_encoder.getDistance()) < 0.25;
+        return Math.abs(m_pid.getSetpoint() - m_encoder.getDistance()) < 0.05;
     }
     public DoubleSolenoid.Value getSolenoidGrip(){
         return m_solenoidGrip;

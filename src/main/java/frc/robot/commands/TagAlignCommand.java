@@ -43,7 +43,7 @@ public class TagAlignCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        zController.setSetpoint(0.92);
+        zController.setSetpoint(0.90);
         angleController.setSetpoint(0.0);
     }
 

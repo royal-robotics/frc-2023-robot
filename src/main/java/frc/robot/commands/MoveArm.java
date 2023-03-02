@@ -25,9 +25,10 @@ public class MoveArm extends CommandBase {
     @Override
     public void execute(){
         if (s_Arm.getEncoder() < Constants.encoderAndSetPointLimit || s_setPoint < Constants.encoderAndSetPointLimit) { //s_Arm.getEncoder() < 0.5 || s_setPoint < 0.5
-            if (s_Intake.getBottomSolenoidValue() == Constants.intakeExtend &&
+            if (s_Arm.getSolenoidAngle() == Constants.armUp ||
+                (s_Intake.getBottomSolenoidValue() == Constants.intakeExtend &&
                 s_Intake.getTopSolenoidValue() == Constants.intakeExtend &&
-                (s_Arm.getSolenoidGrip() == Constants.gripClose || s_Arm.getSolenoidAngle() == Constants.armUp)) {
+                s_Arm.getSolenoidGrip() == Constants.gripClose)) {
                     s_Arm.setSetpoint(s_setPoint);
             }
         } else {
@@ -37,7 +38,15 @@ public class MoveArm extends CommandBase {
     /*s_Intake.getBottomSolenoidValue() == DoubleSolenoid.Value.kForward &&
                 s_Intake.getTopSolenoidValue() == DoubleSolenoid.Value.kForward &&
                 s_Arm.getSolenoidGrip() == DoubleSolenoid.Value.kReverse 
-    //backup code in case constants replacement breaks something           
+    //backup code in case constants replacement breaks something   
+    intake: e, grip: o, angle: u = yes
+intake: e, grip: o, angle: d = no
+intake: e, grip: c, angle: u = yes
+intake: e, grip: c, angle: d = yes
+intake: r, grip: o, angle: u = yes
+intake: r, grip: o, angle: d = no
+intake: r, grip: c, angle: u = yes
+intake: r, grip: c, angle: d = no        
     */
 
     @Override

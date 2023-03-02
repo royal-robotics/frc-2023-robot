@@ -52,7 +52,7 @@ public class DefaultArmCommand extends CommandBase{
             currentSetpoint = Constants.maxArmDistance;
         }
         if (s_Arm.getEncoder() < Constants.encoderAndSetPointLimit || currentSetpoint < Constants.encoderAndSetPointLimit) {
-            if (s_Arm.getSolenoidGrip() == Constants.gripOpen) {
+            if (s_Arm.getSolenoidGrip() == Constants.gripClose || s_Arm.getSolenoidAngle() == Constants.armUp) {
                 s_Arm.setSetpoint(currentSetpoint);
             }
         } else {

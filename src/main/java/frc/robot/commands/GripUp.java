@@ -22,12 +22,15 @@ public class GripUp extends CommandBase{
 
     @Override
     public void execute(){
-      if(s_Intake.getTopSolenoidValue() == Constants.intakeExtend && s_Intake.getBottomSolenoidValue() == Constants.intakeExtend && s_Arm.getSolenoidGrip() == Constants.gripClose){
+      if (s_Arm.getEncoder() < Constants.encoderAndSetPointLimit) {
+        if(s_Intake.getTopSolenoidValue() == Constants.intakeExtend && s_Intake.getBottomSolenoidValue() == Constants.intakeExtend && s_Arm.getSolenoidGrip() == Constants.gripClose){
+          s_Arm.setSolenoidAngle(Constants.armUp); //Value.kForward
+          s_Intake.setUpperMotorSpeed(-0.4);
+          s_Intake.setLowerMotorSpeed(0.4);
+        }
+      } else {
         s_Arm.setSolenoidAngle(Constants.armUp); //Value.kForward
-        s_Intake.setUpperMotorSpeed(-0.2);
-        s_Intake.setLowerMotorSpeed(0.2);
       }
-
     }
 
     @Override

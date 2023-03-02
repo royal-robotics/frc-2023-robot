@@ -15,16 +15,20 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier translationSup;
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
-    private BooleanSupplier robotCentricSup;
+    private BooleanSupplier disableXSup;
+    private BooleanSupplier lockForwardSup;
+    private BooleanSupplier lockBackwardSup;
 
-    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier disableXSup, BooleanSupplier lockForwardSup, BooleanSupplier lockBackwardSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
         this.rotationSup = rotationSup;
-        this.robotCentricSup = robotCentricSup;
+        this.disableXSup = disableXSup;
+        this.lockForwardSup = lockForwardSup;
+        this.lockBackwardSup = lockBackwardSup;
     }
 
     @Override
@@ -50,16 +54,45 @@ public class TeleopSwerve extends CommandBase {
             rotationVal *= rotationVal;
         }
 
+        if (lockForwardSup.getAsBoolean()) {
+            rotationVal = s_Swerve.getYaw().getDegrees();
+            while (rotationVal > 180) {
+                rotationVal -= 360;
+            }
+            while (rotationVal < -180) {
+                rotationVal += 360;
+            }
+            rotationVal *= -0.05;
+            if (rotationVal > 0.6) {
+                rotationVal = 0.6;
+            } else if (rotationVal < -0.6) {
+                rotationVal = -0.6;
+            }
+        } else if (lockBackwardSup.getAsBoolean()) {
+            rotationVal = s_Swerve.getYaw().getDegrees() + 180;
+            while (rotationVal > 180) {
+                rotationVal -= 360;
+            }
+            while (rotationVal < -180) {
+                rotationVal += 360;
+            }
+            rotationVal *= -0.05;
+            if (rotationVal > 0.6) {
+                rotationVal = 0.6;
+            } else if (rotationVal < -0.6) {
+                rotationVal = -0.6;
+            }
+        }
         /* Drive */
 
         if (DriverStation.isTeleop()) {
-            if (translationVal == 0 && strafeVal == 0 && rotationVal == 0) {
+            if (translationVal == 0 && strafeVal == 0 && rotationVal == 0 && !disableXSup.getAsBoolean()) {
                 s_Swerve.setStableModuleStates();
             } else {
                 s_Swerve.drive(
                     new Translation2d(translationVal, strafeVal).times(SwerveConstants.maxSpeed), 
                     rotationVal * SwerveConstants.maxAngularVelocity, 
-                    !robotCentricSup.getAsBoolean(), 
+                    true, 
                     true
                 );
             }

@@ -21,7 +21,6 @@ public class OurShuffleboard {
         ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
         // increasing going right, decreasing going left 
         
-        cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
         cameraTab.addNumber("hasTarget", () -> vision.m_Limelight.hasTarget()).withPosition(0, 0);
         cameraTab.addNumber("botposeBlueTranX", () -> vision.blueAllianceBotPose().getX()).withPosition(1, 0);
         cameraTab.addNumber("botposeBlueTranY", () -> vision.blueAllianceBotPose().getY()).withPosition(2, 0);
@@ -47,8 +46,13 @@ public class OurShuffleboard {
 
         ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
         competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
-        competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(0, 1);
-        competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(1, 1);
+        competitionTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
+        competitionTab.addNumber("Arm Power", () -> arm.getPidValue()).withPosition(0, 1);
+        competitionTab.addBoolean("Arm At Setpoint", () -> arm.atSetpoint()).withPosition(1, 1);
+        competitionTab.addBoolean("Claw Open", () -> arm.getSolenoidGrip() == Constants.gripOpen).withPosition(0, 2);
+        competitionTab.addNumber("Tag Distance", () -> vision.zDistRobotToTag()).withPosition(1, 2);
+        //competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(0, 1);
+        //competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(1, 1);
         competitionTab.addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(2, 1);
 
         ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");

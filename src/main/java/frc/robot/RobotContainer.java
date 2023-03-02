@@ -55,15 +55,17 @@ public class RobotContainer {
     private final JoystickButton retractIntake = new JoystickButton(operator, 7); 
 
 
-    private final JoystickButton autoBalance = new JoystickButton(driver, 4); 
+    //private final JoystickButton autoBalance = new JoystickButton(driver, 4); 
 
-    private final JoystickButton slow = new JoystickButton(driver, 9);
+    private final JoystickButton slow = new JoystickButton(driver, 6);
     private final JoystickButton chargeStationDrive = new JoystickButton(driver, 5);
     private final JoystickButton zeroGyro = new JoystickButton(driver, 7);
-    private final JoystickButton robotCentric = new JoystickButton(driver, 8);
+    //private final JoystickButton robotCentric = new JoystickButton(driver, 6);
     private final JoystickButton spinSpeed = new JoystickButton(driver, 10);
-    private final JoystickButton gridAlignTagPose = new JoystickButton(driver, 1); //placeholder #
+    private final JoystickButton lockForward = new JoystickButton(driver, 4);
+    //private final JoystickButton gridAlignTagPose = new JoystickButton(driver, 1); //placeholder #
     private final JoystickButton tagAlignCommand = new JoystickButton(driver, 2);
+    private final JoystickButton lockBackward = new JoystickButton(driver, 1);
     
     
 
@@ -75,7 +77,7 @@ public class RobotContainer {
     private final JoystickButton gripToggle = new JoystickButton(operator, 5); //LB
     // private final JoystickButton gripClose = new JoystickButton(operator, 6); //RB
     private final JoystickButton autoUp = new JoystickButton(operator, 6);
-    private final JoystickButton autoDown = new JoystickButton(operator, 8);
+    //private final JoystickButton autoDown = new JoystickButton(operator, 8);
 
     private final Trigger setpointTop = new Trigger(() -> operator.getPOV() == 0);
     private final Trigger setpointMiddleCone = new Trigger(() -> operator.getPOV() == 90);
@@ -96,7 +98,10 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
+                //() -> robotCentric.getAsBoolean(),
+                () -> slow.getAsBoolean(),
+                () -> lockForward.getAsBoolean(),
+                () -> lockBackward.getAsBoolean()
             )
         );
 
@@ -134,7 +139,7 @@ public class RobotContainer {
         //setpointPID.onTrue(new InstantCommand(() -> s_Arm.setSetpoint(0.5)));
         //setpointPID.onFalse(new InstantCommand(() -> s_Arm.setSetpoint(0)));
         //alignAprilTagField.whileTrue(new GridAlignCommand(s_Swerve, s_Visions, Align.CENTER));
-        gridAlignTagPose.whileTrue(new GridAlignTagPose(s_Swerve, s_Visions, Align.CENTER));  // button2
+        //gridAlignTagPose.whileTrue(new GridAlignTagPose(s_Swerve, s_Visions, Align.CENTER));  // button2
         tagAlignCommand.whileTrue(new TagAlignCommand(s_Swerve, s_Visions));
         //driveToGoal.whileTrue(new DriveToGoal(s_Swerve));  //button3
         //alignAprilTagRobot.onTrue(new GridAlignRobotSpaceCommand(s_Swerve,  GridAlignRobotSpaceCommand.Align.CENTER));
@@ -157,14 +162,14 @@ public class RobotContainer {
             }
         }));
 
-        autoUp.onTrue(new AutoUp(s_Arm, s_Intake));
-        autoDown.onTrue(new AutoDown(s_Arm, s_Intake));
+        //autoUp.onTrue(new AutoUp(s_Arm, s_Intake));
+        //autoDown.onTrue(new AutoDown(s_Arm, s_Intake));
         // gripClose.whileTrue(new GripClose(s_Arm));
        // autoIntake.whileFalse(new RetractIntake(s_Arm, s_Intake));
        setpointTop.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armTopSetpoint));
        setpointMiddleCone.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armMiddleConeSetpoint));
        setpointMiddleCube.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armMiddleCubeSetpoint));
        setpointBottom.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armBottomSetpoint));
-       autoBalance.whileTrue(new AutoBalanceCommand(s_Swerve));
+       //autoBalance.whileTrue(new AutoBalanceCommand(s_Swerve));
     }
 }
