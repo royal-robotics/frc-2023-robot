@@ -7,19 +7,19 @@ import frc.robot.subsystems.Intake;
 
 public class AutoDown extends SequentialCommandGroup {
     public AutoDown(Arm arm, Intake intake) {
-        if (intake.getBottomSolenoidValue() == Constants.intakeRetract ||
-                intake.getTopSolenoidValue() == Constants.intakeRetract) {
+        //if (intake.getBottomSolenoidValue() == Constants.intakeRetract ||
+                //intake.getTopSolenoidValue() == Constants.intakeRetract) {
             this.addCommands(new AutoExtendIntake(arm, intake, 0, 0.5));
-        }
-        if (arm.getSolenoidGrip() == Constants.gripOpen) {
+        //}
+        //if (arm.getSolenoidGrip() == Constants.gripOpen) {
             this.addCommands(new AutoGripClose(arm, 0.5));
-        }
-        if (arm.getSolenoidAngle() == Constants.armUp) {
+        //}
+        //if (arm.getSolenoidAngle() == Constants.armUp) {
             this.addCommands(new AutoGripDown(arm, intake, 1.0));
-        }
-        if (arm.getEncoder() > Constants.encoderAndSetPointLimit) {
+        //}
+        //if (arm.getEncoder() > Constants.encoderAndSetPointLimit) {
             this.addCommands(new MoveArm(arm, intake, Constants.armBottomSetpoint));
-        }
-        //this.addCommands(new AutoGripOpen(arm, 0.5));
+        //}
+        this.addCommands(new AutoGripOpen(arm, 0.5));
     }
 }

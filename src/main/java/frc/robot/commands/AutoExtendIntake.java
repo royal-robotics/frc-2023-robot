@@ -16,6 +16,7 @@ public class AutoExtendIntake extends ExtendIntake{
     
     @Override
     public void initialize () {
+        s_time.reset();
         s_time.start();
     }
     @Override

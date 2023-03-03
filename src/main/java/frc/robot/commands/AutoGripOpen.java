@@ -14,6 +14,7 @@ public class AutoGripOpen extends GripOpen{
 
     @Override
     public void initialize () {
+        s_time.reset();
         s_time.start();
     }
     @Override

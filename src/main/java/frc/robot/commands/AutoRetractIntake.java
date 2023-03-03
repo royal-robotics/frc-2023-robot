@@ -15,6 +15,7 @@ public class AutoRetractIntake extends RetractIntake {
 
     @Override
     public void initialize () {
+        s_time.reset();
         s_time.start();
     }
     @Override

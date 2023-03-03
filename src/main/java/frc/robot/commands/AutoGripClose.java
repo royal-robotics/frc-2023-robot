@@ -14,6 +14,7 @@ public class AutoGripClose extends GripClose{
 
     @Override
     public void initialize () {
+        s_time.reset();
         s_time.start();
     }
     @Override

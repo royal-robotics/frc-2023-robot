@@ -15,6 +15,7 @@ public class AutoGripUp extends GripUp {
 
     @Override
     public void initialize () {
+        s_time.reset();
         s_time.start();
     }
     @Override

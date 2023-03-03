@@ -28,6 +28,7 @@ public class GripDown extends CommandBase{
           s_Arm.setSolenoidAngle(Constants.armDown); //Value.kReverse 
 
       }
+      
 
     }
 
