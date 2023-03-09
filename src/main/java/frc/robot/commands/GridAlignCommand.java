@@ -185,8 +185,8 @@ public class GridAlignCommand extends CommandBase {
             // this.tagID = this.limelight.getTagID();
             this.tagID = 1;
 
-            // Pose2d tagPose = limelight.tagPoses[tagID - 1];
-            Pose2d tagPose = tagLocations[tagID - 1];   // for testing
+            // Pose2d tagPose = vision.getBlueTagPose(tagID);
+            Pose2d tagPose = new Pose2d(2, 0, new Rotation2d(Math.PI));  // for testing
 
             goalPose = vision.tagPoseToGoalPose(tagPose, goalAlign);
             

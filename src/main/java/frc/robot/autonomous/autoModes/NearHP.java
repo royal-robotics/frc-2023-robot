@@ -39,7 +39,7 @@ public class NearHP extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
-                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 4.5),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, -0.6, 4.5),
                     new AutoGripClose(robotContainer.s_Arm, 2.0),
                     new AutoGripUp(robotContainer.s_Arm, robotContainer.s_Intake, 1.0),
                     new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),

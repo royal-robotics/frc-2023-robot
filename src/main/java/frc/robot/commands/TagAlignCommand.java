@@ -43,7 +43,7 @@ public class TagAlignCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        zController.setSetpoint(0.90);
+        zController.setSetpoint(0.91);
         angleController.setSetpoint(0.0);
     }
 
@@ -71,6 +71,11 @@ public class TagAlignCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         s_Swerve.setStableModuleStates();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return zController.atSetpoint() && angleController.atSetpoint();
     }
 
 }

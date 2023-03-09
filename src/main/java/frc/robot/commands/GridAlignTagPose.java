@@ -71,9 +71,9 @@ public class GridAlignTagPose extends CommandBase{
         test.addDouble("TagPoseFieldSpaceY", ()->tagPose.getY()).withPosition(2, 1);
         test.addDouble("TagPoseFieldSpaceAngle", ()->tagPose.getRotation().getDegrees()).withPosition(2, 2);
         
-        test.addDouble("goalPoseX", ()->tagPose.getX()).withPosition(3, 0);
-        test.addDouble("goalPoseY", ()->tagPose.getY()).withPosition(3, 1);
-        test.addDouble("goalPoseAngle", ()->tagPose.getRotation().getDegrees()).withPosition(3, 2);
+        test.addDouble("goalPoseX", ()->goalPose.getX()).withPosition(3, 0);
+        test.addDouble("goalPoseY", ()->goalPose.getY()).withPosition(3, 1);
+        test.addDouble("goalPoseAngle", ()->goalPose.getRotation().getDegrees()).withPosition(3, 2);
             
     }
   

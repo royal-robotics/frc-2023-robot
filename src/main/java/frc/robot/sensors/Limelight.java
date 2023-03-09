@@ -29,6 +29,7 @@ public class Limelight {
         return _table.getEntry("ta").getDouble(0);
     }
 
+
     public void setPipeline(double pipeline) {
         _table.getEntry("pipeline").setNumber(pipeline);
     }

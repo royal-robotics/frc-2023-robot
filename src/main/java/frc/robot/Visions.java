@@ -15,7 +15,15 @@ import frc.robot.sensors.Limelight;
 
 public class Visions {
     public Limelight m_Limelight;
-    private Pose3d[] tagPoses;
+    private Pose2d[] blueTagPoses = {new Pose2d(15.53, 1.05, new Rotation2d(Math.PI)),
+        new Pose2d(15.53, 2.75, new Rotation2d(Math.PI)),
+        new Pose2d(15.53, 4.44, new Rotation2d(Math.PI)),
+        new Pose2d(16.24, 6.73, new Rotation2d(Math.PI)),
+        new Pose2d(0.3, 6.73, new Rotation2d()),
+        new Pose2d(1.0, 4.44, new Rotation2d()),
+        new Pose2d(1.0, 2.75, new Rotation2d()),
+        new Pose2d(1.0, 1.05, new Rotation2d())
+    };
     public Pose3d targetPoseRobotSpace;
     public enum Align {
         LEFT,
@@ -37,7 +45,6 @@ public class Visions {
     private final Translation2d centerPositionRed = new Translation2d(1.9, 5.27); // Position in front of red center cube spot for red alliance
 
     public Visions() {
-        this.tagPoses = new Pose3d[8];
         this.m_Limelight = new Limelight();
     }
 
@@ -94,6 +101,10 @@ public class Visions {
             new PathConstraints(3, 2),
             new PathPoint(botPose.getTranslation(), positionDifference.getAngle()),
             new PathPoint(goalPosition, positionDifference.getAngle()));
+    }
+
+    public Pose2d getBlueTagPose(int tagID) {
+        return this.blueTagPoses[tagID - 1];
     }
 
     public Pose2d tagPoseToGoalPose(Pose2d tagPose, Align goalAlign) {

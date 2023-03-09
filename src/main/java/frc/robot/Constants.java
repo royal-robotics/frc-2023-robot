@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double maxArmDistance = 1.95;
+    public static final double maxArmDistance = 1.88;
     public static final double minArmDistance = 0.01;
 
     public static final double stickDeadband = 0.11;
@@ -21,11 +21,11 @@ public final class Constants {
     public static final double fastSpin = 1.0;
 
     public static final double armTopSetpoint = maxArmDistance;
-    public static final double armMiddleConeSetpoint = 1.4;
+    public static final double armMiddleConeSetpoint = 1.45;
     public static final double armMiddleCubeSetpoint = 1.15;
     public static final double armBottomSetpoint = minArmDistance;
 
-    public static final double cubeIntakeSpeed = -0.6;
+    public static final double cubeIntakeSpeed = -0.7;
     public static final double coneIntakeSpeed = -1.0;
 
     public static final DoubleSolenoid.Value gripOpen =  DoubleSolenoid.Value.kForward;

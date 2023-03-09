@@ -53,6 +53,7 @@ public class Arm extends SubsystemBase {
         m_pid = new PIDController(pidKp, 0, 0);
         m_encoder = new Encoder(10, 11,true);
 
+
         // Distance per pulse:
         //   1 motor rotation / 256 pulses
         //   11 output rotations / 150 motor rotations
@@ -82,6 +83,12 @@ public class Arm extends SubsystemBase {
         m_gripSolenoid.set(m_solenoidGrip);
         m_angleSolenoid.set(m_solenoidAngle);
         m_pidValue = -m_pid.calculate(m_encoder.getDistance());
+        // TODO: limits arm power if needed.
+        // if (m_pidValue < -1.0) {
+        //     m_pidValue = -1.0;
+        // } else if (m_pidValue > 1.0) {
+        //     m_pidValue = 1.0;
+        // }
 
         if (speedOverride.getBoolean(false)) {
             // to-do: change this to a position override instead of a speed override
@@ -126,7 +133,7 @@ public class Arm extends SubsystemBase {
     }
 
     public boolean atSetpoint() {
-        return Math.abs(m_pid.getSetpoint() - m_encoder.getDistance()) < 0.05;
+        return Math.abs(m_pid.getSetpoint() - m_encoder.getDistance()) < 0.1;
     }
     public DoubleSolenoid.Value getSolenoidGrip(){
         return m_solenoidGrip;
