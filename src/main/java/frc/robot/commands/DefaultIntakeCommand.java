@@ -3,9 +3,10 @@ package frc.robot.commands;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 public class DefaultIntakeCommand extends CommandBase{
@@ -39,10 +40,13 @@ public class DefaultIntakeCommand extends CommandBase{
     @Override
     public void execute(){
         // Toggle bottom
+        double intakeSpeed = MathUtil.applyDeadband(s_Speed.getAsDouble(), Constants.stickDeadband);
         
         // Toggle top
 
-        s_Intake.setMotorSpeed(s_Speed.getAsDouble());
+        // s_Intake.setMotorSpeed(s_Speed.getAsDouble());
+        s_Intake.setMotorSpeed(intakeSpeed);
+
         //s_Intake.setBottomSolenoidValue(bottomValue);
         //s_Intake.setTopSolenoidValue(topValue);
     }

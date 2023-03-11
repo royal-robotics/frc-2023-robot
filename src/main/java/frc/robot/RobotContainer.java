@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Visions.Align;
 import frc.robot.commands.*;
@@ -43,7 +44,6 @@ public class RobotContainer {
     // private final JoystickButton slow = new JoystickButton(driver, 1); //Trigger
     // private final JoystickButton spinSpeed = new JoystickButton(driver, 2); // Thumb button
     //private final JoystickButton alignAprilTagField = new JoystickButton(operator, 1); //placeholder #
-    // private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 2); //placeholder #
     // private final JoystickButton gridAlignTagPose = new JoystickButton(driver, 8); //placeholder #
     // private final JoystickButton tagAlignCommand = new JoystickButton(driver, 9);
     //private final JoystickButton driveToGoal = new JoystickButton(operator, 4); //placeholder #
@@ -63,7 +63,8 @@ public class RobotContainer {
     //private final JoystickButton robotCentric = new JoystickButton(driver, 6);
     private final JoystickButton spinSpeed = new JoystickButton(driver, 10);
     private final JoystickButton lockForward = new JoystickButton(driver, 4);
-    // private final JoystickButton gridAlignTagPose = new JoystickButton(driver, 1); //placeholder #
+    // private final JoystickButton gridAlignTagPose = new JoystickButton(driver, 8); //placeholder #
+    // private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 8); //placeholder #
     private final JoystickButton tagAlignCommand = new JoystickButton(driver, 2);
     private final JoystickButton lockBackward = new JoystickButton(driver, 1);
     

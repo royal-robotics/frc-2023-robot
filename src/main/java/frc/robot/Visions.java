@@ -24,6 +24,7 @@ public class Visions {
         new Pose2d(1.0, 2.75, new Rotation2d()),
         new Pose2d(1.0, 1.05, new Rotation2d())
     };
+    
     public Pose3d targetPoseRobotSpace;
     public enum Align {
         LEFT,

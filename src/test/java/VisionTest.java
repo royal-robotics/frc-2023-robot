@@ -112,4 +112,13 @@ class VisionTest {
     //     // System.out.println(goalPose.getX() + "\n" + goalPose.getY() + "\n" + goalPose.getRotation().getDegrees());
     //     assertEquals(new Pose2d(2.65, 1, new Rotation2d(Math.PI)), goalPose);
     // }
+    
+    @Test
+    public void testTagTransform() {
+        Pose2d tagPose = vision.getBlueTagPose(5);
+        Pose2d goalPose = vision.tagPoseToGoalPose(tagPose, Align.LEFT);
+        assertEquals(new Pose2d(1.3, 5.73, new Rotation2d(0)), goalPose);
+        
+    }
 }
+
