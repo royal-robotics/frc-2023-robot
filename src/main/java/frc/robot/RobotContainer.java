@@ -50,9 +50,6 @@ public class RobotContainer {
     //private final JoystickButton setpointPID = new JoystickButton(operator, 6);
     //intake
     private final int intakeSpeed = Constants.Container.intakeTranslationAxis;
-    private final JoystickButton cubeIntake = new JoystickButton(operator, 2); //B
-    private final JoystickButton coneIntake = new JoystickButton(operator, 4); //Y
-    private final JoystickButton retractIntake = new JoystickButton(operator, 7); 
 
 
     //private final JoystickButton autoBalance = new JoystickButton(driver, 4); 
@@ -65,8 +62,12 @@ public class RobotContainer {
     private final JoystickButton lockForward = new JoystickButton(driver, 4);
     // private final JoystickButton gridAlignTagPose = new JoystickButton(driver, 8); //placeholder #
     // private final JoystickButton alignAprilTagRobot = new JoystickButton(operator, 8); //placeholder #
+
+    // private final JoystickButton alignForwardBackward = new JoystickButton(driver, 8);
     private final JoystickButton tagAlignCommand = new JoystickButton(driver, 2);
     private final JoystickButton lockBackward = new JoystickButton(driver, 1);
+
+    private final JoystickButton sonicAlignCommand = new JoystickButton(driver, 8);
     
     
 
@@ -76,6 +77,9 @@ public class RobotContainer {
     private final JoystickButton gripDown = new JoystickButton(operator, 1); //A
     private final JoystickButton gripUp = new JoystickButton(operator, 3); //X
     private final JoystickButton gripToggle = new JoystickButton(operator, 5); //LB
+    private final JoystickButton cubeIntake = new JoystickButton(operator, 2); //B
+    private final JoystickButton coneIntake = new JoystickButton(operator, 4); //Y
+    private final JoystickButton retractIntake = new JoystickButton(operator, 7); 
     // private final JoystickButton gripClose = new JoystickButton(operator, 6); //RB
     //private final JoystickButton autoUp = new JoystickButton(operator, 3); //X
     //private final JoystickButton autoDown = new JoystickButton(operator, 1); //A
@@ -136,6 +140,7 @@ public class RobotContainer {
         
         chargeStationDrive.whileTrue(new ChargeStationPullUp(s_Intake));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        // alignForwardBackward.whileTrue(new DriveToGoal(s_Swerve));
         //zeroArmEncoder.onTrue(new InstantCommand(() -> s_Arm.zeroArmEncoder()));
         //setpointPID.onTrue(new InstantCommand(() -> s_Arm.setSetpoint(0.5)));
         //setpointPID.onFalse(new InstantCommand(() -> s_Arm.setSetpoint(0)));
@@ -172,5 +177,7 @@ public class RobotContainer {
        setpointMiddleCube.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armMiddleCubeSetpoint));
        setpointBottom.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armBottomSetpoint));
        //autoBalance.whileTrue(new AutoBalanceCommand(s_Swerve));
+
+       sonicAlignCommand.whileTrue(new UltraSonicAlignCommand(s_Swerve));
     }
 }

@@ -21,15 +21,15 @@ public class DriveToGoal extends CommandBase {
     private final ProfiledPIDController yController = new ProfiledPIDController(1, 0, 0, Y_CONSTRAINTS);
     private final ProfiledPIDController omegaController = new ProfiledPIDController(1, 0, 0, OMEGA_CONSTRAINTS);
   
-    private final Pose2d goalPose = new Pose2d(1, 1, new Rotation2d(Math.PI));
+    // private final Pose2d goalPose = new Pose2d(1, 1, new Rotation2d(Math.PI));
   
     public DriveToGoal(Swerve drivetrain) {
         this.drivetrain = drivetrain;
     
-        xController.setTolerance(0.2);
-        yController.setTolerance(0.2);
+        // xController.setTolerance(0.2);
+        // yController.setTolerance(0.2);
         omegaController.setTolerance(Units.degreesToRadians(3));
-        omegaController.enableContinuousInput(-Math.PI, Math.PI);
+        omegaController.enableContinuousInput(0, Math.PI);
     
         addRequirements(drivetrain);
     }
@@ -38,34 +38,36 @@ public class DriveToGoal extends CommandBase {
     public void initialize() {
         Pose2d robotPose = drivetrain.getPose();
         omegaController.reset(robotPose.getRotation().getRadians());
-        xController.reset(robotPose.getX());
-        yController.reset(robotPose.getY());
+        // xController.reset(robotPose.getX());
+        // yController.reset(robotPose.getY());
 
-        xController.setGoal(goalPose.getX());
-        yController.setGoal(goalPose.getY());
-        omegaController.setGoal(goalPose.getRotation().getRadians());
+        // xController.setGoal(goalPose.getX());
+        // yController.setGoal(goalPose.getY());
+        omegaController.setGoal(0);
     }  
   
     @Override
     public void execute() {
         Pose2d robotPose = drivetrain.getPose();
 
-        double xSpeed = xController.calculate(robotPose.getX());
-        if (xController.atGoal()) {
-            xSpeed = 0;
-        }
+        // double xSpeed = xController.calculate(robotPose.getX());
+        // if (xController.atGoal()) {
+        //     xSpeed = 0;
+        // }
 
-        double ySpeed = yController.calculate(robotPose.getY());
-        if (yController.atGoal()) {
-            ySpeed = 0;
-        }
+        // double ySpeed = yController.calculate(robotPose.getY());
+        // if (yController.atGoal()) {
+        //     ySpeed = 0;
+        // }
 
         double omegaSpeed = omegaController.calculate(robotPose.getRotation().getRadians());
         if (omegaController.atGoal()) {
             omegaSpeed = 0;
         }
         
-        drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
+        // drivetrain.drive(new Translation2d(xSpeed, ySpeed), omegaSpeed, true, false);
+
+        drivetrain.drive(new Translation2d(0, 0), omegaSpeed, true, false);
 
     }
   
@@ -77,6 +79,6 @@ public class DriveToGoal extends CommandBase {
     @Override
     public boolean isFinished() {
         // return xController.atGoal() && y Controller.atGoal() && omegaController.atGoal();
-        return false;
+        return omegaController.atGoal();
     }
 }

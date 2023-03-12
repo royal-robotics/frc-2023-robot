@@ -40,29 +40,45 @@ public class Limelight {
 
     public double[] getPoseBlue() {
         if (onTarget()) {
-            return _table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+            double[] poseBlue = _table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+            if (poseBlue.length < 6) {
+                return new double[6];
+            }
+            return poseBlue;
         }
         return new double[6];
     }
 
     public double[] getPoseRed() {
         if (onTarget()) {
-            return _table.getEntry("botpose_wpired").getDoubleArray(new double[6]);
+            double[] poseRed = _table.getEntry("botpose_wpired").getDoubleArray(new double[6]);
+            if (poseRed.length < 6) {
+                return new double[6];
+            }
+            return poseRed;
         }
         return new double[6];
     }
 
     public double[] botPoseTargetSpace() {
         if (onTarget()) {
-            return _table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+            double[] botPose = _table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+            if (botPose.length < 6) {
+                return new double[6];
+            }
+            return botPose;
         }
         return new double[6];
     }
 
     public double[] targetPoseRobotSpace() {
         if (onTarget()) {
-            return _table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
-        }
+            double[] targetPose = _table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+            if (targetPose.length < 6) {
+                return new double[6];
+            }
+            return targetPose;
+        }   
         return new double[6];
     }
 }

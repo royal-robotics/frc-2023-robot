@@ -62,7 +62,7 @@ public class TeleopSwerve extends CommandBase {
             while (rotationVal < -180) {
                 rotationVal += 360;
             }
-            rotationVal *= -0.05;
+            rotationVal *= -Constants.Drivebase.rotationValMultiplier;
             if (rotationVal > 0.6) {
                 rotationVal = 0.6;
             } else if (rotationVal < -0.6) {
@@ -76,7 +76,7 @@ public class TeleopSwerve extends CommandBase {
             while (rotationVal < -180) {
                 rotationVal += 360;
             }
-            rotationVal *= -0.05;
+            rotationVal *= -Constants.Drivebase.rotationValMultiplier;
             if (rotationVal > 0.6) {
                 rotationVal = 0.6;
             } else if (rotationVal < -0.6) {
@@ -87,7 +87,11 @@ public class TeleopSwerve extends CommandBase {
 
         if (DriverStation.isTeleop()) {
             if (translationVal == 0 && strafeVal == 0 && rotationVal == 0 && !disableXSup.getAsBoolean()) {
-                s_Swerve.setStableModuleStates();
+                if (s_Swerve.m_speedMultiplier == Constants.slowMode){
+                    s_Swerve.drive(new Translation2d(0,0), 0, true, true);
+                }else {
+                    s_Swerve.setStableModuleStates();
+                }
             } else {
                 s_Swerve.drive(
                     new Translation2d(translationVal, strafeVal).times(SwerveConstants.maxSpeed), 

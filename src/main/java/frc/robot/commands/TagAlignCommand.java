@@ -14,17 +14,21 @@ import frc.robot.subsystems.Swerve;
 public class TagAlignCommand extends CommandBase {
     private PIDController zController;
     private PIDController angleController;
+    // private ProfiledPIDController angleController;
     private Swerve s_Swerve;
     private Visions s_Vision;
     public double distToTag;
     public double zError;
     public double angleToTag;
     public double angleError;
+
+    // private static final TrapezoidProfile.Constraints ANGLE_CONSTRAINTS =   new TrapezoidProfile.Constraints(8, 8);
     
 
     public TagAlignCommand(Swerve swerve, Visions vision) {
         zController = new PIDController(1.5, 0, 0);
         angleController = new PIDController(4, 0, 0);
+        // angleController = new ProfiledPIDController(4, 0, 0, ANGLE_CONSTRAINTS);
         s_Swerve = swerve;
         s_Vision = vision;
         addRequirements(s_Swerve);
@@ -43,8 +47,11 @@ public class TagAlignCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        zController.setSetpoint(0.91);
-        angleController.setSetpoint(0.0);
+        zController.setSetpoint(0.86);
+        // angleController.enableContinuousInput(0, Math.PI);
+        // angleController.setGoal(0.0);
+        // angleController.reset(s_Swerve.getPose().getRotation().getRadians());
+        // angleController.setSe    tpoint(0.0);
     }
 
     @Override 
@@ -58,10 +65,14 @@ public class TagAlignCommand extends CommandBase {
                 zError = -1;
             }
             
-            angleToTag = Units.degreesToRadians(s_Vision.angleRobotToTag());
-            angleError = angleController.calculate(angleToTag);
+            // angleToTag = Units.degreesToRadians(s_Vision.angleRobotToTag());
+            // angleToTag = s_Swerve.getPose().getRotation().getRadians();
 
-            s_Swerve.drive(new Translation2d(-zError, 0), angleError, false, true);
+            // angleError = (angleController.atGoal()) ? 0 : angleController.calculate(angleToTag);
+            // angleError = angleController.calculate(angleToTag);
+
+            // s_Swerve.drive(new Translation2d(-zError, 0), angleError, false, true);
+              s_Swerve.drive(new Translation2d(-zError, 0), 0, false, true);
         } else {
             s_Swerve.setStableModuleStates();
         }

@@ -1,8 +1,11 @@
 package frc.robot.subsystems;
 
+import java.util.Collections;
+import java.util.LinkedList;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
-
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -27,10 +30,16 @@ public class Swerve extends SubsystemBase {
     public Visions s_Visions;
     public double m_speedMultiplier;
     public double m_spinMultiplier;
+    public AnalogInput sonicSensorRange;
+    public LinkedList<Double> voltageReadings;
+
+    public static final double distanceToVoltage = 2.911;
 
     public Swerve(Visions visions) {
         gyro = new Pigeon2(Constants.Drivebase.pigeonID);
         s_Visions = visions;
+        sonicSensorRange = new AnalogInput(5);
+        voltageReadings = new LinkedList<Double>();
         m_speedMultiplier = Constants.fastMode;
         m_spinMultiplier = Constants.slowSpin;
         gyro.configFactoryDefault();
@@ -153,6 +162,42 @@ public class Swerve extends SubsystemBase {
             false,  // Don't use alliance color since that should be handled by the vision generatePath
             this
         );
+    }
+
+    public double getSonicDistance(){
+        double sonicDistance = this.getVoltage() * distanceToVoltage;
+        return sonicDistance;
+    }
+
+    public double getVoltage(){
+        //double voltage = sonicSensorRange.getAverageVoltage();
+        double voltage = sonicSensorRange.getVoltage();
+        if(voltageReadings.size() >= 6){
+            voltageReadings.removeFirst();
+        }
+        voltageReadings.add(voltage);
+        
+        return averageVoltageReadings();
+    }
+
+    public double averageVoltageReadings(){
+        double total = 0;
+        for(int i = 0; i<voltageReadings.size(); i++){
+            total += voltageReadings.get(i);
+        }
+        double average = total/voltageReadings.size();
+        double furthest = 0;
+        double outlier = 0;
+        for(int i = 0; i<voltageReadings.size(); i++){
+            if(Math.abs(voltageReadings.get(i) - average) > furthest){
+                outlier = voltageReadings.get(i);
+                furthest = Math.abs(voltageReadings.get(i) - average);
+            }
+        }
+        average = ((average * voltageReadings.size()) - outlier)/(voltageReadings.size()-1);
+
+        return average;
+
     }
 
     @Override

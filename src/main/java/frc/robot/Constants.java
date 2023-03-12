@@ -48,7 +48,7 @@ public final class Constants {
     public static final class Drivebase {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
-
+        public static final double rotationValMultiplier = 0.03;
         /* Drivetrain Constants */
         public static final double trackWidth = 0.495;
         public static final double wheelBase = 0.495;
