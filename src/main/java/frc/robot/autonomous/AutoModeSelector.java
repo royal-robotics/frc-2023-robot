@@ -17,6 +17,7 @@ public class AutoModeSelector {
         //_chooser.addOption("push", () -> new Push(robotContainer));
         _chooser.addOption("NearHP", () -> new NearHP(robotContainer));
         _chooser.addOption("FarHP", () -> new FarHP(robotContainer));
+        _chooser.addOption("FlingMiddleLong", () -> new FlingMiddleLong(robotContainer));
         _chooser.setDefaultOption("MiddleLong", () -> new MiddleLong(robotContainer));
     }
 

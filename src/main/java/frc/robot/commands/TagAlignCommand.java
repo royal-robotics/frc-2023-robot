@@ -48,10 +48,10 @@ public class TagAlignCommand extends CommandBase {
     @Override
     public void initialize() {
         zController.setSetpoint(0.86);
-        // angleController.enableContinuousInput(0, Math.PI);
+        angleController.enableContinuousInput(0, Math.PI);
         // angleController.setGoal(0.0);
         // angleController.reset(s_Swerve.getPose().getRotation().getRadians());
-        // angleController.setSe    tpoint(0.0);
+        angleController.setSetpoint(0.0);
     }
 
     @Override 
@@ -69,10 +69,10 @@ public class TagAlignCommand extends CommandBase {
             // angleToTag = s_Swerve.getPose().getRotation().getRadians();
 
             // angleError = (angleController.atGoal()) ? 0 : angleController.calculate(angleToTag);
-            // angleError = angleController.calculate(angleToTag);
+            angleError = angleController.calculate(s_Swerve.getYaw().getRadians());
 
-            // s_Swerve.drive(new Translation2d(-zError, 0), angleError, false, true);
-              s_Swerve.drive(new Translation2d(-zError, 0), 0, false, true);
+            s_Swerve.drive(new Translation2d(-zError, 0), angleError, false, true);
+            //   s_Swerve.drive(new Translation2d(-zError, 0), 0, false, true);
         } else {
             s_Swerve.setStableModuleStates();
         }

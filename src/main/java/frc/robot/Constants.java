@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double maxArmDistance = 1.85;
+    public static final double maxArmDistance = 1.86;
     public static final double minArmDistance = 0.01;
 
     public static final double stickDeadband = 0.11;
@@ -49,6 +49,7 @@ public final class Constants {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
         public static final double rotationValMultiplier = 0.03;
+        public static final double rotationValCap = 0.6;
         /* Drivetrain Constants */
         public static final double trackWidth = 0.495;
         public static final double wheelBase = 0.495;
@@ -59,6 +60,8 @@ public final class Constants {
         public static final double backRightAngle = 124.03564453125;
 
         public static final double chargeStationWheelSpeed = 0.3;
+
+        /* PID Controller Gains */
 
         /* Swerve Kinematics
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */

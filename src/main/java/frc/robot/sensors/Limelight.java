@@ -81,4 +81,15 @@ public class Limelight {
         }   
         return new double[6];
     }
+
+    public double[] getTagID() {
+        if (onTarget()) {
+            double[] targetID = _table.getEntry("tid").getDoubleArray(new double[6]);
+            if (targetID.length < 6) {
+                return new double[6];
+            }
+            return targetID;
+        }   
+        return new double[6];
+    }
 }

@@ -7,6 +7,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.autonomous.AutoModeSelector;
+import frc.robot.sensors.Limelight;
 import frc.robot.subsystems.*;
 
 public class OurShuffleboard {
@@ -22,27 +23,36 @@ public class OurShuffleboard {
         // increasing going right, decreasing going left 
         
         cameraTab.addNumber("hasTarget", () -> vision.m_Limelight.hasTarget()).withPosition(0, 0);
-        cameraTab.addNumber("botposeBlueTranX", () -> vision.blueAllianceBotPose().getX()).withPosition(1, 0);
-        cameraTab.addNumber("botposeBlueTranY", () -> vision.blueAllianceBotPose().getY()).withPosition(2, 0);
-        cameraTab.addNumber("botposeBlueTranR", () -> vision.blueAllianceBotPose().getRotation().getDegrees()).withPosition(3, 0);
-        cameraTab.addNumber("botposeRedTranX", () -> vision.redAllianceBotPose().getX()).withPosition(1, 1);
-        cameraTab.addNumber("botposeRedTranY", () -> vision.redAllianceBotPose().getY()).withPosition(2, 1);
-        cameraTab.addNumber("botposeRedTranR", () -> vision.redAllianceBotPose().getRotation().getDegrees()).withPosition(3, 1);
-        cameraTab.addNumber("botSpacePoseTranX", () -> vision.tagSpaceRobotPose().getX()).withPosition(1, 2);
-        cameraTab.addNumber("botSpacePoseTranY", () -> vision.tagSpaceRobotPose().getY()).withPosition(2, 2);
-        cameraTab.addNumber("botSpacePoseTranR", () -> vision.tagSpaceRobotPose().getRotation().getDegrees()).withPosition(3, 2);
-        cameraTab.addNumber("targetPoseTranX", () -> vision.robotSpaceTagPose().getX()).withPosition(1, 3);
-        cameraTab.addNumber("targetPoseTranY", () -> vision.robotSpaceTagPose().getY()).withPosition(2, 3);
-        cameraTab.addNumber("targetPoseTranR", () -> vision.robotSpaceTagPose().getRotation().getDegrees()).withPosition(3, 3);
-        cameraTab.addNumber("robotAngleGoal", () -> {
-            // Translation2d targetPos = new Translation2d(limelight.robotSpaceTagPose().getX(), limelight.robotSpaceTagPose().getY());
-            // Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
-            // return polePos.getAngle().getDegrees();
-            Pose2d bogusPos = new Pose2d(1,0, new Rotation2d(Math.PI));
-            Transform2d bogusTrans = new Transform2d(new Translation2d(1, 0), new Rotation2d(Math.PI));
-            Pose2d polePos = bogusPos.transformBy(bogusTrans);
-            return polePos.getX();
-        }).withPosition(0, 1);
+        cameraTab.addNumber("zDistToTag", () -> vision.zDistRobotToTag()).withPosition(1, 0);
+        cameraTab.addNumber("yDistFromTag", ()->vision.yDistRobotToTag()).withPosition(1, 1);
+        // cameraTab.addString("TagID", () -> {
+        //     double[] id = vision.m_Limelight.getTagID();
+        //     String str = "[" + id[0] + ", " + id[1] + ", " + id[2] + ", " + id[3] + ", " + id[4] + ", " + id[5] + "]";
+        //     return str;
+        // }).withPosition(2, 0);
+        
+        // cameraTab.addNumber("botposeBlueTranX", () -> vision.blueAllianceBotPose().getX()).withPosition(1, 0);
+        // cameraTab.addNumber("botposeBlueTranY", () -> vision.blueAllianceBotPose().getY()).withPosition(2, 0);
+        // cameraTab.addNumber("botposeBlueTranR", () -> vision.blueAllianceBotPose().getRotation().getDegrees()).withPosition(3, 0);
+        // cameraTab.addNumber("botposeRedTranX", () -> vision.redAllianceBotPose().getX()).withPosition(1, 1);
+        // cameraTab.addNumber("botposeRedTranY", () -> vision.redAllianceBotPose().getY()).withPosition(2, 1);
+        // cameraTab.addNumber("botposeRedTranR", () -> vision.redAllianceBotPose().getRotation().getDegrees()).withPosition(3, 1);
+        // cameraTab.addNumber("botSpacePoseTranX", () -> vision.tagSpaceRobotPose().getX()).withPosition(1, 2);
+        // cameraTab.addNumber("botSpacePoseTranY", () -> vision.tagSpaceRobotPose().getY()).withPosition(2, 2);
+        // cameraTab.addNumber("botSpacePoseTranR", () -> vision.tagSpaceRobotPose().getRotation().getDegrees()).withPosition(3, 2);
+        // cameraTab.addNumber("targetPoseTranX", () -> vision.robotSpaceTagPose().getX()).withPosition(1, 3);
+        // cameraTab.addNumber("targetPoseTranY", () -> vision.robotSpaceTagPose().getY()).withPosition(2, 3);
+        // cameraTab.addNumber("targetPoseTranR", () -> vision.robotSpaceTagPose().getRotation().getDegrees()).withPosition(3, 3);
+        // cameraTab.addNumber("robotAngleGoal", () -> {
+        //     // Translation2d targetPos = new Translation2d(limelight.robotSpaceTagPose().getX(), limelight.robotSpaceTagPose().getY());
+        //     // Translation2d polePos = targetPos.plus(new Translation2d(0.56, 0.23));
+        //     // return polePos.getAngle().getDegrees();
+        //     Pose2d bogusPos = new Pose2d(1,0, new Rotation2d(Math.PI));
+        //     Transform2d bogusTrans = new Transform2d(new Translation2d(1, 0), new Rotation2d(Math.PI));
+        //     Pose2d polePos = bogusPos.transformBy(bogusTrans);
+        //     return polePos.getX();
+        // }).withPosition(0, 1);
+        // cameraTab.addString("TagID", () -> vision.m_Limelight.getTagID().toString()).withPosition(0, 4);
 
         ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
         competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);

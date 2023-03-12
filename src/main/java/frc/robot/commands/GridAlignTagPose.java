@@ -47,8 +47,8 @@ public class GridAlignTagPose extends CommandBase{
     
         xController.setTolerance(0.2);
         yController.setTolerance(0.2);
-        omegaController.setTolerance(Units.degreesToRadians(3));
-        omegaController.enableContinuousInput(-Math.PI, Math.PI);
+        // omegaController.setTolerance(Units.degreesToRadians(3));
+        
 
         robotPose= new Pose2d();
         tagPoseRobotSpace = new Pose2d();

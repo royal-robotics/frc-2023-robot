@@ -33,7 +33,7 @@ public class Arm extends SubsystemBase {
         int limitPeak = 40; //configPeakCurrentLimit()
         int limitDuration = 2000; //configPeakCurrentDuration()
         int continuousCurrent = 30; //ContinuousCurrentLimit()
-        double pidKp = 50;
+        double pidKp = 35;
         
         m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 1);
         m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 2);

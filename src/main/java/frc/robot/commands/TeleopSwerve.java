@@ -63,10 +63,10 @@ public class TeleopSwerve extends CommandBase {
                 rotationVal += 360;
             }
             rotationVal *= -Constants.Drivebase.rotationValMultiplier;
-            if (rotationVal > 0.6) {
-                rotationVal = 0.6;
-            } else if (rotationVal < -0.6) {
-                rotationVal = -0.6;
+            if (rotationVal > Constants.Drivebase.rotationValCap) {
+                rotationVal = Constants.Drivebase.rotationValCap;
+            } else if (rotationVal < -Constants.Drivebase.rotationValCap) {
+                rotationVal = -Constants.Drivebase.rotationValCap;
             }
         } else if (lockBackwardSup.getAsBoolean()) {
             rotationVal = s_Swerve.getYaw().getDegrees() + 180;
@@ -77,10 +77,10 @@ public class TeleopSwerve extends CommandBase {
                 rotationVal += 360;
             }
             rotationVal *= -Constants.Drivebase.rotationValMultiplier;
-            if (rotationVal > 0.6) {
-                rotationVal = 0.6;
-            } else if (rotationVal < -0.6) {
-                rotationVal = -0.6;
+            if (rotationVal > Constants.Drivebase.rotationValCap) {
+                rotationVal = Constants.Drivebase.rotationValCap;
+            } else if (rotationVal < -Constants.Drivebase.rotationValCap) {
+                rotationVal = -Constants.Drivebase.rotationValCap;
             }
         }
         /* Drive */
