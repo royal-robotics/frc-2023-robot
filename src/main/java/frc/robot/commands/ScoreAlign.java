@@ -17,6 +17,7 @@ public class ScoreAlign extends CommandBase {
     public ScoreAlign(Swerve swerve, Visions vision) {
         this.swerve = swerve;
         this.vision = vision;
+        addRequirements(swerve);
         
         this.angleController = new PIDController(4, 0, 0);
         this.xController = new PIDController(1.5, 0, 0);
