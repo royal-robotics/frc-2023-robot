@@ -57,6 +57,7 @@ public class OurShuffleboard {
         ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
         competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
         competitionTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(4, 0).withSize(4, 4);
+        competitionTab.addCamera("Camera2 Stream", "lightlime-two", "http://10.25.22.12:5800/").withPosition(5, 0).withSize(4, 4);
         competitionTab.addNumber("Arm Power", () -> arm.getPidValue()).withPosition(0, 1);
         competitionTab.addBoolean("Arm At Setpoint", () -> arm.atSetpoint()).withPosition(1, 1);
         competitionTab.addBoolean("Claw Open", () -> arm.getSolenoidGrip() == Constants.gripOpen).withPosition(0, 2);

@@ -92,11 +92,11 @@ public class Arm extends SubsystemBase {
 
         if (speedOverride.getBoolean(false)) {
             // to-do: change this to a position override instead of a speed override
-            m_leftMotor.set(TalonSRXControlMode.PercentOutput, speedOverrideEntry.getDouble(0.0));
-            m_rightMotor.set(TalonSRXControlMode.PercentOutput, -speedOverrideEntry.getDouble(0.0));
+            m_leftMotor.set(TalonSRXControlMode.PercentOutput, -speedOverrideEntry.getDouble(0.0));
+            m_rightMotor.set(TalonSRXControlMode.PercentOutput, speedOverrideEntry.getDouble(0.0));
         } else {
-            m_leftMotor.set(TalonSRXControlMode.PercentOutput, m_pidValue); // to-do: change m_motorSpeed to m_pidValue
-            m_rightMotor.set(TalonSRXControlMode.PercentOutput, -m_pidValue); // to-do: change m_motorSpeed to m_pidValue
+            m_leftMotor.set(TalonSRXControlMode.PercentOutput, -m_pidValue); // to-do: change m_motorSpeed to m_pidValue
+            m_rightMotor.set(TalonSRXControlMode.PercentOutput, m_pidValue); // to-do: change m_motorSpeed to m_pidValue
         }
     }
 

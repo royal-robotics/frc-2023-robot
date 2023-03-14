@@ -8,17 +8,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Visions;
 import frc.robot.subsystems.Swerve;
 
-public class ScoreAlign extends CommandBase {
+public class ScoreAlignTest extends CommandBase {
     private Swerve swerve;
-    private Visions vision; 
+    private Visions strVision; 
+    private Visions tVision;
+    private double goalYFromTag;
+
 
     private PIDController xController;
     private PIDController yController;
     private PIDController angleController;
 
-    public ScoreAlign(Swerve swerve, Visions vision) {
+    public ScoreAlignTest(Swerve swerve, Visions tiltedVision, Visions straightVision, double goalYFromTag) {
         this.swerve = swerve;
-        this.vision = vision;
+        this.strVision = straightVision;
+        this.tVision = tiltedVision;
+        this.goalYFromTag = goalYFromTag;
         addRequirements(swerve);
         
         this.angleController = new PIDController(4, 0, 0);
@@ -30,7 +35,7 @@ public class ScoreAlign extends CommandBase {
     public void initialize() {
         angleController.enableContinuousInput(0, Math.PI);
         angleController.setSetpoint(0.0);
-        yController.setSetpoint(-0.56);
+        yController.setSetpoint(goalYFromTag);
         xController.setSetpoint(0.845);
     }
 
@@ -38,9 +43,15 @@ public class ScoreAlign extends CommandBase {
     public void execute() {
         double xSpeed = 0;
         double ySpeed = 0;
-        if(vision.m_Limelight.onTarget()) {
-            double distFromTag = vision.zDistRobotToTag();
-            double yTranslationToTag = vision.yDistRobotToTag();
+        if(tVision.m_Limelight.onTarget()) {
+            double distFromTag = tVision.zDistRobotToTag();
+            double yTranslationToTag = tVision.yDistRobotToTag();
+
+            xSpeed = xController.calculate(distFromTag); //-.6
+            ySpeed = yController.calculate(yTranslationToTag);
+        } else if (strVision.m_Limelight.onTarget()) {
+            double distFromTag = strVision.zDistRobotToTag();
+            double yTranslationToTag = strVision.yDistRobotToTag();
 
             xSpeed = xController.calculate(distFromTag); //-.6
             ySpeed = yController.calculate(yTranslationToTag);

@@ -5,12 +5,19 @@ import edu.wpi.first.networktables.*;
 // Raw camera stream: 10.25.22.11:5800
 // Dashboard: 10.25.22.11:5801
 public class Limelight {
-    private NetworkTable _table = NetworkTableInstance.getDefault().getTable("limelight");
+    // private NetworkTable _table = NetworkTableInstance.getDefault().getTable("limelight");
 
-    // We should start with the visible pipeline
-    static {
-        var table = NetworkTableInstance.getDefault().getTable("limelight");
-        table.getEntry("pipeline").setNumber(0);
+    private NetworkTable _table;
+
+    // // We should start with the visible pipeline
+    // static {
+    //     var table = NetworkTableInstance.getDefault().getTable("limelight");
+    //     table.getEntry("pipeline").setNumber(0);
+    // }
+
+    public Limelight(String name) {
+        this._table = NetworkTableInstance.getDefault().getTable(name);
+        this._table.getEntry("pipeline").setNumber(0);
     }
 
     public boolean onTarget() {

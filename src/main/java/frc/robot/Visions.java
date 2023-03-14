@@ -45,8 +45,12 @@ public class Visions {
     private final Translation2d centerPositionBlue = new Translation2d(1.9, 2.75); // Position in front of blue center cube spot for blue alliance
     private final Translation2d centerPositionRed = new Translation2d(1.9, 5.27); // Position in front of red center cube spot for red alliance
 
-    public Visions() {
-        this.m_Limelight = new Limelight();
+    // public Visions() {
+    //     this.m_Limelight = new Limelight();
+    // }
+
+    public Visions(String camName) {
+        this.m_Limelight = new Limelight(camName);
     }
 
     public Pose2d doubleArrayToRobotPose(double[] poseArray) {

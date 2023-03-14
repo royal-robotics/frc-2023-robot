@@ -21,12 +21,14 @@ public class GridAlign extends CommandBase {
     // --- shuffleboard fields ------
     public double deltaX;
     public double deltaY;
+    public double yError;
 
     public GridAlign(Swerve swerve, Visions vision, double goalYFromTag) {
         this.swerve = swerve;
         this.vision = vision;
         this.goalYFromTag = goalYFromTag;
         this.hasTarget = false;
+        this.yError = 0;
         addRequirements(swerve);
 
         this.angleController = new PIDController(4, 0, 0);
@@ -35,11 +37,12 @@ public class GridAlign extends CommandBase {
 
         ShuffleboardTab scoreAlignTab = Shuffleboard.getTab("ScoreAlign"); 
         scoreAlignTab.addNumber("Current X", () -> swerve.getPose().getX()).withPosition(0, 0); 
-        scoreAlignTab.addNumber("Current Y", () -> swerve.getPose().getX()).withPosition(0, 1); 
+        scoreAlignTab.addNumber("Current Y", () -> swerve.getPose().getY()).withPosition(0, 1); 
         scoreAlignTab.addNumber("Goal X", () -> getXSetPoint()).withPosition(1, 0); 
         scoreAlignTab.addNumber("Goal Y", () -> getYSetPoint()).withPosition(1, 1);
         scoreAlignTab.addNumber("Delta X", () -> deltaX).withPosition(2, 0); 
         scoreAlignTab.addNumber("Delta Y", () -> deltaY).withPosition(2, 1);
+        scoreAlignTab.addNumber("ErrorY", () -> deltaY).withPosition(3, 1);
     }
 
     @Override 
@@ -64,17 +67,30 @@ public class GridAlign extends CommandBase {
     @Override 
     public void execute() {
         if (hasTarget) {
-            if (vision.m_Limelight.onTarget()) {
-                xController.setSetpoint(getXSetPoint());
-                yController.setSetpoint(getYSetPoint());
-            }
+            // if (vision.m_Limelight.onTarget()) {
+            //     xController.setSetpoint(getXSetPoint());
+            //     yController.setSetpoint(getYSetPoint());
+            // }
             
             double angleSpeed = angleController.calculate(swerve.getYaw().getRadians());
             double xSpeed = xController.calculate(swerve.getPose().getX());
             double ySpeed = yController.calculate(swerve.getPose().getY());
+            this.yError = ySpeed;
+
+            if (ySpeed > 0.5) {
+                ySpeed = 0.5;
+            } else if (ySpeed < -0.5) {
+                ySpeed = -0.5;
+            }
+            if (xSpeed > 0.5) {
+                xSpeed = 0.5;
+            } else if (xSpeed < -0.5) {
+                xSpeed = -0.5;
+            }
+
 
             // swerve.drive(new Translation2d(xSpeed, ySpeed), angleSpeed, true, false);
-            swerve.drive(new Translation2d(0, ySpeed), angleSpeed, true, false);
+            swerve.drive(new Translation2d(0, ySpeed), angleSpeed, false, false);
         } else {
             swerve.setStableModuleStates();
         }

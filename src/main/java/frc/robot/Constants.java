@@ -35,6 +35,10 @@ public final class Constants {
     public static final DoubleSolenoid.Value intakeExtend = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value intakeRetract = DoubleSolenoid.Value.kReverse;
 
+    // Alignment Constants
+    public static final double yLeftCone = -0.56;
+    public static final double yRightCone = 0.56;
+
     public static final double encoderAndSetPointLimit = 0.5;  //used in MoveArm.java -- limits both encoder and setpoint -- limit for if it is safe to open grip while moving arm
 
     public static final class Container {
