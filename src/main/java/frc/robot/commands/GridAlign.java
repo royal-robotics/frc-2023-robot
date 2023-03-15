@@ -42,7 +42,7 @@ public class GridAlign extends CommandBase {
         scoreAlignTab.addNumber("Goal Y", () -> getYSetPoint()).withPosition(1, 1);
         scoreAlignTab.addNumber("Delta X", () -> deltaX).withPosition(2, 0); 
         scoreAlignTab.addNumber("Delta Y", () -> deltaY).withPosition(2, 1);
-        scoreAlignTab.addNumber("ErrorY", () -> deltaY).withPosition(3, 1);
+        scoreAlignTab.addNumber("ErrorY", () -> yError).withPosition(3, 1);
     }
 
     @Override 

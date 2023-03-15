@@ -65,7 +65,7 @@ public class RobotContainer {
     private final JoystickButton lockBackward = new JoystickButton(driver, 1); //A
     private final JoystickButton sonicAlignCommand = new JoystickButton(driver, 3); //X
     private final JoystickButton scoreAlignCommand = new JoystickButton(driver, 8); //Start/Menue
-    // private final Trigger scoreRightAlignCommand = new Trigger(() -> driver.getPOV() == 90);
+    private final Trigger scoreRightAlignCommand = new Trigger(() -> driver.getPOV() == 180);
     private final Trigger testScoreRightAlignCommand = new Trigger(() -> driver.getPOV() == 90);
     private final Trigger testScoreLeftAlignCommand = new Trigger(() -> driver.getPOV() == 270);
 
@@ -166,7 +166,7 @@ public class RobotContainer {
         scoreAlignCommand.whileTrue(new ScoreAlign(s_Swerve, s_Visions));
         testScoreRightAlignCommand.whileTrue(new ScoreAlignTest(s_Swerve, s_Visions, s_straightVisions, Constants.yRightCone));
         testScoreLeftAlignCommand.whileTrue(new ScoreAlignTest(s_Swerve, s_Visions, s_straightVisions, Constants.yLeftCone));
-        // scoreRightAlignCommand.whileTrue(new GridAlign(s_Swerve, s_Visions, 0.56));
+        scoreRightAlignCommand.whileTrue(new GridAlign(s_Swerve, s_Visions, 0.56));
         //autoBalance.whileTrue(new AutoBalanceCommand(s_Swerve));
         //autoUp.onTrue(new AutoUp(s_Arm, s_Intake));
         //autoDown.onTrue(new AutoDown(s_Arm, s_Intake));
