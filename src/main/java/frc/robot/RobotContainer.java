@@ -164,7 +164,8 @@ public class RobotContainer {
         setpointBottom.onTrue(new MoveArm(s_Arm, s_Intake, Constants.armBottomSetpoint));
         sonicAlignCommand.whileTrue(new UltraSonicAlignCommand(s_Swerve));
         scoreAlignCommand.whileTrue(new ScoreAlign(s_Swerve, s_Visions));
-        testScoreRightAlignCommand.whileTrue(new ScoreAlignTest(s_Swerve, s_Visions, s_straightVisions, Constants.yRightCone));
+        testScoreRightAlignCommand.whileTrue(new ScoreAlignRight(s_Swerve, s_straightVisions));
+        // testScoreRightAlignCommand.whileTrue(new ScoreAlignTest(s_Swerve, s_Visions, s_straightVisions, Constants.yRightCone));
         testScoreLeftAlignCommand.whileTrue(new ScoreAlignTest(s_Swerve, s_Visions, s_straightVisions, Constants.yLeftCone));
         scoreRightAlignCommand.whileTrue(new GridAlign(s_Swerve, s_Visions, 0.56));
         //autoBalance.whileTrue(new AutoBalanceCommand(s_Swerve));
