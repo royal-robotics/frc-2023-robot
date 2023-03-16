@@ -43,19 +43,27 @@ public class ScoreAlignTest extends CommandBase {
     public void execute() {
         double xSpeed = 0;
         double ySpeed = 0;
-        if(tVision.m_Limelight.onTarget()) {
-            double distFromTag = tVision.zDistRobotToTag();
-            double yTranslationToTag = tVision.yDistRobotToTag();
+        Visions optimalCam = (goalYFromTag < 0) ? tVision : strVision;
+        // if(tVision.m_Limelight.onTarget()) {
+        //     double distFromTag = tVision.zDistRobotToTag();
+        //     double yTranslationToTag = tVision.yDistRobotToTag();
+
+        //     xSpeed = xController.calculate(distFromTag); //-.6
+        //     ySpeed = yController.calculate(yTranslationToTag);
+        // } else if (strVision.m_Limelight.onTarget()) {
+        //     double distFromTag = strVision.zDistRobotToTag();
+        //     double yTranslationToTag = strVision.yDistRobotToTag();
+
+        //     xSpeed = xController.calculate(distFromTag); //-.6
+        //     ySpeed = yController.calculate(yTranslationToTag);
+        // }
+        if(optimalCam.m_Limelight.onTarget()) {
+            double distFromTag = optimalCam.zDistRobotToTag();
+            double yTranslationToTag = optimalCam.yDistRobotToTag();
 
             xSpeed = xController.calculate(distFromTag); //-.6
             ySpeed = yController.calculate(yTranslationToTag);
-        } else if (strVision.m_Limelight.onTarget()) {
-            double distFromTag = strVision.zDistRobotToTag();
-            double yTranslationToTag = strVision.yDistRobotToTag();
-
-            xSpeed = xController.calculate(distFromTag); //-.6
-            ySpeed = yController.calculate(yTranslationToTag);
-        }
+        } 
         double angleSpeed = angleController.calculate(swerve.getYaw().getRadians()) ;
         
         // Drive 
@@ -63,7 +71,12 @@ public class ScoreAlignTest extends CommandBase {
 
         // }
         // swerve.drive(new Translation2d(xSpeed, -ySpeed), angleSpeed, true, false);
-        swerve.drive(new Translation2d(-xSpeed, ySpeed), angleSpeed, false, false);
+
+        if (!tVision.m_Limelight.onTarget() || !strVision.m_Limelight.onTarget()) {
+            swerve.setStableModuleStates();
+        } else {
+            swerve.drive(new Translation2d(-xSpeed, ySpeed), angleSpeed, false, false);
+        }
     }
 
     @Override

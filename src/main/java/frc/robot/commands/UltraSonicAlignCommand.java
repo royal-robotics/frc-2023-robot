@@ -33,7 +33,7 @@ public class UltraSonicAlignCommand extends CommandBase {
 
     @Override
     public void initialize(){
-        xController.setSetpoint(0.63);
+        xController.setSetpoint(0.65);
         angleController.enableContinuousInput(0, Math.PI);
         angleController.setSetpoint(0);
     }

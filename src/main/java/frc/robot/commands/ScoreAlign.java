@@ -22,15 +22,15 @@ public class ScoreAlign extends CommandBase {
         addRequirements(swerve);
         
         this.angleController = new PIDController(4, 0, 0);
-        this.xController = new PIDController(1.5, 0, 0);
-        this.yController = new PIDController(1.5, 0, 0);
+        this.xController = new PIDController(2, 0, 0);
+        this.yController = new PIDController(2, 0, 0);
     }
 
     @Override
     public void initialize() {
         angleController.enableContinuousInput(0, Math.PI);
         angleController.setSetpoint(0.0);
-        yController.setSetpoint(-0.56);
+        yController.setSetpoint(-0.61);
         xController.setSetpoint(0.845);
     }
 
@@ -44,15 +44,12 @@ public class ScoreAlign extends CommandBase {
 
             xSpeed = xController.calculate(distFromTag); //-.6
             ySpeed = yController.calculate(yTranslationToTag);
-        }
-        double angleSpeed = angleController.calculate(swerve.getYaw().getRadians()) ;
-        
-        // Drive 
-        // if (DriverStation.getAlliance() == Alliance.Red) {
+            double angleSpeed = angleController.calculate(swerve.getYaw().getRadians());
 
-        // }
-        // swerve.drive(new Translation2d(xSpeed, -ySpeed), angleSpeed, true, false);
-        swerve.drive(new Translation2d(-xSpeed, ySpeed), angleSpeed, false, false);
+            swerve.drive(new Translation2d(-xSpeed, ySpeed), angleSpeed, false, false);
+        } else {
+            swerve.setStableModuleStates();
+        }
     }
 
     @Override
