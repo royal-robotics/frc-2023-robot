@@ -46,7 +46,7 @@ public class AutoBalanceCommand extends CommandBase{
         timer = new Timer();
         // s_accelerometer = new short[3];
 
-        ShuffleboardTab autoBalanceTest = Shuffleboard.getTab("Auto Balancing");
+        // ShuffleboardTab autoBalanceTest = Shuffleboard.getTab("Auto Balancing");
         //autoBalanceTest.addNumber("roll", () -> s_roll).withPosition(0, 0); 
         //autoBalanceTest.addNumber("rollspeed", () -> s_rollSpeed).withPosition(0, 1);
 

@@ -25,11 +25,11 @@ public class UltraSonicAlignCommand extends CommandBase {
         xError = 0;
         angleError = 0;
         addRequirements(swerve);
-        ShuffleboardTab sonicTab = Shuffleboard.getTab("UltraSonic");
-        sonicTab.addNumber("Average Voltage", () -> swerve.getVoltage()).withPosition(0,0);
+        // ShuffleboardTab sonicTab = Shuffleboard.getTab("UltraSonic");
+        // sonicTab.addNumber("Average Voltage", () -> swerve.getVoltage()).withPosition(0,0);
         //sonicTab.addNumber("Sonic Distance", () -> swerve.getSonicDistance()).withPosition(1,0);
-        sonicTab.addString("Voltage Readings", () -> swerve.voltageReadings.toString()).withPosition(0, 2);
-        sonicTab.addNumber("XError", () -> xError).withPosition(1, 2);
+        // sonicTab.addString("Voltage Readings", () -> swerve.voltageReadings.toString()).withPosition(0, 2);
+        // sonicTab.addNumber("XError", () -> xError).withPosition(1, 2);
     }
 
     @Override

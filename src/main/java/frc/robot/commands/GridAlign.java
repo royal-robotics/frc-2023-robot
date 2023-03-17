@@ -35,14 +35,14 @@ public class GridAlign extends CommandBase {
         this.xController = new PIDController(1.5, 0, 0);
         this.yController = new PIDController(1.5, 0, 0);
 
-        ShuffleboardTab scoreAlignTab = Shuffleboard.getTab("ScoreAlign"); 
-        scoreAlignTab.addNumber("Current X", () -> swerve.getPose().getX()).withPosition(0, 0); 
-        scoreAlignTab.addNumber("Current Y", () -> swerve.getPose().getY()).withPosition(0, 1); 
-        scoreAlignTab.addNumber("Goal X", () -> getXSetPoint()).withPosition(1, 0); 
-        scoreAlignTab.addNumber("Goal Y", () -> getYSetPoint()).withPosition(1, 1);
-        scoreAlignTab.addNumber("Delta X", () -> deltaX).withPosition(2, 0); 
-        scoreAlignTab.addNumber("Delta Y", () -> deltaY).withPosition(2, 1);
-        scoreAlignTab.addNumber("ErrorY", () -> yError).withPosition(3, 1);
+        // ShuffleboardTab scoreAlignTab = Shuffleboard.getTab("ScoreAlign"); 
+        // scoreAlignTab.addNumber("Current X", () -> swerve.getPose().getX()).withPosition(0, 0); 
+        // scoreAlignTab.addNumber("Current Y", () -> swerve.getPose().getY()).withPosition(0, 1); 
+        // scoreAlignTab.addNumber("Goal X", () -> getXSetPoint()).withPosition(1, 0); 
+        // scoreAlignTab.addNumber("Goal Y", () -> getYSetPoint()).withPosition(1, 1);
+        // scoreAlignTab.addNumber("Delta X", () -> deltaX).withPosition(2, 0); 
+        // scoreAlignTab.addNumber("Delta Y", () -> deltaY).withPosition(2, 1);
+        // scoreAlignTab.addNumber("ErrorY", () -> yError).withPosition(3, 1);
     }
 
     @Override 
