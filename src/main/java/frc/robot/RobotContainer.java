@@ -73,8 +73,8 @@ public class RobotContainer {
     private final JoystickButton gripUp = new JoystickButton(operator, 3); //X
     private final JoystickButton gripToggle = new JoystickButton(operator, 5); //LB
     private final JoystickButton cubeIntake = new JoystickButton(operator, 2); //B
-    // private final JoystickButton coneIntake = new JoystickButton(operator, 4); //Y
-    private final JoystickButton onlyExtendIntake = new JoystickButton(operator, 4); //Y
+    private final JoystickButton coneIntake = new JoystickButton(operator, 4); //Y
+    // private final JoystickButton onlyExtendIntake = new JoystickButton(operator, 4); //Y
     private final JoystickButton retractIntake = new JoystickButton(operator, 7); 
     private final Trigger setpointTop = new Trigger(() -> operator.getPOV() == 0);
     private final Trigger setpointMiddleCone = new Trigger(() -> operator.getPOV() == 90);
@@ -144,8 +144,8 @@ public class RobotContainer {
         spinSpeed.onTrue(new InstantCommand(() -> s_Swerve.m_spinMultiplier = Constants.fastSpin));
         spinSpeed.onFalse(new InstantCommand(() -> s_Swerve.m_spinMultiplier = Constants.slowSpin));
         cubeIntake.whileTrue(new ExtendIntake(s_Arm, s_Intake, Constants.cubeIntakeSpeed));
-        // coneIntake.whileTrue(new ExtendIntake(s_Arm, s_Intake, Constants.coneIntakeSpeed));
-        onlyExtendIntake.onTrue(new ExtendIntake(s_Arm, s_Intake, 0));
+        coneIntake.whileTrue(new ExtendIntake(s_Arm, s_Intake, Constants.coneIntakeSpeed));
+        // onlyExtendIntake.onTrue(new ExtendIntake(s_Arm, s_Intake, 0));
         retractIntake.whileTrue(new RetractIntake(s_Arm, s_Intake));
         gripDown.whileTrue(new GripDown(s_Arm, s_Intake));
         gripUp.whileTrue(new GripUp(s_Arm, s_Intake));

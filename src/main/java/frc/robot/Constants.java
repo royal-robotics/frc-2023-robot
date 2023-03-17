@@ -38,7 +38,7 @@ public final class Constants {
     // Alignment Constants
     public static final double yLeftCone = -0.61;
     public static final double xLeftCone = 0.845;
-    public static final double yRightCone = 0.45;
+    public static final double yRightCone = 0.47;
     public static final double xRightCone = 0.83;
 
     public static final double encoderAndSetPointLimit = 0.5;  //used in MoveArm.java -- limits both encoder and setpoint -- limit for if it is safe to open grip while moving arm

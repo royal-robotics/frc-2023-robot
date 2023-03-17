@@ -38,11 +38,11 @@ public class TagAlignCommand extends CommandBase {
         angleToTag = 0;
         angleError = 0;
 
-        ShuffleboardTab autoBalanceTest = Shuffleboard.getTab("Tag Align");
-        autoBalanceTest.addNumber("distToTag", () -> distToTag).withPosition(0, 0); 
-        autoBalanceTest.addNumber("zError", () -> zError).withPosition(0, 1);
-        autoBalanceTest.addNumber("angleToTag", () -> angleToTag).withPosition(1, 0); 
-        autoBalanceTest.addNumber("angleError", () -> angleError).withPosition(1, 1);
+        // ShuffleboardTab autoBalanceTest = Shuffleboard.getTab("Tag Align");
+        // autoBalanceTest.addNumber("distToTag", () -> distToTag).withPosition(0, 0); 
+        // autoBalanceTest.addNumber("zError", () -> zError).withPosition(0, 1);
+        // autoBalanceTest.addNumber("angleToTag", () -> angleToTag).withPosition(1, 0); 
+        // autoBalanceTest.addNumber("angleError", () -> angleError).withPosition(1, 1);
     }   
 
     @Override

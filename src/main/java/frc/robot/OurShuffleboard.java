@@ -20,16 +20,16 @@ public class OurShuffleboard {
         Visions vision = container.s_Visions;
         Visions vision2 = container.s_leftVisions;
 
-        ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
+        // ShuffleboardTab cameraTab = Shuffleboard.getTab("Camera");
         // increasing going right, decreasing going left 
         
-        cameraTab.addNumber("hasTarget", () -> vision.m_Limelight.hasTarget()).withPosition(4, 0);
-        cameraTab.addNumber("zDistToTag", () -> vision.zDistRobotToTag()).withPosition(5, 0);
-        cameraTab.addNumber("yDistFromTag", ()->vision.yDistRobotToTag()).withPosition(6, 0);
-        cameraTab.addNumber("hasTarget2", () -> vision2.m_Limelight.hasTarget()).withPosition(4, 2);
-        cameraTab.addNumber("zDistToTag2", () -> vision2.zDistRobotToTag()).withPosition(5, 2);
-        cameraTab.addNumber("yDistFromTag2", ()->vision2.yDistRobotToTag()).withPosition(6, 2);
-        // cameraTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(0, 0).withSize(4, 2);
+        // cameraTab.addNumber("hasTarget", () -> vision.m_Limelight.hasTarget()).withPosition(4, 0);
+        // cameraTab.addNumber("zDistToTag", () -> vision.zDistRobotToTag()).withPosition(5, 0);
+        // cameraTab.addNumber("yDistFromTag", ()->vision.yDistRobotToTag()).withPosition(6, 0);
+        // cameraTab.addNumber("hasTarget2", () -> vision2.m_Limelight.hasTarget()).withPosition(4, 2);
+        // cameraTab.addNumber("zDistToTag2", () -> vision2.zDistRobotToTag()).withPosition(5, 2);
+        // cameraTab.addNumber("yDistFromTag2", ()->vision2.yDistRobotToTag()).withPosition(6, 2);
+        // cameraTab.addCamera("Camera Stream", "lightlime", "http://10.s25.22.11:5800/").withPosition(0, 0).withSize(4, 2);
         // cameraTab.addCamera("Camera2 Stream", "lightlime-two", "http://10.25.22.12:5800/").withPosition(0, 2).withSize(4, 2);
         // cameraTab.addString("TagID", () -> {
         //     double[] id = vision.m_Limelight.getTagID();
@@ -63,7 +63,7 @@ public class OurShuffleboard {
         ShuffleboardTab competitionTab = Shuffleboard.getTab("Competition");
         competitionTab.add("Auto Mode", autoModeSelector._chooser).withPosition(0, 0).withSize(2, 1);
         competitionTab.addCamera("Camera Stream", "lightlime", "http://10.25.22.11:5800/").withPosition(0, 4).withSize(4, 2);
-        // competitionTab.addCamera( "Camera2 Stream", "lightlime-two", "http://10.25.22.12:5800/").withPosition(2, 4).withSize(4, 2);
+        competitionTab.addCamera( "Camera2 Stream", "lightlime-two", "http://10.25.22.12:5800/").withPosition(2, 4).withSize(4, 2);
         competitionTab.addNumber("Arm Power", () -> arm.getPidValue()).withPosition(0, 1);
         competitionTab.addBoolean("Arm At Setpoint", () -> arm.atSetpoint()).withPosition(1, 1);
         competitionTab.addBoolean("Claw Open", () -> arm.getSolenoidGrip() == Constants.gripOpen).withPosition(0, 2);
