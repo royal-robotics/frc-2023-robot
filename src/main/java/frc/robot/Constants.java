@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double maxArmDistance = 1.86;
-    public static final double minArmDistance = 0.01;
-
     public static final double stickDeadband = 0.11;
     public static final double stickRotationDeadband = 0.25;
 
@@ -20,13 +17,21 @@ public final class Constants {
     public static final double slowSpin = 0.5;
     public static final double fastSpin = 1.0;
 
+    public static final double cubeIntakeSpeed = -1.0;
+    public static final double coneIntakeSpeed = -1.0;
+
+    // Arm Constants
+    public static final double maxArmDistance = 1.86;
+    public static final double minArmDistance = 0.01;
+
     public static final double armTopSetpoint = maxArmDistance;
     public static final double armMiddleConeSetpoint = 1.45;
     public static final double armMiddleCubeSetpoint = 1.15;
     public static final double armBottomSetpoint = minArmDistance;
 
-    public static final double cubeIntakeSpeed = -1.0;
-    public static final double coneIntakeSpeed = -1.0;
+    public static final double armPidKp = 35;
+
+    public static final double encoderAndSetPointLimit = 0.5;  //used in MoveArm.java -- limits both encoder and setpoint -- limit for if it is safe to open grip while moving arm
 
     public static final DoubleSolenoid.Value gripOpen =  DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value gripClose = DoubleSolenoid.Value.kReverse;
@@ -35,13 +40,19 @@ public final class Constants {
     public static final DoubleSolenoid.Value intakeExtend = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value intakeRetract = DoubleSolenoid.Value.kReverse;
 
-    // Alignment Constants
+    // Scoring Alignment Constants
     public static final double yLeftCone = -0.61;
     public static final double xLeftCone = 0.845;
     public static final double yRightCone = 0.47;
     public static final double xRightCone = 0.83;
 
-    public static final double encoderAndSetPointLimit = 0.5;  //used in MoveArm.java -- limits both encoder and setpoint -- limit for if it is safe to open grip while moving arm
+    public static final double scoreAlignDrivePidKp = 2.0;
+    public static final double scoreAlignAnglePidKp = 4.0;
+
+    // Human-Player Station Alignment Constants
+    public static final double hpVisionZSetpoint = 0.86;
+    public static final double hpSonicZSetpoint = 0.65;
+
 
     public static final class Container {
         public static final int translationAxis = 1;

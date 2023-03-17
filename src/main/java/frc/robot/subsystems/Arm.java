@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import java.util.Map;
 
 public class Arm extends SubsystemBase {
@@ -33,7 +35,7 @@ public class Arm extends SubsystemBase {
         int limitPeak = 40; //configPeakCurrentLimit()
         int limitDuration = 2000; //configPeakCurrentDuration()
         int continuousCurrent = 30; //ContinuousCurrentLimit()
-        double pidKp = 35;
+        double pidKp = Constants.armPidKp;  //double pidKp = 35;
         
         m_gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 1);
         m_angleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 5, 2);

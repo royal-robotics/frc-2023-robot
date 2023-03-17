@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class UltraSonicAlignCommand extends CommandBase {
@@ -33,7 +34,7 @@ public class UltraSonicAlignCommand extends CommandBase {
 
     @Override
     public void initialize(){
-        xController.setSetpoint(0.65);
+        xController.setSetpoint(Constants.hpSonicZSetpoint);  //xController.setSetpoint(0.65);
         angleController.enableContinuousInput(0, Math.PI);
         angleController.setSetpoint(0);
     }

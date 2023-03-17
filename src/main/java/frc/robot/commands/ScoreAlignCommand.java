@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Visions;
 import frc.robot.subsystems.Swerve;
 
@@ -22,9 +23,9 @@ public class ScoreAlignCommand extends CommandBase {
         this.vision = vision;
         addRequirements(swerve);
         
-        this.angleController = new PIDController(4, 0, 0);
-        this.xController = new PIDController(2, 0, 0);
-        this.yController = new PIDController(2, 0, 0);
+        this.angleController = new PIDController(Constants.scoreAlignAnglePidKp, 0, 0);  //this.angleController = new PIDController(4, 0, 0);
+        this.xController = new PIDController(Constants.scoreAlignDrivePidKp, 0, 0);  //this.xController = new PIDController(2, 0, 0);
+        this.yController = new PIDController(Constants.scoreAlignDrivePidKp, 0, 0);  //this.yController = new PIDController(2, 0, 0);
 
         this.xSetPoint = xSetPoint; 
         this.ySetPoint = ySetPoint;

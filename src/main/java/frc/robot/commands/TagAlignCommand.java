@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.lang.invoke.ConstantBootstraps;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -8,6 +10,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Visions;
 import frc.robot.subsystems.Swerve;
 
@@ -47,7 +50,7 @@ public class TagAlignCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        zController.setSetpoint(0.86);
+        zController.setSetpoint(Constants.hpVisionZSetpoint);  //zController.setSetpoint(0.86);
         angleController.enableContinuousInput(0, Math.PI);
         // angleController.setGoal(0.0);
         // angleController.reset(s_Swerve.getPose().getRotation().getRadians());
