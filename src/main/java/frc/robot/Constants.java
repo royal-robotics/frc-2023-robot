@@ -25,7 +25,7 @@ public final class Constants {
     public static final double minArmDistance = 0.01;
 
     public static final double armTopSetpoint = maxArmDistance;
-    public static final double armMiddleConeSetpoint = 1.45;
+    public static final double armMiddleConeSetpoint = 1.25;
     public static final double armMiddleCubeSetpoint = 1.15;
     public static final double armBottomSetpoint = minArmDistance;
 
@@ -50,7 +50,7 @@ public final class Constants {
     public static final double scoreAlignAnglePidKp = 4.0;
 
     // Human-Player Station Alignment Constants
-    public static final double hpVisionZSetpoint = 0.86;
+    public static final double hpVisionZSetpoint = 0.70;
     public static final double hpSonicZSetpoint = 0.65;
 
 

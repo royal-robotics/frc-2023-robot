@@ -23,7 +23,7 @@ import frc.robot.Constants;
 
 public class MiddleLong extends SequentialCommandGroup {
     public MiddleLong(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleLong", 1.75, 1.25);
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("MiddleLong", 1.75, 1.0);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(

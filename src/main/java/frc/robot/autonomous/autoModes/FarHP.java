@@ -45,8 +45,8 @@ public class FarHP extends SequentialCommandGroup {
                     new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
                     new AutoGripClose(robotContainer.s_Arm, 0.5),
-                    new AutoGripDown(robotContainer.s_Arm, robotContainer.s_Intake, 0.5),
-                    new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armBottomSetpoint)
+                    new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armBottomSetpoint),
+                    new AutoGripDown(robotContainer.s_Arm, robotContainer.s_Intake, 0.5)
                 ),
                 new PPSwerveControllerCommand(
                     blueTrajectory, 
