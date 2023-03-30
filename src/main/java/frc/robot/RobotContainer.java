@@ -81,7 +81,7 @@ public class RobotContainer {
     private final Trigger setpointMiddleCube = new Trigger(() -> operator.getPOV() == 270);
     private final Trigger setpointBottom = new Trigger(() -> operator.getPOV() == 180);
 
-    //private final JoystickButton gripClose = new JoystickButton(operator, 6); //RB
+    private final JoystickButton gripOpen = new JoystickButton(operator, 6); //RB
     //private final JoystickButton autoUp = new JoystickButton(operator, 3); //X
     //private final JoystickButton autoDown = new JoystickButton(operator, 1); //A
 
@@ -170,5 +170,6 @@ public class RobotContainer {
         //autoUp.onTrue(new AutoUp(s_Arm, s_Intake));
         //autoDown.onTrue(new AutoDown(s_Arm, s_Intake));
         //autoIntake.whileFalse(new RetractIntake(s_Arm, s_Intake));
+        gripOpen.whileTrue(new GripOpen(s_Arm));
     }
 }

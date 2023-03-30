@@ -18,6 +18,7 @@ public final class Constants {
     public static final double fastSpin = 1.0;
 
     public static final double cubeIntakeSpeed = -1.0;
+    public static final double cubeIntakeSpeedAuto = -0.8;
     public static final double coneIntakeSpeed = -1.0;
 
     // Arm Constants
@@ -25,8 +26,8 @@ public final class Constants {
     public static final double minArmDistance = 0.01;
 
     public static final double armTopSetpoint = maxArmDistance;
-    public static final double armMiddleConeSetpoint = 1.25;
-    public static final double armMiddleCubeSetpoint = 1.15;
+    public static final double armMiddleConeSetpoint = 1.27;
+    public static final double armMiddleCubeSetpoint = 1.17;
     public static final double armBottomSetpoint = minArmDistance;
 
     public static final double armPidKp = 35;
@@ -51,7 +52,7 @@ public final class Constants {
 
     // Human-Player Station Alignment Constants
     public static final double hpVisionZSetpoint = 0.70;
-    public static final double hpSonicZSetpoint = 0.65;
+    public static final double hpSonicZSetpoint = 0.62;
 
 
     public static final class Container {

@@ -43,8 +43,11 @@ public class MiddleLong extends SequentialCommandGroup {
                 new SequentialCommandGroup(
                     new AutoGripOpen(robotContainer.s_Arm, 0.5),
                     new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 2.5), //0.3
-                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 4.0),
-                    new AutoGripClose(robotContainer.s_Arm, 2.0)
+                    // new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeed, 4.0),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeedAuto, 4.5),
+                    new AutoGripClose(robotContainer.s_Arm, 0.5),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 2)
+                    //new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, 1.0, 0.5) //0.3
                 ),
                 
                 new PPSwerveControllerCommand(
