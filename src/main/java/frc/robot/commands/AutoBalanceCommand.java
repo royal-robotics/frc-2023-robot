@@ -39,8 +39,7 @@ public class AutoBalanceCommand extends CommandBase{
         s_yawController = new ProfiledPIDController(1, 0, 0, Constants.Auto.kThetaControllerConstraints);
         s_yawController.enableContinuousInput(0, Math.PI);
         
-        s_rollController = new PIDController(0.03
-        , 0, 0);
+        s_rollController = new PIDController(0.03, 0, 0);
         s_roll = s_gyro.getPitch();
         s_rollSpeed = 0;
         timer = new Timer();

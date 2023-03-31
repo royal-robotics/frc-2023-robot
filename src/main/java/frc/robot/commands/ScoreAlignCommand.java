@@ -64,6 +64,7 @@ public class ScoreAlignCommand extends CommandBase {
     
     @Override
     public boolean isFinished() {
+        // return xController.atSetpoint() && yController.atSetpoint() && angleController.atSetpoint();
         return false;
     }
 }

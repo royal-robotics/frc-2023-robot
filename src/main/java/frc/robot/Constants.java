@@ -22,7 +22,7 @@ public final class Constants {
     public static final double coneIntakeSpeed = -1.0;
 
     // Arm Constants
-    public static final double maxArmDistance = 1.86;
+    public static final double maxArmDistance = 1.91;
     public static final double minArmDistance = 0.01;
 
     public static final double armTopSetpoint = maxArmDistance;
@@ -30,7 +30,7 @@ public final class Constants {
     public static final double armMiddleCubeSetpoint = 1.17;
     public static final double armBottomSetpoint = minArmDistance;
 
-    public static final double armPidKp = 35;
+    public static final double armPidKp = 30;
 
     public static final double encoderAndSetPointLimit = 0.5;  //used in MoveArm.java -- limits both encoder and setpoint -- limit for if it is safe to open grip while moving arm
 
@@ -52,7 +52,7 @@ public final class Constants {
 
     // Human-Player Station Alignment Constants
     public static final double hpVisionZSetpoint = 0.70;
-    public static final double hpSonicZSetpoint = 0.62;
+    public static final double hpSonicZSetpoint = 0.68;
 
 
     public static final class Container {
@@ -77,7 +77,7 @@ public final class Constants {
         public static final double backLeftAngle = 122.12677001953126;
         public static final double backRightAngle = 124.03564453125;
 
-        public static final double chargeStationWheelSpeed = 0.3;
+        public static final double chargeStationWheelSpeed = 0.8;
 
         /* PID Controller Gains */
 

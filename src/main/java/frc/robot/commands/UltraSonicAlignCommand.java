@@ -17,11 +17,11 @@ public class UltraSonicAlignCommand extends CommandBase {
 
     public UltraSonicAlignCommand(Swerve swerve){
         this.swerve = swerve;
-        xController = new PIDController(4, 0.00, 0);
+        // xController = new PIDController(4, 0.00, 0);
+        xController = new PIDController(4.5, 0.00, 0);
         angleController = new PIDController(4, 0, 0);
         //xController.reset();
         //xController.setIntegratorRange(xError, angleError);
-
         xError = 0;
         angleError = 0;
         addRequirements(swerve);

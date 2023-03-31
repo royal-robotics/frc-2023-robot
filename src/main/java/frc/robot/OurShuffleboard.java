@@ -70,7 +70,7 @@ public class OurShuffleboard {
         // competitionTab.addNumber("Tag Distance", () -> vision.zDistRobotToTag()).withPosition(1, 2);
         //competitionTab.addNumber("Gyro Pitch", () -> swerve.gyro.getPitch()).withPosition(0, 1);
         //competitionTab.addNumber("Gyro Roll", () -> swerve.gyro.getRoll()).withPosition(1, 1);
-        // competitionTab.addNumber("Sonic Distance", () -> swerve.getSonicDistance()).withPosition(2,0);
+        competitionTab.addNumber("Sonic Distance", () -> swerve.getSonicDistance()).withPosition(2,0);
         competitionTab.addNumber("Gyro Yaw", () -> swerve.gyro.getYaw()).withPosition(2, 1);
         // competitionTab.addNumber("Sonic Raw Voltage", ()->swerve.sonicSensorRange.getVoltage()).withPosition(2, 2);
 
