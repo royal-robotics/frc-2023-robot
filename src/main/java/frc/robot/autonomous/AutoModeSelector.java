@@ -17,9 +17,14 @@ public class AutoModeSelector {
         //_chooser.addOption("push", () -> new Push(robotContainer));
         _chooser.addOption("NearHP", () -> new NearHP(robotContainer));
         _chooser.addOption("FarHP", () -> new FarHP(robotContainer));
-        _chooser.addOption("FlingMiddleLong", () -> new FlingMiddleLong(robotContainer));
-        _chooser.addOption("HighFarHP", () -> new newAuto(robotContainer));
-        _chooser.setDefaultOption("MiddleLong", () -> new MiddleLong(robotContainer));
+        //_chooser.addOption("FlingMiddleLong", () -> new FlingMiddleLong(robotContainer));
+        _chooser.addOption("HighFarHP", () -> new HighFarHP(robotContainer));
+        _chooser.addOption("HighNearHP", () -> new HighNearHP(robotContainer));
+        _chooser.addOption("MiddleLongNearHP", () -> new MiddleLongNearHP(robotContainer));
+        _chooser.addOption("MiddleLongFarHP", () -> new MiddleLongFarHP(robotContainer));
+        _chooser.addOption("HighMiddleLong", () -> new HighMiddleLong(robotContainer));
+        //_chooser.addOption("HighMiddleLongCubeFarHP", () -> new HighMiddleLongCubeFarHP(robotContainer));
+        //_chooser.addOption("HighMiddleLongCubeNearHP", () -> new HighMiddleLongCubeNearHP(robotContainer));
     }
 
     public SequentialCommandGroup getAutoMode() {

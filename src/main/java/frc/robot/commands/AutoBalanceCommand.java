@@ -71,7 +71,7 @@ public class AutoBalanceCommand extends CommandBase{
         */
 
         //Rotation2d yaw = s_Swerve.getYaw();
-        if (timer.get() % 1 <= 0.5) { 
+        if (timer.get() % 0.75 <= 0.5) { 
             s_roll = s_gyro.getRoll();   // TODO: degrees or radians?
 
             /* 

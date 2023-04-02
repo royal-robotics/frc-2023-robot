@@ -18,15 +18,15 @@ public final class Constants {
     public static final double fastSpin = 1.0;
 
     public static final double cubeIntakeSpeed = -1.0;
-    public static final double cubeIntakeSpeedAuto = -0.8;
+    public static final double cubeIntakeSpeedAuto = -0.9;
     public static final double coneIntakeSpeed = -1.0;
 
     // Arm Constants
-    public static final double maxArmDistance = 1.91;
+    public static final double maxArmDistance = 1.90;
     public static final double minArmDistance = 0.01;
 
     public static final double armTopSetpoint = maxArmDistance;
-    public static final double armMiddleConeSetpoint = 1.27;
+    public static final double armMiddleConeSetpoint = 1.07;
     public static final double armMiddleCubeSetpoint = 1.17;
     public static final double armBottomSetpoint = minArmDistance;
 
@@ -42,7 +42,7 @@ public final class Constants {
     public static final DoubleSolenoid.Value intakeRetract = DoubleSolenoid.Value.kReverse;
 
     // Scoring Alignment Constants
-    public static final double yLeftCone = -0.61;
+    public static final double yLeftCone = -0.55;
     public static final double xLeftCone = 0.845;
     public static final double yRightCone = 0.47;
     public static final double xRightCone = 0.83;
@@ -66,16 +66,16 @@ public final class Constants {
     public static final class Drivebase {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
-        public static final double rotationValMultiplier = 0.03;
+        public static final double rotationValMultiplier = 0.025;
         public static final double rotationValCap = 0.6;
         /* Drivetrain Constants */
         public static final double trackWidth = 0.495;
         public static final double wheelBase = 0.495;
 
-        public static final double frontLeftAngle = -31.92901611328125;
-        public static final double frontRightAngle = 389.959716796875;
-        public static final double backLeftAngle = 122.12677001953126;
-        public static final double backRightAngle = 124.03564453125;
+        public static final double frontLeftAngle = 328.42254638671875;
+        public static final double frontRightAngle = 31.105041503906254;
+        public static final double backLeftAngle = 121.74224853515625;
+        public static final double backRightAngle = 124.70855712890625;
 
         public static final double chargeStationWheelSpeed = 0.8;
 

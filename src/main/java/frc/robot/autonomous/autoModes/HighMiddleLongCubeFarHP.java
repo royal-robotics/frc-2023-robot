@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.AutoBalanceCommand;
@@ -19,13 +18,10 @@ import frc.robot.commands.AutoGripDown;
 import frc.robot.commands.AutoGripOpen;
 import frc.robot.commands.AutoGripUp;
 import frc.robot.commands.MoveArm;
-import frc.robot.commands.ScoreAlignCommand;
-import frc.robot.commands.TagAlignCommand;
-import frc.robot.subsystems.Swerve;
 
-public class newAuto extends SequentialCommandGroup {
-    public newAuto(RobotContainer robotContainer) {
-        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("newAuto", 3, 2);
+public class HighMiddleLongCubeFarHP extends SequentialCommandGroup {
+    public HighMiddleLongCubeFarHP(RobotContainer robotContainer) {
+        PathPlannerTrajectory blueTrajectory = PathPlanner.loadPath("HighMiddleLongCubeFarHP", 1.75, 1.0);
         PathPlannerTrajectory redTrajectory = PathPlannerTrajectory.transformTrajectoryForAlliance(blueTrajectory, Alliance.Red);
 
         this.addCommands(
@@ -40,27 +36,22 @@ public class newAuto extends SequentialCommandGroup {
                     robotContainer.s_Swerve.resetOdometry(blueTrajectory.getInitialHolonomicPose());
                 }
             }),
-            new SequentialCommandGroup(  
+            new SequentialCommandGroup(
                 new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, 0, 0.5),
                 new AutoGripUp(robotContainer.s_Arm, robotContainer.s_Intake, 0.5),
                 new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),
-                new ParallelDeadlineGroup(
-                    new WaitCommand(2.0),
-                    new ScoreAlignCommand(robotContainer.s_Swerve, robotContainer.s_Visions, Constants.xLeftCone, Constants.yLeftCone)
-                ),
-                // new ScoreAlignCommand(robotContainer.s_Swerve, robotContainer.s_Visions, Constants.xLeftCone, Constants.yLeftCone),
                 new AutoGripOpen(robotContainer.s_Arm, 0.5),
-                new AutoGripClose(robotContainer.s_Arm, 0.25)),
+                new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armBottomSetpoint)
+            ),
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
-                    new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armBottomSetpoint),
+                    new AutoGripClose(robotContainer.s_Arm, 0.25),
                     new AutoGripDown(robotContainer.s_Arm, robotContainer.s_Intake, 0.5),
                     new AutoGripOpen(robotContainer.s_Arm, 0.25),
-                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeedAuto, 2.0),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 2.5),
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.cubeIntakeSpeedAuto, 3.0),
                     new AutoGripClose(robotContainer.s_Arm, 0.5),
-                    new AutoGripUp(robotContainer.s_Arm, robotContainer.s_Intake, 0.5),
-                    new MoveArm(robotContainer.s_Arm, robotContainer.s_Intake, Constants.armTopSetpoint),
-                    new AutoGripOpen(robotContainer.s_Arm, 0.25)
+                    new AutoExtendIntake(robotContainer.s_Arm, robotContainer.s_Intake, Constants.Drivebase.chargeStationWheelSpeed, 2.0)
                 ),
                 new PPSwerveControllerCommand(
                     blueTrajectory, 
@@ -74,8 +65,9 @@ public class newAuto extends SequentialCommandGroup {
                     robotContainer.s_Swerve // Requires this drive subsystem
                 )
             ),
-            new InstantCommand(() -> robotContainer.s_Swerve.setGyro(180))
-            //new AutoBalanceCommand(robotContainer.s_Swerve)
+            new InstantCommand(() -> robotContainer.s_Swerve.setGyro(180)),
+            new AutoBalanceCommand(robotContainer.s_Swerve)
+            //new InstantCommand(() -> robotContainer.s_Swerve.setGyro(180)
         );
     }
 }
