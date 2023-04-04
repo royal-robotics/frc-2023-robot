@@ -22,7 +22,7 @@ public final class Constants {
     public static final double coneIntakeSpeed = -1.0;
 
     // Arm Constants
-    public static final double maxArmDistance = 1.90;
+    public static final double maxArmDistance = 1.89;
     public static final double minArmDistance = 0.01;
 
     public static final double armTopSetpoint = maxArmDistance;
@@ -42,7 +42,7 @@ public final class Constants {
     public static final DoubleSolenoid.Value intakeRetract = DoubleSolenoid.Value.kReverse;
 
     // Scoring Alignment Constants
-    public static final double yLeftCone = -0.55;
+    public static final double yLeftCone = -0.60;
     public static final double xLeftCone = 0.845;
     public static final double yRightCone = 0.47;
     public static final double xRightCone = 0.83;
