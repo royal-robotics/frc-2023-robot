@@ -84,7 +84,8 @@ public class OurShuffleboard {
         armTab.addNumber("Arm Position", () -> arm.getEncoder()).withPosition(0, 2);
         armTab.addNumber("Arm Goal Position", () -> arm.getSetpoint()).withPosition(1,2);
         armTab.addNumber("Arm Power", () -> arm.getPidValue()).withPosition(2, 2);
-        armTab.addBoolean("Arm At Setpoint", () -> arm.atSetpoint()).withPosition(0, 3);
+        armTab.addBoolean("Arm At Setpoint", () -> arm.atSetpoint()).withPosition(3, 2);
+        armTab.addBoolean("Safe Arm Power", () -> arm.smokeRisk()).withPosition(4, 2);
 
         ShuffleboardTab testTab = Shuffleboard.getTab("Drivebase");
         testTab.addNumber("FL Speed", () -> (swerve.m_ModuleState[0].speedMetersPerSecond)).withPosition(0, 0);

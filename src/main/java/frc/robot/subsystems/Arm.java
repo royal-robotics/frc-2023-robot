@@ -130,6 +130,9 @@ public class Arm extends SubsystemBase {
         return m_pid.getSetpoint();
     }
 
+    public boolean smokeRisk() {
+        return Math.abs(m_pidValue) < 0.1;
+    }
     public void setSetpoint(double setpoint) {
         m_pid.setSetpoint(setpoint);
     }
